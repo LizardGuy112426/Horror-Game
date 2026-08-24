@@ -540,7 +540,7 @@ MonoBehaviour:
   dialogueFont: {fileID: 0}
   secondsPerCharacter: 0.035
   finalPageDelay: 1
-  emptySceneName: EmptyScene
+  nextSceneName: Happy_LivingRoom
   missingCgColor: {r: 0.09, g: 0.1, b: 0.14, a: 1}
 --- !u!4 &1396676635
 Transform:

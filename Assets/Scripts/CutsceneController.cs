@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [Serializable]
@@ -42,7 +43,8 @@ public sealed class CutsceneController : MonoBehaviour
     [Header("Playback")]
     [SerializeField, Min(0.005f)] private float secondsPerCharacter = 0.035f;
     [SerializeField, Min(0f)] private float finalPageDelay = 1f;
-    [SerializeField] private string emptySceneName = "EmptyScene";
+    [FormerlySerializedAs("emptySceneName")]
+    [SerializeField] private string nextSceneName = "Happy_LivingRoom";
     [SerializeField] private Color missingCgColor = new Color(0.09f, 0.1f, 0.14f, 1f);
 
     private int currentPageIndex;
@@ -144,7 +146,7 @@ public sealed class CutsceneController : MonoBehaviour
         {
             isLoadingEnding = true;
             yield return new WaitForSeconds(finalPageDelay);
-            SceneManager.LoadScene(emptySceneName);
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 
@@ -172,7 +174,7 @@ public sealed class CutsceneController : MonoBehaviour
     private IEnumerator LoadEmptySceneAfterDelay()
     {
         yield return new WaitForSeconds(finalPageDelay);
-        SceneManager.LoadScene(emptySceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void UpdateHint()
