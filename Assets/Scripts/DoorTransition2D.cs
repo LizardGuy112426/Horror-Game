@@ -1,16 +1,17 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-/// <summary>A single Inspector-configurable door with solid collision and explicit exits.</summary>
+/// <summary>An Inspector-configurable door that loads another scene when the player presses F.</summary>
 public sealed class DoorTransition2D : PlayerInteractable2D
 {
     [Header("Door References")]
     [SerializeField] private BoxCollider2D barrierCollider;
     [SerializeField] private Collider2D interactionTrigger;
-    [SerializeField] private Transform leftExit;
-    [SerializeField] private Transform rightExit;
     [SerializeField] private GameObject promptObject;
 
-    [Header("Interaction")]
+    [Header("Scene Transition")]
+    [Tooltip("Enter the exact scene name, without .unity. The scene must be enabled in Build Settings.")]
+    [SerializeField] private string targetSceneName = string.Empty;
     [SerializeField, Min(0f)] private float interactionCooldown = 0.25f;
 
     private float nextInteractionTime;
@@ -31,14 +32,10 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     public void Configure(
         BoxCollider2D barrier,
         Collider2D trigger,
-        Transform leftDestination,
-        Transform rightDestination,
         GameObject prompt)
     {
         barrierCollider = barrier;
         interactionTrigger = trigger;
-        leftExit = leftDestination;
-        rightExit = rightDestination;
         promptObject = prompt;
         ValidateColliderRoles();
         SetFocused(false);
@@ -55,19 +52,25 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         if (player == null || Time.time < nextInteractionTime)
             return false;
 
-        if (barrierCollider == null || leftExit == null || rightExit == null)
+        if (string.IsNullOrWhiteSpace(targetSceneName))
         {
-            Debug.LogWarning($"Door '{name}' is missing its barrier or exit references.", this);
+            Debug.LogWarning($"Door '{name}' has no Target Scene Name.", this);
             return false;
         }
 
-        bool enteredFromLeft = player.transform.position.x < barrierCollider.bounds.center.x;
-        Transform destination = enteredFromLeft ? rightExit : leftExit;
+        if (!Application.CanStreamedLevelBeLoaded(targetSceneName))
+        {
+            Debug.LogWarning(
+                $"Door '{name}' cannot load scene '{targetSceneName}'. "
+                + "Check the spelling and add the scene to Build Settings.",
+                this);
+            return false;
+        }
 
         nextInteractionTime = Time.time + interactionCooldown;
         player.ForgetDoor(this);
-        player.TeleportTo(destination.position);
         SetFocused(false);
+        SceneManager.LoadScene(targetSceneName);
         return true;
     }
 

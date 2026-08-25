@@ -51,9 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoorTransition2D
   barrierCollider: {fileID: 7901419546439299487}
   interactionTrigger: {fileID: 7538022564611453799}
-  leftExit: {fileID: 4768776927397995922}
-  rightExit: {fileID: 1859860943083959666}
   promptObject: {fileID: 2015378008787745315}
+  targetSceneName: ''
   interactionCooldown: 0.25
 --- !u!1 &1175156542431411527
 GameObject:
@@ -254,7 +253,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015378008787745315}
-  m_Text: '[E]'
+  m_Text: '[F]'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1

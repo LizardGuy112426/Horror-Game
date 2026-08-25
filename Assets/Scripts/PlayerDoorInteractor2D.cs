@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-/// <summary>Chooses the nearest door or item in range and owns the player's E-key interaction.</summary>
+/// <summary>Uses separate keys for the nearest item and the nearest door in range.</summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class PlayerDoorInteractor2D : MonoBehaviour
 {
-    [SerializeField] private KeyCode interactionKey = KeyCode.E;
+    [Header("Interaction Keys")]
+    [FormerlySerializedAs("interactionKey")]
+    [SerializeField] private KeyCode itemInteractionKey = KeyCode.E;
+    [SerializeField] private KeyCode doorInteractionKey = KeyCode.F;
 
     private readonly HashSet<PlayerInteractable2D> nearbyInteractables = new();
     private Rigidbody2D body;
-    private PlayerInteractable2D focusedInteractable;
+    private ItemDialogueInteractable2D focusedItem;
+    private DoorTransition2D focusedDoor;
     private bool interactionEnabled = true;
 
     private void Awake()
@@ -22,10 +27,16 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         if (!interactionEnabled)
             return;
 
-        RefreshFocusedInteractable();
+        RefreshFocusedInteractables();
 
-        if (focusedInteractable != null && Input.GetKeyDown(interactionKey))
-            focusedInteractable.Interact(this);
+        if (focusedItem != null && Input.GetKeyDown(itemInteractionKey))
+        {
+            if (focusedItem.Interact(this))
+                return;
+        }
+
+        if (focusedDoor != null && Input.GetKeyDown(doorInteractionKey))
+            focusedDoor.Interact(this);
     }
 
     public void RegisterDoor(DoorTransition2D door)
@@ -50,10 +61,16 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
             return;
 
         nearbyInteractables.Remove(interactable);
-        if (focusedInteractable == interactable)
+        if (focusedItem == interactable)
         {
-            focusedInteractable.SetFocused(false);
-            focusedInteractable = null;
+            focusedItem.SetFocused(false);
+            focusedItem = null;
+        }
+
+        if (focusedDoor == interactable)
+        {
+            focusedDoor.SetFocused(false);
+            focusedDoor = null;
         }
     }
 
@@ -65,10 +82,10 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
     public void SetInteractionEnabled(bool value)
     {
         interactionEnabled = value;
-        if (!interactionEnabled && focusedInteractable != null)
+        if (!interactionEnabled)
         {
-            focusedInteractable.SetFocused(false);
-            focusedInteractable = null;
+            ClearFocusedItem();
+            ClearFocusedDoor();
         }
     }
 
@@ -80,43 +97,86 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         Physics2D.SyncTransforms();
     }
 
-    private void RefreshFocusedInteractable()
+    private void RefreshFocusedInteractables()
     {
         nearbyInteractables.RemoveWhere(interactable =>
             interactable == null || !interactable.CanInteract);
 
-        PlayerInteractable2D nearest = null;
-        float nearestDistance = float.PositiveInfinity;
+        ItemDialogueInteractable2D nearestItem = null;
+        DoorTransition2D nearestDoor = null;
+        float nearestItemDistance = float.PositiveInfinity;
+        float nearestDoorDistance = float.PositiveInfinity;
+
         foreach (PlayerInteractable2D interactable in nearbyInteractables)
         {
             float distance = (interactable.InteractionPosition - transform.position).sqrMagnitude;
-            if (distance < nearestDistance)
+
+            if (interactable is ItemDialogueInteractable2D item
+                && distance < nearestItemDistance)
             {
-                nearestDistance = distance;
-                nearest = interactable;
+                nearestItemDistance = distance;
+                nearestItem = item;
+            }
+            else if (interactable is DoorTransition2D door
+                && distance < nearestDoorDistance)
+            {
+                nearestDoorDistance = distance;
+                nearestDoor = door;
             }
         }
 
-        if (nearest == focusedInteractable)
+        UpdateItemFocus(nearestItem);
+        UpdateDoorFocus(nearestDoor);
+    }
+
+    private void UpdateItemFocus(ItemDialogueInteractable2D nearestItem)
+    {
+        if (nearestItem == focusedItem)
         {
-            if (focusedInteractable != null)
-                focusedInteractable.SetFocused(true);
+            if (focusedItem != null)
+                focusedItem.SetFocused(true);
             return;
         }
 
-        if (focusedInteractable != null)
-            focusedInteractable.SetFocused(false);
+        ClearFocusedItem();
+        focusedItem = nearestItem;
+        if (focusedItem != null)
+            focusedItem.SetFocused(true);
+    }
 
-        focusedInteractable = nearest;
-        if (focusedInteractable != null)
-            focusedInteractable.SetFocused(true);
+    private void UpdateDoorFocus(DoorTransition2D nearestDoor)
+    {
+        if (nearestDoor == focusedDoor)
+        {
+            if (focusedDoor != null)
+                focusedDoor.SetFocused(true);
+            return;
+        }
+
+        ClearFocusedDoor();
+        focusedDoor = nearestDoor;
+        if (focusedDoor != null)
+            focusedDoor.SetFocused(true);
+    }
+
+    private void ClearFocusedItem()
+    {
+        if (focusedItem != null)
+            focusedItem.SetFocused(false);
+        focusedItem = null;
+    }
+
+    private void ClearFocusedDoor()
+    {
+        if (focusedDoor != null)
+            focusedDoor.SetFocused(false);
+        focusedDoor = null;
     }
 
     private void OnDisable()
     {
-        if (focusedInteractable != null)
-            focusedInteractable.SetFocused(false);
-        focusedInteractable = null;
+        ClearFocusedItem();
+        ClearFocusedDoor();
         nearbyInteractables.Clear();
     }
 }

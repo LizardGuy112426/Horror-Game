@@ -71,18 +71,18 @@ public static class EmptySceneDoorAuthoring
             changed |= serializedSetup.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        changed |= ConfigureDoorHierarchy(doorArt.gameObject, doorArt.localBounds, player.transform.position.y);
+        changed |= ConfigureDoorHierarchy(doorArt.gameObject, doorArt.localBounds);
         return changed;
     }
 
-    private static bool ConfigureDoorHierarchy(GameObject root, Bounds localBounds, float playerWorldY)
+    private static bool ConfigureDoorHierarchy(GameObject root, Bounds localBounds)
     {
         bool changed = false;
         DoorTransition2D door = GetOrAdd<DoorTransition2D>(root, ref changed);
         Vector3 center = localBounds.center;
         float height = Mathf.Max(1.6f, localBounds.size.y);
         float barrierWidth = Mathf.Clamp(localBounds.size.x * 0.35f, 0.25f, 0.6f);
-        float playerLocalY = root.transform.InverseTransformPoint(new Vector3(0f, playerWorldY, 0f)).y;
+        float promptLocalY = localBounds.min.y + 1.4f;
 
         Transform barrierTransform = GetOrCreateChild(root.transform, "Barrier Collider", ref changed, out bool barrierCreated);
         BoxCollider2D barrier = GetOrAdd<BoxCollider2D>(barrierTransform.gameObject, ref changed);
@@ -103,20 +103,12 @@ public static class EmptySceneDoorAuthoring
         }
         trigger.isTrigger = true;
 
-        Transform leftExit = GetOrCreateChild(root.transform, "Left Exit", ref changed, out bool leftCreated);
-        Transform rightExit = GetOrCreateChild(root.transform, "Right Exit", ref changed, out bool rightCreated);
-        float exitOffset = trigger.size.x * 0.5f + 0.55f;
-        if (leftCreated)
-            leftExit.localPosition = new Vector3(center.x - exitOffset, playerLocalY, 0f);
-        if (rightCreated)
-            rightExit.localPosition = new Vector3(center.x + exitOffset, playerLocalY, 0f);
-
         Transform promptTransform = GetOrCreateChild(root.transform, "E Prompt", ref changed, out bool promptCreated);
         TextMesh promptText = GetOrAdd<TextMesh>(promptTransform.gameObject, ref changed);
         if (promptCreated)
         {
-            promptTransform.localPosition = new Vector3(center.x, playerLocalY + 1.4f, 0f);
-            promptText.text = "[E]";
+            promptTransform.localPosition = new Vector3(center.x, promptLocalY, 0f);
+            promptText.text = "[F]";
             promptText.anchor = TextAnchor.MiddleCenter;
             promptText.alignment = TextAlignment.Center;
             promptText.characterSize = 0.15f;
@@ -125,7 +117,7 @@ public static class EmptySceneDoorAuthoring
         }
 
         relay.Configure(door);
-        door.Configure(barrier, trigger, leftExit, rightExit, promptTransform.gameObject);
+        door.Configure(barrier, trigger, promptTransform.gameObject);
         EditorUtility.SetDirty(door);
         EditorUtility.SetDirty(relay);
         return changed;
@@ -142,7 +134,7 @@ public static class EmptySceneDoorAuthoring
         GameObject root = new GameObject("InteractiveDoor");
         try
         {
-            ConfigureDoorHierarchy(root, new Bounds(Vector3.zero, new Vector3(1f, 3f, 0f)), 0f);
+            ConfigureDoorHierarchy(root, new Bounds(Vector3.zero, new Vector3(1f, 3f, 0f)));
             PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
         }
         finally
