@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,14 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     [SerializeField] private string targetSceneName = string.Empty;
     [SerializeField, Min(0f)] private float interactionCooldown = 0.25f;
 
+    [Header("Door Animation")]
+    [Tooltip("Automatically uses an Animator on this door when left empty.")]
+    [SerializeField] private Animator doorAnimator;
+    [SerializeField] private string interactionAnimationState = "Door";
+    [SerializeField, Min(0f)] private float fallbackAnimationDuration = 0.25f;
+
     private float nextInteractionTime;
+    private bool transitionInProgress;
 
     public override Vector3 InteractionPosition
     {
@@ -27,7 +35,7 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     }
 
     public override bool CanInteract =>
-        isActiveAndEnabled && Time.time >= nextInteractionTime;
+        isActiveAndEnabled && !transitionInProgress && Time.time >= nextInteractionTime;
 
     public void Configure(
         BoxCollider2D barrier,
@@ -68,20 +76,26 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         }
 
         nextInteractionTime = Time.time + interactionCooldown;
+        transitionInProgress = true;
         player.ForgetDoor(this);
         SetFocused(false);
-        SceneManager.LoadScene(targetSceneName);
+        StartCoroutine(PlayAnimationAndLoadScene());
         return true;
     }
 
     private void Awake()
     {
+        ResolveAnimator();
+        if (doorAnimator != null)
+            doorAnimator.enabled = false;
+
         ValidateColliderRoles();
         SetFocused(false);
     }
 
     private void OnValidate()
     {
+        ResolveAnimator();
         ValidateColliderRoles();
     }
 
@@ -97,5 +111,34 @@ public sealed class DoorTransition2D : PlayerInteractable2D
             barrierCollider.isTrigger = false;
         if (interactionTrigger != null)
             interactionTrigger.isTrigger = true;
+    }
+
+    private void ResolveAnimator()
+    {
+        if (doorAnimator == null)
+            doorAnimator = GetComponent<Animator>();
+    }
+
+    private IEnumerator PlayAnimationAndLoadScene()
+    {
+        float animationDuration = 0f;
+
+        if (doorAnimator != null)
+        {
+            doorAnimator.enabled = true;
+
+            if (!string.IsNullOrWhiteSpace(interactionAnimationState))
+                doorAnimator.Play(interactionAnimationState, 0, 0f);
+
+            doorAnimator.Update(0f);
+            animationDuration = doorAnimator.GetCurrentAnimatorStateInfo(0).length;
+            if (animationDuration <= 0f)
+                animationDuration = fallbackAnimationDuration;
+        }
+
+        if (animationDuration > 0f)
+            yield return new WaitForSeconds(animationDuration);
+
+        SceneManager.LoadScene(targetSceneName);
     }
 }

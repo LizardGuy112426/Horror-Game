@@ -1545,8 +1545,9 @@ MonoBehaviour:
   contentBackground: {fileID: 1143474326}
   contentText: {fileID: 1880858688}
   continueHintText: {fileID: 1318015261}
-  playerMovement: {fileID: 1224310160}
+  playerMovement: {fileID: 0}
   playerInteraction: {fileID: 1224310159}
+  legacySimplePlayerMovement: {fileID: 1224310160}
   secondsPerCharacter: 0.035
 --- !u!114 &763180932
 MonoBehaviour:

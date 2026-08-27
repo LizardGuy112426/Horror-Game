@@ -15,8 +15,10 @@ public sealed class DialogueController2D : MonoBehaviour
     [SerializeField] private Text continueHintText;
 
     [Header("Player References")]
-    [SerializeField] private SimplePlayer2D playerMovement;
+    [SerializeField] private MCController playerMovement;
     [SerializeField] private PlayerDoorInteractor2D playerInteraction;
+
+    [SerializeField, HideInInspector] private SimplePlayer2D legacySimplePlayerMovement;
 
     [Header("Playback")]
     [SerializeField, Min(0.005f)] private float secondsPerCharacter = 0.035f;
@@ -38,7 +40,50 @@ public sealed class DialogueController2D : MonoBehaviour
         Image dialogueBackground,
         Text dialogueText,
         Text hintText,
+        MCController movement,
+        PlayerDoorInteractor2D interaction)
+    {
+        ConfigureUiReferences(
+            root,
+            speakerBackground,
+            speakerText,
+            dialogueBackground,
+            dialogueText,
+            hintText,
+            interaction);
+        playerMovement = movement;
+        legacySimplePlayerMovement = null;
+    }
+
+    public void Configure(
+        GameObject root,
+        Image speakerBackground,
+        Text speakerText,
+        Image dialogueBackground,
+        Text dialogueText,
+        Text hintText,
         SimplePlayer2D movement,
+        PlayerDoorInteractor2D interaction)
+    {
+        ConfigureUiReferences(
+            root,
+            speakerBackground,
+            speakerText,
+            dialogueBackground,
+            dialogueText,
+            hintText,
+            interaction);
+        playerMovement = null;
+        legacySimplePlayerMovement = movement;
+    }
+
+    private void ConfigureUiReferences(
+        GameObject root,
+        Image speakerBackground,
+        Text speakerText,
+        Image dialogueBackground,
+        Text dialogueText,
+        Text hintText,
         PlayerDoorInteractor2D interaction)
     {
         dialogueRoot = root;
@@ -47,7 +92,6 @@ public sealed class DialogueController2D : MonoBehaviour
         contentBackground = dialogueBackground;
         contentText = dialogueText;
         continueHintText = hintText;
-        playerMovement = movement;
         playerInteraction = interaction;
 
         if (!Application.isPlaying && dialogueRoot != null)
@@ -65,7 +109,12 @@ public sealed class DialogueController2D : MonoBehaviour
         activeLines = lines;
         playerInteraction = player != null ? player : playerInteraction;
         if (playerInteraction != null)
-            playerMovement = playerInteraction.GetComponent<SimplePlayer2D>();
+        {
+            playerMovement = playerInteraction.GetComponent<MCController>();
+            legacySimplePlayerMovement = playerMovement == null
+                ? playerInteraction.GetComponent<SimplePlayer2D>()
+                : null;
+        }
         completionCallback = onComplete;
         currentLineIndex = 0;
         isPlaying = true;
@@ -176,6 +225,8 @@ public sealed class DialogueController2D : MonoBehaviour
     {
         if (playerMovement != null)
             playerMovement.SetMovementEnabled(enabled);
+        else if (legacySimplePlayerMovement != null)
+            legacySimplePlayerMovement.SetMovementEnabled(enabled);
         if (playerInteraction != null)
             playerInteraction.SetInteractionEnabled(enabled);
     }

@@ -7,6 +7,43 @@ using UnityEngine.UI;
 /// <summary>One-time authoring helper for the user's in-scene item and editable dialogue UI.</summary>
 public static class EmptySceneItemDialogueAuthoring
 {
+    private const string DialogueFontPath = "Assets/Image/UI/AaWeiWeiDianZhenTi-2.ttf";
+
+    [MenuItem("Tools/Horror Game/Setup Happy Living Room Family Photo")]
+    public static void ConfigureHappyLivingRoomFamilyPhoto()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer)
+            return;
+
+        Scene scene = SceneManager.GetActiveScene();
+        if (!scene.isLoaded || scene.name != "Happy_LivingRoom")
+        {
+            Debug.LogWarning("Open Happy_LivingRoom before setting up the Family Photo dialogue.");
+            return;
+        }
+
+        GameObject familyPhoto = FindGameObject(scene, "Family Photo");
+        GameObject player = FindGameObject(scene, "MC");
+        if (familyPhoto == null || player == null)
+        {
+            Debug.LogWarning("Family Photo dialogue setup needs both 'Family Photo' and 'MC' in Happy_LivingRoom.");
+            return;
+        }
+
+        MCController movement = player.GetComponent<MCController>();
+        PlayerDoorInteractor2D interaction = player.GetComponent<PlayerDoorInteractor2D>();
+        if (movement == null || interaction == null)
+        {
+            Debug.LogWarning("MC needs MCController and PlayerDoorInteractor2D before setting up dialogue.");
+            return;
+        }
+
+        DialogueController2D dialogueController = CreateDialogueCanvas(scene, movement, interaction);
+        ConfigureItem(familyPhoto, dialogueController);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
     [MenuItem("Tools/Horror Game/Setup Active Item Dialogue")]
     public static void TryConfigureLoadedEmptyScene()
     {
@@ -51,7 +88,7 @@ public static class EmptySceneItemDialogueAuthoring
 
     private static DialogueController2D CreateDialogueCanvas(
         Scene scene,
-        SimplePlayer2D movement,
+        Component movement,
         PlayerDoorInteractor2D interaction)
     {
         GameObject canvasObject = FindGameObject(scene, "Dialogue Canvas");
@@ -132,15 +169,30 @@ public static class EmptySceneItemDialogueAuthoring
         hintRect.anchoredPosition = new Vector2(-35f, 12f);
         hintRect.sizeDelta = new Vector2(700f, 30f);
 
-        controller.Configure(
-            dialogueRoot.gameObject,
-            nameBackground,
-            nameText,
-            contentBackground,
-            contentText,
-            hintText,
-            movement,
-            interaction);
+        if (movement is MCController mcMovement)
+        {
+            controller.Configure(
+                dialogueRoot.gameObject,
+                nameBackground,
+                nameText,
+                contentBackground,
+                contentText,
+                hintText,
+                mcMovement,
+                interaction);
+        }
+        else
+        {
+            controller.Configure(
+                dialogueRoot.gameObject,
+                nameBackground,
+                nameText,
+                contentBackground,
+                contentText,
+                hintText,
+                movement as SimplePlayer2D,
+                interaction);
+        }
         dialogueRoot.gameObject.SetActive(false);
         EditorUtility.SetDirty(controller);
         return controller;
@@ -148,7 +200,24 @@ public static class EmptySceneItemDialogueAuthoring
 
     private static void ConfigureItem(GameObject itemObject, DialogueController2D controller)
     {
-        ItemDialogueInteractable2D item = GetOrAdd<ItemDialogueInteractable2D>(itemObject);
+        ItemDialogueInteractable2D item = itemObject.GetComponent<ItemDialogueInteractable2D>();
+        bool itemCreated = item == null;
+        if (itemCreated)
+            item = itemObject.AddComponent<ItemDialogueInteractable2D>();
+
+        if (itemCreated)
+        {
+            SerializedObject serializedItem = new SerializedObject(item);
+            SerializedProperty repeatable = serializedItem.FindProperty("repeatable");
+            SerializedProperty lines = serializedItem.FindProperty("dialogueLines");
+            repeatable.boolValue = true;
+            lines.arraySize = 1;
+            SerializedProperty firstLine = lines.GetArrayElementAtIndex(0);
+            firstLine.FindPropertyRelative("speakerName").stringValue = "主角";
+            firstLine.FindPropertyRelative("dialogue").stringValue = "咳咳咳";
+            serializedItem.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         SpriteRenderer renderer = itemObject.GetComponent<SpriteRenderer>();
         Vector2 visualSize = renderer != null && renderer.sprite != null
             ? renderer.sprite.bounds.size
@@ -225,6 +294,11 @@ public static class EmptySceneItemDialogueAuthoring
         Color color)
     {
         RectTransform rect = GetOrCreateRectChild(parent, name, out bool created);
+        Graphic existingGraphic = rect.GetComponent<Graphic>();
+        if (HasTextMeshProComponent(rect.gameObject)
+            || (existingGraphic != null && existingGraphic is not Text))
+            rect = ReplaceTextObject(rect, parent, name);
+
         Text text = GetOrAdd<Text>(rect.gameObject);
         if (created)
         {
@@ -232,14 +306,51 @@ public static class EmptySceneItemDialogueAuthoring
             rect.anchorMax = Vector2.one;
             rect.offsetMin = new Vector2(25f, 8f);
             rect.offsetMax = new Vector2(-25f, -8f);
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            text.fontSize = fontSize;
-            text.alignment = alignment;
-            text.color = color;
-            text.horizontalOverflow = HorizontalWrapMode.Wrap;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
         }
+
+        text.font = AssetDatabase.LoadAssetAtPath<Font>(DialogueFontPath)
+            ?? Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = fontSize;
+        text.alignment = alignment;
+        text.color = color;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Overflow;
         return text;
+    }
+
+    private static bool HasTextMeshProComponent(GameObject gameObject)
+    {
+        foreach (Component component in gameObject.GetComponents<Component>())
+        {
+            if (component?.GetType().Namespace == "TMPro")
+                return true;
+        }
+
+        return false;
+    }
+
+    private static RectTransform ReplaceTextObject(RectTransform original, Transform parent, string name)
+    {
+        Vector2 anchorMin = original.anchorMin;
+        Vector2 anchorMax = original.anchorMax;
+        Vector2 anchoredPosition = original.anchoredPosition;
+        Vector2 sizeDelta = original.sizeDelta;
+        Vector2 pivot = original.pivot;
+        Vector3 localScale = original.localScale;
+        Quaternion localRotation = original.localRotation;
+
+        Object.DestroyImmediate(original.gameObject);
+
+        RectTransform replacement = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
+        replacement.SetParent(parent, false);
+        replacement.anchorMin = anchorMin;
+        replacement.anchorMax = anchorMax;
+        replacement.anchoredPosition = anchoredPosition;
+        replacement.sizeDelta = sizeDelta;
+        replacement.pivot = pivot;
+        replacement.localScale = localScale;
+        replacement.localRotation = localRotation;
+        return replacement;
     }
 
     private static void StretchFullScreen(RectTransform rect)

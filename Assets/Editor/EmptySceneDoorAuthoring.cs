@@ -3,6 +3,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 /// <summary>Creates the editable scene hierarchy and reusable door prefab once.</summary>
 public static class EmptySceneDoorAuthoring
@@ -103,24 +104,90 @@ public static class EmptySceneDoorAuthoring
         }
         trigger.isTrigger = true;
 
-        Transform promptTransform = GetOrCreateChild(root.transform, "E Prompt", ref changed, out bool promptCreated);
-        TextMesh promptText = GetOrAdd<TextMesh>(promptTransform.gameObject, ref changed);
+        RectTransform promptTransform = GetOrCreatePromptCanvas(root.transform, ref changed, out bool promptCreated);
         if (promptCreated)
         {
             promptTransform.localPosition = new Vector3(center.x, promptLocalY, 0f);
-            promptText.text = "[F]";
-            promptText.anchor = TextAnchor.MiddleCenter;
-            promptText.alignment = TextAlignment.Center;
-            promptText.characterSize = 0.15f;
-            promptText.fontSize = 48;
-            promptText.color = Color.white;
+            promptTransform.localScale = Vector3.one * 0.01f;
+            promptTransform.sizeDelta = new Vector2(120f, 60f);
         }
+
+        Canvas promptCanvas = GetOrAdd<Canvas>(promptTransform.gameObject, ref changed);
+        promptCanvas.renderMode = RenderMode.WorldSpace;
+        promptCanvas.sortingOrder = 50;
+
+        RectTransform imageTransform = GetOrCreateRectChild(promptTransform, "F Image", ref changed, out _);
+        imageTransform.anchorMin = Vector2.zero;
+        imageTransform.anchorMax = Vector2.one;
+        imageTransform.offsetMin = Vector2.zero;
+        imageTransform.offsetMax = Vector2.zero;
+
+        Image promptImage = GetOrAdd<Image>(imageTransform.gameObject, ref changed);
+        promptImage.raycastTarget = false;
+        promptImage.preserveAspect = true;
+        promptTransform.gameObject.SetActive(false);
 
         relay.Configure(door);
         door.Configure(barrier, trigger, promptTransform.gameObject);
         EditorUtility.SetDirty(door);
         EditorUtility.SetDirty(relay);
         return changed;
+    }
+
+    private static RectTransform GetOrCreatePromptCanvas(Transform parent, ref bool changed, out bool created)
+    {
+        Transform existing = parent.Find("F Prompt") ?? parent.Find("E Prompt");
+        created = existing == null;
+
+        if (existing != null && existing is not RectTransform)
+        {
+            Vector3 localPosition = existing.localPosition;
+            Object.DestroyImmediate(existing.gameObject);
+            existing = null;
+            created = true;
+            changed = true;
+
+            RectTransform replacement = new GameObject("F Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
+            replacement.SetParent(parent, false);
+            replacement.localPosition = localPosition;
+            return replacement;
+        }
+
+        if (existing == null)
+        {
+            RectTransform prompt = new GameObject("F Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
+            prompt.SetParent(parent, false);
+            changed = true;
+            return prompt;
+        }
+
+        if (existing.name != "F Prompt")
+        {
+            existing.name = "F Prompt";
+            changed = true;
+        }
+
+        return (RectTransform)existing;
+    }
+
+    private static RectTransform GetOrCreateRectChild(
+        Transform parent,
+        string childName,
+        ref bool changed,
+        out bool created)
+    {
+        Transform existing = parent.Find(childName);
+        created = existing == null;
+        if (existing is RectTransform rectTransform)
+            return rectTransform;
+
+        if (existing != null)
+            Object.DestroyImmediate(existing.gameObject);
+
+        RectTransform child = new GameObject(childName, typeof(RectTransform)).GetComponent<RectTransform>();
+        child.SetParent(parent, false);
+        changed = true;
+        return child;
     }
 
     private static void EnsurePrefabExists()

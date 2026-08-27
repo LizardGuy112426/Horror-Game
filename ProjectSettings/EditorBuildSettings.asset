@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Happy_LivingRoom.unity
     guid: 73dad40b182759c4ab8b8c81f200a9b1
   - enabled: 1
+    path: Assets/Scenes/Happy_Kitchen.unity
+    guid: 61a41c5bc9d7d94488b4a166e8b47b06
+  - enabled: 1
     path: Assets/Scenes/EmptyScene.unity
     guid: 75d7eb23e6297324eb006f91988b5363
   m_configObjects:
