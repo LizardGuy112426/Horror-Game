@@ -12,11 +12,15 @@ public sealed class MainMenuController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Button startGameButton;
     [SerializeField] private Button exitButton;
+    [SerializeField] private Button GameoptionButton;
+    [SerializeField] private GameObject OptionScreen;
+    
 
-    public void Configure(Button startButton, Button exitGameButton)
+    public void Configure(Button startButton, Button optionButton, Button exitGameButton)
     {
         startGameButton = startButton;
         exitButton = exitGameButton;
+        GameoptionButton = optionButton;
     }
 
     private void Start()
@@ -28,6 +32,12 @@ public sealed class MainMenuController : MonoBehaviour
         {
             startGameButton.onClick.RemoveListener(StartGame);
             startGameButton.onClick.AddListener(StartGame);
+        }
+
+        if (GameoptionButton != null)
+        {
+            GameoptionButton.onClick.RemoveListener(OpenOption);
+            GameoptionButton.onClick.AddListener(OpenOption);
         }
 
         if (exitButton != null)
@@ -47,6 +57,16 @@ public sealed class MainMenuController : MonoBehaviour
         // Intentionally empty for now. This preserves the menu interface without closing the game.
     }
 
+    public  void OpenOption()
+    {
+        OptionScreen.SetActive(true);
+    }
+
+    public void CloseOption()
+    {
+        OptionScreen.SetActive(false);
+    }
+
     private void BuildFallbackMenu()
     {
         if (FindAnyObjectByType<EventSystem>() == null)
@@ -64,6 +84,7 @@ public sealed class MainMenuController : MonoBehaviour
         CreateText(canvasObject.transform, "Subtitle", "A 2D narrative prototype", new Vector2(0.5f, 0.59f), new Vector2(700f, 45f), 20, new Color(0.72f, 0.72f, 0.78f));
         startGameButton = CreateButton(canvasObject.transform, "StartGameButton", "START GAME", new Vector2(0.5f, 0.43f));
         exitButton = CreateButton(canvasObject.transform, "ExitButton", "EXIT", new Vector2(0.5f, 0.32f));
+        GameoptionButton = CreateButton(canvasObject.transform, "OptionButton", "OPTION", new Vector2(0.5f, 0.22f));
     }
 
     private static Image CreatePanel(Transform parent, string name, Vector2 anchor, Vector2 size, Color color)

@@ -54,9 +54,10 @@ public static class StoryFrameworkSceneBuilder
         CreateText(canvas, "Subtitle", "A 2D narrative prototype", 20, TextAnchor.MiddleCenter, new Color(0.72f, 0.72f, 0.78f), new Vector2(0.5f, 0.59f), new Vector2(0.5f, 0.59f), new Vector2(620f, 42f));
         Button startButton = CreateButton(canvas, "StartGameButton", "START GAME", new Vector2(0.5f, 0.43f));
         Button exitButton = CreateButton(canvas, "ExitButton", "EXIT", new Vector2(0.5f, 0.32f));
+        Button optionButton = CreateButton(canvas, "OptionButton", "OPTION", new Vector2(0.5f, 0.22f));
 
         MainMenuController controller = new GameObject("MainMenuController").AddComponent<MainMenuController>();
-        controller.Configure(startButton, exitButton);
+        controller.Configure(startButton, optionButton, exitButton);
         SaveScene(scene, MainMenuPath);
     }
 

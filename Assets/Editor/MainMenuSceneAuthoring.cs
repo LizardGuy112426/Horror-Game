@@ -95,6 +95,7 @@ public static class MainMenuSceneAuthoring
             "Exit Button",
             "EXIT",
             new Vector2(0.5f, 0.32f));
+        Button optionButton = CreateButton(canvasObject.transform, "OptionButton", "OPTION", new Vector2(0.5f, 0.22f));
 
         if (FindComponent<EventSystem>(scene) == null)
         {
@@ -105,7 +106,7 @@ public static class MainMenuSceneAuthoring
             SceneManager.MoveGameObjectToScene(eventSystem, scene);
         }
 
-        controller.Configure(startButton, exitButton);
+        controller.Configure(startButton, optionButton, exitButton);
         EditorUtility.SetDirty(controller);
         EditorSceneManager.MarkSceneDirty(scene);
         return true;
