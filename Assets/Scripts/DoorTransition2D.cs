@@ -13,6 +13,8 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     [Header("Scene Transition")]
     [Tooltip("Enter the exact scene name, without .unity. The scene must be enabled in Build Settings.")]
     [SerializeField] private string targetSceneName = string.Empty;
+    [Tooltip("Enter a Spawn ID from the target Scene. Leave empty to keep the Player's saved Scene position.")]
+    [SerializeField] private string targetSpawnId = string.Empty;
     [SerializeField, Min(0f)] private float interactionCooldown = 0.25f;
 
     [Header("Door Animation")]
@@ -139,6 +141,7 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         if (animationDuration > 0f)
             yield return new WaitForSeconds(animationDuration);
 
+        SceneSpawnManager2D.PrepareArrival(targetSceneName, targetSpawnId);
         SceneManager.LoadScene(targetSceneName);
     }
 }
