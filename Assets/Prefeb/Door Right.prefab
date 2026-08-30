@@ -107,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 3234829630904981228}
   m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fe879dacd34402547b111a62fc712c75, type: 2}
+  m_Controller: {fileID: 9100000, guid: d469cd82b4a6c8c48b56183d4ae4c27d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,7 +138,7 @@ MonoBehaviour:
   targetSpawnId: LivingRoom_FromKitchen
   interactionCooldown: 0.25
   doorAnimator: {fileID: 4910520571541957467}
-  interactionAnimationState: Door
+  interactionAnimationState: Side Door Right
   fallbackAnimationDuration: 0.25
 --- !u!1 &3701807157757512702
 GameObject:

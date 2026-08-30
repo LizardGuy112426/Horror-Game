@@ -260,7 +260,7 @@ MonoBehaviour:
   targetSpawnId: LivingRoom_FromKitchen
   interactionCooldown: 0.25
   doorAnimator: {fileID: 1348883390689910827}
-  interactionAnimationState: Door
+  interactionAnimationState: Side Door Left
   fallbackAnimationDuration: 0.25
 --- !u!1 &4416750685834730613
 GameObject:

@@ -3929,6 +3929,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1488314464179656479, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4253725
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488314464179656479, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.062054217
+      objectReference: {fileID: 0}
     - target: {fileID: 2081501693155793300, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
       propertyPath: doorInteractionKey
       value: 101
@@ -4154,7 +4162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1049060006623816561, guid: bbfcfb1d80911524c842125dbd6ff658, type: 3}
       propertyPath: targetSpawnId
-      value: LivingRoom_FromStaircase
+      value: Staircase_FromKitchen
       objectReference: {fileID: 0}
     - target: {fileID: 1049060006623816561, guid: bbfcfb1d80911524c842125dbd6ff658, type: 3}
       propertyPath: targetSceneName
@@ -4195,7 +4203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0680377
+      value: -3.0805786
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.y
