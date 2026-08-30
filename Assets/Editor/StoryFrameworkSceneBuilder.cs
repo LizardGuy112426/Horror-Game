@@ -76,9 +76,13 @@ public static class StoryFrameworkSceneBuilder
         Text nameText = CreateText(dialogueBox.transform, "SpeakerName", "", 24, TextAnchor.MiddleLeft, new Color(0.96f, 0.85f, 0.62f), new Vector2(0.045f, 0.68f), new Vector2(0.55f, 0.95f), Vector2.zero);
         Text bodyText = CreateText(dialogueBox.transform, "DialogueText", "", 25, TextAnchor.UpperLeft, Color.white, new Vector2(0.045f, 0.13f), new Vector2(0.955f, 0.68f), Vector2.zero);
         Text hintText = CreateText(canvas, "ContinueHint", "", 16, TextAnchor.MiddleCenter, new Color(0.75f, 0.75f, 0.78f), new Vector2(0.5f, 0.015f), new Vector2(0.5f, 0.015f), new Vector2(500f, 28f));
+        hintText.gameObject.SetActive(false);
+        Image blackOverlay = CreateImage(canvas, "Opening Black Overlay", Color.black, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+        blackOverlay.raycastTarget = true;
+        blackOverlay.transform.SetAsLastSibling();
 
         CutsceneController controller = new GameObject("CutsceneController").AddComponent<CutsceneController>();
-        controller.Configure(cgImage, dialogueBox, nameText, bodyText, hintText);
+        controller.Configure(cgImage, dialogueBox, nameText, bodyText, hintText, blackOverlay);
         SaveScene(scene, CutscenePath);
     }
 

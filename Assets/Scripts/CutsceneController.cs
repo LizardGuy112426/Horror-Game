@@ -21,8 +21,8 @@ public sealed class CgPage
 }
 
 /// <summary>
-/// A four-page CG player. While text is typing, click/Space/Enter completes it; on prior pages,
-/// the next input advances. The final page proceeds to the empty scene after its text completes.
+/// Plays four CG pages automatically. A full-screen black overlay fades away before the first
+/// dialogue, then each completed page remains visible for a configurable delay.
 /// </summary>
 public sealed class CutsceneController : MonoBehaviour
 {
@@ -37,76 +37,107 @@ public sealed class CutsceneController : MonoBehaviour
     [SerializeField] private Text speakerNameText;
     [SerializeField] private Text dialogueText;
     [SerializeField] private Text continueHintText;
+    [SerializeField] private Image blackOverlay;
     [SerializeField] private Sprite dialogueBoxSprite;
     [SerializeField] private Font dialogueFont;
 
     [Header("Playback")]
     [SerializeField, Min(0.005f)] private float secondsPerCharacter = 0.035f;
-    [SerializeField, Min(0f)] private float finalPageDelay = 1f;
+    [FormerlySerializedAs("finalPageDelay")]
+    [SerializeField, Min(0f)] private float pageCompleteDelay = 3f;
+    [SerializeField, Min(0f)] private float blackFadeDuration = 2f;
     [FormerlySerializedAs("emptySceneName")]
     [SerializeField] private string nextSceneName = "Happy_LivingRoom";
     [SerializeField] private Color missingCgColor = new Color(0.09f, 0.1f, 0.14f, 1f);
 
-    private int currentPageIndex;
-    private int visibleCharacterCount;
-    private bool isTyping;
-    private bool isLoadingEnding;
-    private Coroutine typingCoroutine;
-
     public void Configure(Image image, Image box, Text nameText, Text bodyText, Text hintText)
+    {
+        Configure(image, box, nameText, bodyText, hintText, null);
+    }
+
+    public void Configure(
+        Image image,
+        Image box,
+        Text nameText,
+        Text bodyText,
+        Text hintText,
+        Image openingBlackOverlay)
     {
         cgImage = image;
         dialogueBox = box;
         speakerNameText = nameText;
         dialogueText = bodyText;
         continueHintText = hintText;
-        EnsureNinePages();
+        blackOverlay = openingBlackOverlay;
+        EnsureFourPages();
     }
 
     private void Awake()
     {
-        EnsureNinePages();
+        EnsureFourPages();
         if (cgImage == null || dialogueText == null)
             BuildFallbackUi();
+
+        if (continueHintText != null)
+            continueHintText.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        ShowPage(0);
+        StartCoroutine(PlayCutscene());
     }
 
-    private void Update()
+    private IEnumerator PlayCutscene()
     {
-        if (isLoadingEnding || !WasAdvancePressed())
-            return;
+        PreparePageVisual(0, false);
+        yield return PlayOpeningBlackFade();
 
-        if (isTyping)
+        for (int pageIndex = 0; pageIndex < RequiredPageCount; pageIndex++)
         {
-            CompleteCurrentLine();
-            return;
+            PreparePageVisual(pageIndex, true);
+            yield return TypePage(pages[pageIndex].dialogue ?? string.Empty);
+            yield return new WaitForSecondsRealtime(pageCompleteDelay);
         }
 
-        if (currentPageIndex < RequiredPageCount - 1)
-            ShowPage(currentPageIndex + 1);
+        LoadNextScene();
     }
 
-    private bool WasAdvancePressed()
+    private IEnumerator PlayOpeningBlackFade()
     {
-        return Input.GetMouseButtonDown(0)
-            || Input.GetKeyDown(KeyCode.Space)
-            || Input.GetKeyDown(KeyCode.Return)
-            || Input.GetKeyDown(KeyCode.KeypadEnter);
+        if (blackOverlay == null)
+            yield break;
+
+        blackOverlay.gameObject.SetActive(true);
+        blackOverlay.raycastTarget = true;
+        blackOverlay.transform.SetAsLastSibling();
+
+        Color overlayColor = blackOverlay.color;
+        overlayColor.a = 1f;
+        blackOverlay.color = overlayColor;
+
+        if (blackFadeDuration > 0f)
+        {
+            float elapsed = 0f;
+            while (elapsed < blackFadeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                overlayColor.a = 1f - Mathf.Clamp01(elapsed / blackFadeDuration);
+                blackOverlay.color = overlayColor;
+                yield return null;
+            }
+        }
+
+        overlayColor.a = 0f;
+        blackOverlay.color = overlayColor;
+        blackOverlay.raycastTarget = false;
+        blackOverlay.gameObject.SetActive(false);
     }
 
-    private void ShowPage(int index)
+    private void PreparePageVisual(int index, bool showDialogue)
     {
-        currentPageIndex = Mathf.Clamp(index, 0, RequiredPageCount - 1);
-        CgPage page = pages[currentPageIndex];
-        page ??= new CgPage();
-        pages[currentPageIndex] = page;
-
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);
+        int clampedIndex = Mathf.Clamp(index, 0, RequiredPageCount - 1);
+        CgPage page = pages[clampedIndex] ?? new CgPage();
+        pages[clampedIndex] = page;
 
         if (cgImage != null)
         {
@@ -116,87 +147,49 @@ public sealed class CutsceneController : MonoBehaviour
         }
 
         if (dialogueBox != null)
-            dialogueBox.gameObject.SetActive(true);
+            dialogueBox.gameObject.SetActive(showDialogue);
         if (speakerNameText != null)
-            speakerNameText.text = page.speakerName ?? string.Empty;
+            speakerNameText.text = showDialogue ? page.speakerName ?? string.Empty : string.Empty;
         if (dialogueText != null)
             dialogueText.text = string.Empty;
-
-        visibleCharacterCount = 0;
-        isTyping = true;
-        UpdateHint();
-        typingCoroutine = StartCoroutine(TypePage(page.dialogue ?? string.Empty));
     }
 
     private IEnumerator TypePage(string line)
     {
-        while (visibleCharacterCount < line.Length)
+        for (int visibleCharacterCount = 1; visibleCharacterCount <= line.Length; visibleCharacterCount++)
         {
-            visibleCharacterCount++;
             if (dialogueText != null)
                 dialogueText.text = line.Substring(0, visibleCharacterCount);
-            yield return new WaitForSeconds(secondsPerCharacter);
+            yield return new WaitForSecondsRealtime(secondsPerCharacter);
         }
+    }
 
-        isTyping = false;
-        typingCoroutine = null;
-        UpdateHint();
-
-        if (currentPageIndex == RequiredPageCount - 1)
+    private void LoadNextScene()
+    {
+        if (string.IsNullOrWhiteSpace(nextSceneName))
         {
-            isLoadingEnding = true;
-            yield return new WaitForSeconds(finalPageDelay);
-            SceneManager.LoadScene(nextSceneName);
-        }
-    }
-
-    private void CompleteCurrentLine()
-    {
-        CgPage page = pages[currentPageIndex] ?? new CgPage();
-        pages[currentPageIndex] = page;
-        if (typingCoroutine != null)
-            StopCoroutine(typingCoroutine);
-
-        visibleCharacterCount = (page.dialogue ?? string.Empty).Length;
-        if (dialogueText != null)
-            dialogueText.text = page.dialogue ?? string.Empty;
-        isTyping = false;
-        typingCoroutine = null;
-        UpdateHint();
-
-        if (currentPageIndex == RequiredPageCount - 1)
-        {
-            isLoadingEnding = true;
-            StartCoroutine(LoadEmptySceneAfterDelay());
-        }
-    }
-
-    private IEnumerator LoadEmptySceneAfterDelay()
-    {
-        yield return new WaitForSeconds(finalPageDelay);
-        SceneManager.LoadScene(nextSceneName);
-    }
-
-    private void UpdateHint()
-    {
-        if (continueHintText == null)
+            Debug.LogWarning("Cutscene finished, but Next Scene Name is empty. Set it in the Cutscene Controller Inspector.", this);
             return;
+        }
 
-        continueHintText.text = isTyping
-            ? "Click / Space to complete"
-            : currentPageIndex == RequiredPageCount - 1
-                ? "The story will continue..."
-                : "Click / Space to continue";
+        if (!Application.CanStreamedLevelBeLoaded(nextSceneName))
+        {
+            Debug.LogWarning($"Cutscene cannot load '{nextSceneName}'. Add and enable it in Build Profiles, or correct Next Scene Name.", this);
+            return;
+        }
+
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void OnValidate()
     {
-        EnsureNinePages();
+        EnsureFourPages();
         secondsPerCharacter = Mathf.Max(0.005f, secondsPerCharacter);
-        finalPageDelay = Mathf.Max(0f, finalPageDelay);
+        pageCompleteDelay = Mathf.Max(0f, pageCompleteDelay);
+        blackFadeDuration = Mathf.Max(0f, blackFadeDuration);
     }
 
-    private void EnsureNinePages()
+    private void EnsureFourPages()
     {
         if (pages == null)
             pages = new CgPage[RequiredPageCount];
@@ -234,6 +227,10 @@ public sealed class CutsceneController : MonoBehaviour
         speakerNameText = CreateText(dialogueBox.transform, "Speaker Name", new Vector2(0.19f, 0.76f), new Vector2(560f, 42f), 24, TextAnchor.MiddleLeft, new Color(0.96f, 0.85f, 0.62f));
         dialogueText = CreateText(dialogueBox.transform, "Dialogue", new Vector2(0.5f, 0.42f), new Vector2(1520f, 100f), 25, TextAnchor.UpperLeft, Color.white);
         continueHintText = CreateText(canvasObject.transform, "Continue Hint", new Vector2(0.5f, 0.025f), new Vector2(600f, 28f), 16, TextAnchor.MiddleCenter, new Color(0.75f, 0.75f, 0.78f));
+        continueHintText.gameObject.SetActive(false);
+        blackOverlay = CreateImage(canvasObject.transform, "Opening Black Overlay", new Vector2(0.5f, 0.5f), new Vector2(1920f, 1080f), Color.black);
+        blackOverlay.raycastTarget = true;
+        blackOverlay.transform.SetAsLastSibling();
     }
 
     private Image CreateImage(Transform parent, string name, Vector2 anchor, Vector2 size, Color color)
