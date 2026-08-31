@@ -15,7 +15,7 @@ public sealed class DialogueController2D : MonoBehaviour
     [SerializeField] private Text continueHintText;
 
     [Header("Player References")]
-    [SerializeField] private MCController playerMovement;
+    [SerializeField] private MCControllers playerMovement;
     [SerializeField] private PlayerDoorInteractor2D playerInteraction;
 
     [SerializeField, HideInInspector] private SimplePlayer2D legacySimplePlayerMovement;
@@ -40,7 +40,7 @@ public sealed class DialogueController2D : MonoBehaviour
         Image dialogueBackground,
         Text dialogueText,
         Text hintText,
-        MCController movement,
+        MCControllers movement,
         PlayerDoorInteractor2D interaction)
     {
         ConfigureUiReferences(
@@ -110,7 +110,7 @@ public sealed class DialogueController2D : MonoBehaviour
         playerInteraction = player != null ? player : playerInteraction;
         if (playerInteraction != null)
         {
-            playerMovement = playerInteraction.GetComponent<MCController>();
+            playerMovement = playerInteraction.GetComponent<MCControllers>();
             legacySimplePlayerMovement = playerMovement == null
                 ? playerInteraction.GetComponent<SimplePlayer2D>()
                 : null;

@@ -30,7 +30,7 @@ public static class EmptySceneItemDialogueAuthoring
             return;
         }
 
-        MCController movement = player.GetComponent<MCController>();
+        MCControllers movement = player.GetComponent<MCControllers>();
         PlayerDoorInteractor2D interaction = player.GetComponent<PlayerDoorInteractor2D>();
         if (movement == null || interaction == null)
         {
@@ -169,7 +169,7 @@ public static class EmptySceneItemDialogueAuthoring
         hintRect.anchoredPosition = new Vector2(-35f, 12f);
         hintRect.sizeDelta = new Vector2(700f, 30f);
 
-        if (movement is MCController mcMovement)
+        if (movement is MCControllers mcMovement)
         {
             controller.Configure(
                 dialogueRoot.gameObject,
