@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1271762590123792815}
   - component: {fileID: 8396655605833235269}
   - component: {fileID: 2222514638705995741}
+  - component: {fileID: 7909107727036620643}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -128,6 +129,18 @@ MonoBehaviour:
     MaxWindowSize: 3
     Padding: 0
   m_LegacyMaxWindowSize: -2
+--- !u!114 &7909107727036620643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177123898212940367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6eb43aa353a9c43bb1cfec9c6c0f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetFinder2D
 --- !u!1 &2244583929239710914
 GameObject:
   m_ObjectHideFlags: 0

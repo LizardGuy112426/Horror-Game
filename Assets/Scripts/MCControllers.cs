@@ -34,6 +34,19 @@ public class MCControllers : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(GroundChecker.position, GroundChekerSize);
     }
+    private static MCControllers instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,6 +91,7 @@ public class MCControllers : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && onGround)
         {
             rb.linearVelocityY = Jumpforce;
+            GameState.Instance.Jump = true;
         }
         if (isCrouching && onGround)
         {
@@ -107,4 +121,5 @@ public class MCControllers : MonoBehaviour
         localScale.x *= -1;
         transform.localScale = localScale;
     }
+   
 }

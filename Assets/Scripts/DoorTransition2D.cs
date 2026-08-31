@@ -141,6 +141,13 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         if (animationDuration > 0f)
             yield return new WaitForSeconds(animationDuration);
 
+        Debug.Log(
+            $"DOOR '{name}' → Scene: '{targetSceneName}' | " +
+            $"Spawn ID: '{targetSpawnId}'"
+        );
+
+        SceneSpawnManager2D.PrepareArrival(targetSceneName, targetSpawnId);
+
         SceneSpawnManager2D.PrepareArrival(targetSceneName, targetSpawnId);
         SceneManager.LoadScene(targetSceneName);
     }

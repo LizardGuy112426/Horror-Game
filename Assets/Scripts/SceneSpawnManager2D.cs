@@ -66,6 +66,11 @@ public static class SceneSpawnManager2D
             return;
         }
 
+        Debug.Log(
+            $"Teleporting Player to Spawn '{requestedSpawn}' " +
+            $"at position {destination.transform.position}"
+        );
+
         player.TeleportTo(destination.transform.position);
         Debug.Log(
             $"Door arrival placed Player at '{requestedSpawn}' in scene '{scene.name}'.",
@@ -111,7 +116,7 @@ public static class SceneSpawnManager2D
 
         foreach (PlayerDoorInteractor2D player in players)
         {
-            if (player.gameObject.scene == scene && player.gameObject.activeInHierarchy)
+            if (player.gameObject.activeInHierarchy)
                 return player;
         }
 

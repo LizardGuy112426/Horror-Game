@@ -95,7 +95,8 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         body.position = new Vector2(destination.x, destination.y);
         transform.position = new Vector3(destination.x, destination.y, transform.position.z);
         Physics2D.SyncTransforms();
-    }
+        Debug.Log($"TELEPORT RESULT: {transform.position}");
+}
 
     private void RefreshFocusedInteractables()
     {
