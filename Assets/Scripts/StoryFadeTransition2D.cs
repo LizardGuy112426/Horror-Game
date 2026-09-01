@@ -8,7 +8,8 @@ public sealed class StoryFadeTransition2D : MonoBehaviour
 {
     [Header("Transition")]
     [SerializeField] private Image blackOverlay;
-    [SerializeField, Min(0f)] private float fadeDuration = 1.5f;
+    [SerializeField, Min(0f)] private float fadeDuration = 3f;
+    [SerializeField, Min(0f)] private float blackHoldDuration = 1f;
     [SerializeField] private string targetSceneName = "Cutscene2";
 
     private bool isTransitioning;
@@ -51,6 +52,9 @@ public sealed class StoryFadeTransition2D : MonoBehaviour
             blackOverlay.color = color;
         }
 
+        if (blackHoldDuration > 0f)
+            yield return new WaitForSecondsRealtime(blackHoldDuration);
+
         if (string.IsNullOrWhiteSpace(targetSceneName))
         {
             Debug.LogWarning("Story Fade Transition has no Target Scene.", this);
@@ -70,11 +74,6 @@ public sealed class StoryFadeTransition2D : MonoBehaviour
         }
 
         SceneManager.LoadScene(targetSceneName);
-
-        // Cutscene2 owns its own opening black overlay. Remove this persistent
-        // overlay after the synchronous load so it cannot cover the CG forever.
-        if (blackOverlay != null)
-            blackOverlay.gameObject.SetActive(false);
     }
 
     private void Awake()
@@ -90,6 +89,16 @@ public sealed class StoryFadeTransition2D : MonoBehaviour
         Color color = blackOverlay.color;
         color.a = 0f;
         blackOverlay.color = color;
+        blackOverlay.raycastTarget = false;
+        blackOverlay.gameObject.SetActive(false);
+    }
+
+    /// <summary>Releases this scene's black overlay after the next scene has prepared its own.</summary>
+    public void ReleaseOverlayAfterSceneHandoff()
+    {
+        if (blackOverlay == null)
+            return;
+
         blackOverlay.raycastTarget = false;
         blackOverlay.gameObject.SetActive(false);
     }
@@ -110,5 +119,6 @@ public sealed class StoryFadeTransition2D : MonoBehaviour
     private void OnValidate()
     {
         fadeDuration = Mathf.Max(0f, fadeDuration);
+        blackHoldDuration = Mathf.Max(0f, blackHoldDuration);
     }
 }

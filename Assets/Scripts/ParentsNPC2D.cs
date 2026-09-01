@@ -37,6 +37,14 @@ public sealed class ParentsNPC2D : PlayerInteractable2D
     public override bool CanInteract =>
         isActiveAndEnabled && stageActive
         && (dialogueController == null || !dialogueController.IsPlaying);
+    public override int InteractionPriority => CanInteract ? 100 : 0;
+
+    /// <summary>Immediately applies the current story stage after the scene transition.</summary>
+    public void SynchronizeWithCurrentStage()
+    {
+        BindTaskController();
+        RefreshForCurrentStage();
+    }
 
     public void Configure(
         StoryTaskStage requiredStage,

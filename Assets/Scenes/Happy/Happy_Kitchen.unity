@@ -226,9 +226,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 621771292853487798, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1043841224861515213, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_Name
       value: Parents - Kitchen
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839668887672939238, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2839668887672939238, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -236,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2839668887672939238, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: 0.59
       objectReference: {fileID: 0}
     - target: {fileID: 5266595822426226949, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
@@ -285,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 6170613687068809844, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258345655954178494, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.size

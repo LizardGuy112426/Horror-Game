@@ -78,6 +78,11 @@ public sealed class CutsceneController : MonoBehaviour
         if (cgImage == null || dialogueText == null)
             BuildFallbackUi();
 
+        PrepareOpeningBlackOverlay();
+        StoryFadeTransition2D transition = FindAnyObjectByType<StoryFadeTransition2D>();
+        if (transition != null)
+            transition.ReleaseOverlayAfterSceneHandoff();
+
         if (continueHintText != null)
             continueHintText.gameObject.SetActive(false);
     }
@@ -107,13 +112,7 @@ public sealed class CutsceneController : MonoBehaviour
         if (blackOverlay == null)
             yield break;
 
-        blackOverlay.gameObject.SetActive(true);
-        blackOverlay.raycastTarget = true;
-        blackOverlay.transform.SetAsLastSibling();
-
         Color overlayColor = blackOverlay.color;
-        overlayColor.a = 1f;
-        blackOverlay.color = overlayColor;
 
         if (blackFadeDuration > 0f)
         {
@@ -131,6 +130,20 @@ public sealed class CutsceneController : MonoBehaviour
         blackOverlay.color = overlayColor;
         blackOverlay.raycastTarget = false;
         blackOverlay.gameObject.SetActive(false);
+    }
+
+    private void PrepareOpeningBlackOverlay()
+    {
+        if (blackOverlay == null)
+            return;
+
+        blackOverlay.gameObject.SetActive(true);
+        blackOverlay.raycastTarget = true;
+        blackOverlay.transform.SetAsLastSibling();
+
+        Color overlayColor = blackOverlay.color;
+        overlayColor.a = 1f;
+        blackOverlay.color = overlayColor;
     }
 
     private void PreparePageVisual(int index, bool showDialogue)

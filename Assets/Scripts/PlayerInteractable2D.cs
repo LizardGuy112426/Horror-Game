@@ -6,6 +6,9 @@ public abstract class PlayerInteractable2D : MonoBehaviour
     public abstract Vector3 InteractionPosition { get; }
     public virtual bool CanInteract => isActiveAndEnabled;
 
+    /// <summary>Higher-priority interactions take focus before nearer optional objects.</summary>
+    public virtual int InteractionPriority => 0;
+
     public abstract void SetFocused(bool focused);
     public abstract bool Interact(PlayerDoorInteractor2D player);
 }

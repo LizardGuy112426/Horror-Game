@@ -119,6 +119,9 @@ public sealed class StoryTaskController : MonoBehaviour
             return;
 
         currentStage = stage;
+        if (currentStage == StoryTaskStage.TalkToParentsInLivingRoom)
+            StoryTaskRuntimeBootstrap.EnsureAndSynchronizeParents(SceneManager.GetActiveScene());
+
         RefreshTaskHud();
         StageChanged?.Invoke(currentStage);
     }
@@ -188,7 +191,8 @@ public static class StoryTaskRuntimeBootstrap
             return;
 
         EnsureTaskSystem();
-        EnsureParentsNpc(scene);
+        if (scene.name == "Happy_Kitchen")
+            EnsureAndSynchronizeParents(scene);
     }
 
     private static void EnsureTaskSystem()
@@ -207,7 +211,7 @@ public static class StoryTaskRuntimeBootstrap
         UnityEngine.Object.Instantiate(prefab);
     }
 
-    private static void EnsureParentsNpc(Scene scene)
+    public static void EnsureAndSynchronizeParents(Scene scene)
     {
         ParentsNPC2D[] parentsInLoadedScenes = UnityEngine.Object.FindObjectsByType<ParentsNPC2D>(
             FindObjectsInactive.Include,
@@ -215,7 +219,10 @@ public static class StoryTaskRuntimeBootstrap
         foreach (ParentsNPC2D parents in parentsInLoadedScenes)
         {
             if (parents != null && parents.gameObject.scene == scene)
+            {
+                parents.SynchronizeWithCurrentStage();
                 return;
+            }
         }
 
         string resourceName = scene.name switch
@@ -232,8 +239,10 @@ public static class StoryTaskRuntimeBootstrap
         {
             GameObject instance = UnityEngine.Object.Instantiate(prefab);
             SceneManager.MoveGameObjectToScene(instance, scene);
+            instance.GetComponent<ParentsNPC2D>()?.SynchronizeWithCurrentStage();
         }
         else
             Debug.LogWarning($"Missing Resources/{resourceName}.prefab.");
     }
+
 }

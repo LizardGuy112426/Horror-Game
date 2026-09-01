@@ -105,6 +105,7 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
 
         PlayerInteractable2D nearestItem = null;
         DoorTransition2D nearestDoor = null;
+        int highestItemPriority = int.MinValue;
         float nearestItemDistance = float.PositiveInfinity;
         float nearestDoorDistance = float.PositiveInfinity;
 
@@ -113,8 +114,11 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
             float distance = (interactable.InteractionPosition - transform.position).sqrMagnitude;
 
             if (interactable is not DoorTransition2D
-                && distance < nearestItemDistance)
+                && (interactable.InteractionPriority > highestItemPriority
+                    || (interactable.InteractionPriority == highestItemPriority
+                        && distance < nearestItemDistance)))
             {
+                highestItemPriority = interactable.InteractionPriority;
                 nearestItemDistance = distance;
                 nearestItem = interactable;
             }

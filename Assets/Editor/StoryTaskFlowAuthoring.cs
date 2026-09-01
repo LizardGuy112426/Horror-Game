@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>Creates the reusable task HUD and Parents NPC, then places the two stage-gated instances.</summary>
+/// <summary>Creates the reusable task HUD and runtime Parents NPC prefabs.</summary>
 [InitializeOnLoad]
 public static class StoryTaskFlowAuthoring
 {
@@ -58,28 +58,11 @@ public static class StoryTaskFlowAuthoring
             new Vector3(8f, -2f, 0f),
             "父母",
             "你终于回来了，我们有些话想和你说。");
-        ConfigureScene(
-            LivingRoomPath,
-            parentsPrefab,
-            StoryTaskStage.TalkToParentsInLivingRoom,
-            "Parents - Living Room",
-            new Vector3(8f, -2f, 0f),
-            "父母",
-            "你终于回来了，我们有些话想和你说。");
-        ConfigureScene(
-            KitchenPath,
-            parentsPrefab,
-            StoryTaskStage.TalkToParentsInKitchen,
-            "Parents - Kitchen",
-            new Vector3(0f, -2f, 0f),
-            "父母",
-            "你来了。先回客厅等我们吧。 ");
-
         EditorUtility.SetDirty(storyPrefab);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log(
-            "First parents story task is ready: StoryTaskSystem, ParentsNPC prefab, Kitchen NPC, and Living Room NPC.");
+            "First parents story task is ready: StoryTaskSystem and runtime Parents NPC prefabs.");
     }
 
     [MenuItem("Tools/Horror Game/Validate First Parents Story Task")]
@@ -289,7 +272,7 @@ public static class StoryTaskFlowAuthoring
         overlayRect.SetAsLastSibling();
 
         StoryFadeTransition2D transition = root.GetComponent<StoryFadeTransition2D>();
-        transition.Configure(overlay, 1.5f, "Cutscene2");
+        transition.Configure(overlay, 3f, "Cutscene2");
         StoryTaskController controller = root.GetComponent<StoryTaskController>();
         controller.Configure(hud.gameObject, taskText, taskIcon, transition);
 
@@ -388,58 +371,6 @@ public static class StoryTaskFlowAuthoring
             });
         PrefabUtility.SaveAsPrefabAsset(instance, assetPath);
         Object.DestroyImmediate(instance);
-    }
-
-    private static void ConfigureScene(
-        string scenePath,
-        GameObject parentsPrefab,
-        StoryTaskStage requiredStage,
-        string instanceName,
-        Vector3 position,
-        string speaker,
-        string dialogue)
-    {
-        Scene scene = SceneManager.GetSceneByPath(scenePath);
-        bool openedForSetup = !scene.isLoaded;
-        if (openedForSetup)
-            scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
-
-        GameObject instance = FindGameObject(scene, instanceName);
-        if (instance == null)
-        {
-            instance = (GameObject)PrefabUtility.InstantiatePrefab(parentsPrefab, scene);
-            instance.name = instanceName;
-            instance.transform.position = position;
-        }
-
-        ParentsNPC2D parents = instance.GetComponent<ParentsNPC2D>();
-        SerializedObject serializedParents = new SerializedObject(parents);
-        serializedParents.FindProperty("requiredTaskStage").enumValueIndex = (int)requiredStage;
-        SerializedProperty lines = serializedParents.FindProperty("dialogueLines");
-        lines.arraySize = 1;
-        SerializedProperty line = lines.GetArrayElementAtIndex(0);
-        line.FindPropertyRelative("speakerName").stringValue = speaker;
-        line.FindPropertyRelative("dialogue").stringValue = dialogue;
-        serializedParents.ApplyModifiedPropertiesWithoutUndo();
-        PrefabUtility.RecordPrefabInstancePropertyModifications(parents);
-
-        EditorSceneManager.MarkSceneDirty(scene);
-        EditorSceneManager.SaveScene(scene);
-        if (openedForSetup)
-            EditorSceneManager.CloseScene(scene, true);
-    }
-
-    private static GameObject FindGameObject(Scene scene, string objectName)
-    {
-        foreach (GameObject root in scene.GetRootGameObjects())
-        {
-            foreach (Transform candidate in root.GetComponentsInChildren<Transform>(true))
-            {
-                if (candidate.name == objectName)
-                    return candidate.gameObject;
-            }
-        }
-        return null;
     }
 
     private static RectTransform CreateRect(Transform parent, string name)

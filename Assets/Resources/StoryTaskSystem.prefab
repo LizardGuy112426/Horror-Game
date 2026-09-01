@@ -73,7 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryFadeTransition2D
   blackOverlay: {fileID: 1595267254460158704}
-  fadeDuration: 1.5
+  fadeDuration: 3
+  blackHoldDuration: 1
   targetSceneName: Cutscene2
 --- !u!1 &2824277128107255356
 GameObject:
