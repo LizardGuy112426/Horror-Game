@@ -590,6 +590,14 @@ PrefabInstance:
       propertyPath: dialogueLines.Array.data[4].speakerName
       value: "\u7238\u7238"
       objectReference: {fileID: 0}
+    - target: {fileID: 4187490625623317894, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4187490625623317894, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4368030354671329358, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.04
@@ -633,6 +641,14 @@ PrefabInstance:
     - target: {fileID: 4940366865535972391, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: m_Name
       value: ParentsNPC_LivingRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506385437384217617, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: m_Size.x
+      value: 1.6913247
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506385437384217617, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.6914461
       objectReference: {fileID: 0}
     - target: {fileID: 7758709138645050668, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: m_AnchoredPosition.x
