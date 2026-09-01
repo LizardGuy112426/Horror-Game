@@ -9,11 +9,11 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
     [Header("Interaction Keys")]
     [FormerlySerializedAs("interactionKey")]
     [SerializeField] private KeyCode itemInteractionKey = KeyCode.E;
-    [SerializeField] private KeyCode doorInteractionKey = KeyCode.F;
+    [SerializeField] private KeyCode doorInteractionKey = KeyCode.E;
 
     private readonly HashSet<PlayerInteractable2D> nearbyInteractables = new();
     private Rigidbody2D body;
-    private ItemDialogueInteractable2D focusedItem;
+    private PlayerInteractable2D focusedItem;
     private DoorTransition2D focusedDoor;
     private bool interactionEnabled = true;
 
@@ -103,7 +103,7 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         nearbyInteractables.RemoveWhere(interactable =>
             interactable == null || !interactable.CanInteract);
 
-        ItemDialogueInteractable2D nearestItem = null;
+        PlayerInteractable2D nearestItem = null;
         DoorTransition2D nearestDoor = null;
         float nearestItemDistance = float.PositiveInfinity;
         float nearestDoorDistance = float.PositiveInfinity;
@@ -112,11 +112,11 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         {
             float distance = (interactable.InteractionPosition - transform.position).sqrMagnitude;
 
-            if (interactable is ItemDialogueInteractable2D item
+            if (interactable is not DoorTransition2D
                 && distance < nearestItemDistance)
             {
                 nearestItemDistance = distance;
-                nearestItem = item;
+                nearestItem = interactable;
             }
             else if (interactable is DoorTransition2D door
                 && distance < nearestDoorDistance)
@@ -130,7 +130,7 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
         UpdateDoorFocus(nearestDoor);
     }
 
-    private void UpdateItemFocus(ItemDialogueInteractable2D nearestItem)
+    private void UpdateItemFocus(PlayerInteractable2D nearestItem)
     {
         if (nearestItem == focusedItem)
         {

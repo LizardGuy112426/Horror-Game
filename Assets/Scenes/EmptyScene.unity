@@ -320,7 +320,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447100959}
-  m_Text: '[F]'
+  m_Text: '[E]'
   m_OffsetZ: 0
   m_CharacterSize: 0.15
   m_LineSpacing: 1
@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDoorInteractor2D
   itemInteractionKey: 101
-  doorInteractionKey: 102
+  doorInteractionKey: 101
 --- !u!114 &1224310160
 MonoBehaviour:
   m_ObjectHideFlags: 0

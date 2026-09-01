@@ -116,7 +116,7 @@ public static class EmptySceneDoorAuthoring
         promptCanvas.renderMode = RenderMode.WorldSpace;
         promptCanvas.sortingOrder = 50;
 
-        RectTransform imageTransform = GetOrCreateRectChild(promptTransform, "F Image", ref changed, out _);
+        RectTransform imageTransform = GetOrCreateRectChild(promptTransform, "E Image", ref changed, out _);
         imageTransform.anchorMin = Vector2.zero;
         imageTransform.anchorMax = Vector2.one;
         imageTransform.offsetMin = Vector2.zero;
@@ -136,7 +136,7 @@ public static class EmptySceneDoorAuthoring
 
     private static RectTransform GetOrCreatePromptCanvas(Transform parent, ref bool changed, out bool created)
     {
-        Transform existing = parent.Find("F Prompt") ?? parent.Find("E Prompt");
+        Transform existing = parent.Find("E Prompt") ?? parent.Find("F Prompt");
         created = existing == null;
 
         if (existing != null && existing is not RectTransform)
@@ -147,7 +147,7 @@ public static class EmptySceneDoorAuthoring
             created = true;
             changed = true;
 
-            RectTransform replacement = new GameObject("F Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
+            RectTransform replacement = new GameObject("E Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
             replacement.SetParent(parent, false);
             replacement.localPosition = localPosition;
             return replacement;
@@ -155,15 +155,15 @@ public static class EmptySceneDoorAuthoring
 
         if (existing == null)
         {
-            RectTransform prompt = new GameObject("F Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
+            RectTransform prompt = new GameObject("E Prompt", typeof(RectTransform)).GetComponent<RectTransform>();
             prompt.SetParent(parent, false);
             changed = true;
             return prompt;
         }
 
-        if (existing.name != "F Prompt")
+        if (existing.name != "E Prompt")
         {
-            existing.name = "F Prompt";
+            existing.name = "E Prompt";
             changed = true;
         }
 

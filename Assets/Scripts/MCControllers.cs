@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MCControllers : MonoBehaviour
 {
+    public static MCControllers Instance { get; private set; }
+
     float xInput;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float Speed;
@@ -34,18 +36,22 @@ public class MCControllers : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(GroundChecker.position, GroundChekerSize);
     }
-    private static MCControllers instance;
-
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

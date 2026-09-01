@@ -147,8 +147,6 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         );
 
         SceneSpawnManager2D.PrepareArrival(targetSceneName, targetSpawnId);
-
-        SceneSpawnManager2D.PrepareArrival(targetSceneName, targetSpawnId);
         SceneManager.LoadScene(targetSceneName);
     }
 }

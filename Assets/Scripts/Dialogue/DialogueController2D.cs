@@ -33,6 +33,15 @@ public sealed class DialogueController2D : MonoBehaviour
 
     public bool IsPlaying => isPlaying;
 
+    public void BindPlayer(
+        MCControllers movement,
+        PlayerDoorInteractor2D interaction)
+    {
+        playerMovement = movement;
+        playerInteraction = interaction;
+        legacySimplePlayerMovement = null;
+    }
+
     public void Configure(
         GameObject root,
         Image speakerBackground,

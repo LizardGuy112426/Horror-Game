@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.Cinemachine;
 
 /// <summary>Stores one door arrival request and consumes it after the target Scene loads.</summary>
 public static class SceneSpawnManager2D
@@ -33,14 +34,13 @@ public static class SceneSpawnManager2D
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (!hasPendingArrival)
-            return;
-
+        bool hadPendingArrival = hasPendingArrival;
         string requestedScene = pendingSceneName;
         string requestedSpawn = pendingSpawnId;
         ClearPendingArrival();
 
-        if (!string.Equals(scene.name, requestedScene, System.StringComparison.Ordinal))
+        if (hadPendingArrival
+            && !string.Equals(scene.name, requestedScene, System.StringComparison.Ordinal))
         {
             Debug.LogWarning(
                 $"Door arrival expected scene '{requestedScene}', but '{scene.name}' loaded. "
@@ -48,41 +48,43 @@ public static class SceneSpawnManager2D
             return;
         }
 
-        SceneSpawnPoint2D destination = FindSpawnPoint(scene, requestedSpawn);
-        if (destination == null)
-        {
-            Debug.LogWarning(
-                $"Scene '{scene.name}' has no Scene Spawn Point 2D with Spawn ID "
-                + $"'{requestedSpawn}'. The Player kept its Scene-authored position.");
-            return;
-        }
-
         PlayerDoorInteractor2D player = FindPlayer(scene);
         if (player == null)
         {
-            Debug.LogWarning(
-                $"Scene '{scene.name}' has no PlayerDoorInteractor2D. "
-                + $"Could not use Spawn ID '{requestedSpawn}'.");
+            if (hadPendingArrival)
+            {
+                Debug.LogWarning(
+                    $"Scene '{scene.name}' has no persistent PlayerDoorInteractor2D. "
+                    + $"Could not use Spawn ID '{requestedSpawn}'.");
+            }
             return;
         }
 
-        Debug.Log(
-            $"Teleporting Player to Spawn '{requestedSpawn}' " +
-            $"at position {destination.transform.position}"
-        );
+        string spawnToUse = hadPendingArrival ? requestedSpawn : "Default";
+        SceneSpawnPoint2D destination = FindSpawnPoint(scene, spawnToUse);
 
-        player.TeleportTo(destination.transform.position);
-        Debug.Log(
-            $"Door arrival placed Player at '{requestedSpawn}' in scene '{scene.name}'.",
-            destination);
+        if (destination != null)
+        {
+            player.TeleportTo(destination.transform.position);
+            Debug.Log(
+                $"Player placed at Spawn '{spawnToUse}' in scene '{scene.name}'.",
+                destination);
+        }
+        else if (hadPendingArrival)
+        {
+            Debug.LogWarning(
+                $"Scene '{scene.name}' has no Scene Spawn Point 2D with Spawn ID "
+                + $"'{requestedSpawn}'. The Player kept its previous position.");
+        }
+
+        BindSceneReferences(scene, player);
     }
 
     private static SceneSpawnPoint2D FindSpawnPoint(Scene scene, string spawnId)
     {
         SceneSpawnPoint2D match = null;
         SceneSpawnPoint2D[] points = Object.FindObjectsByType<SceneSpawnPoint2D>(
-            FindObjectsInactive.Include,
-            FindObjectsSortMode.None);
+            FindObjectsInactive.Include);
 
         foreach (SceneSpawnPoint2D point in points)
         {
@@ -110,9 +112,16 @@ public static class SceneSpawnManager2D
 
     private static PlayerDoorInteractor2D FindPlayer(Scene scene)
     {
+        if (MCControllers.Instance != null)
+        {
+            PlayerDoorInteractor2D persistentPlayer =
+                MCControllers.Instance.GetComponent<PlayerDoorInteractor2D>();
+            if (persistentPlayer != null && persistentPlayer.gameObject.activeInHierarchy)
+                return persistentPlayer;
+        }
+
         PlayerDoorInteractor2D[] players = Object.FindObjectsByType<PlayerDoorInteractor2D>(
-            FindObjectsInactive.Include,
-            FindObjectsSortMode.None);
+            FindObjectsInactive.Include);
 
         foreach (PlayerDoorInteractor2D player in players)
         {
@@ -121,6 +130,30 @@ public static class SceneSpawnManager2D
         }
 
         return null;
+    }
+
+    private static void BindSceneReferences(
+        Scene scene,
+        PlayerDoorInteractor2D player)
+    {
+        MCControllers movement = player.GetComponent<MCControllers>();
+
+        CinemachineCamera[] cameras = Object.FindObjectsByType<CinemachineCamera>(
+            FindObjectsInactive.Include);
+        foreach (CinemachineCamera camera in cameras)
+        {
+            if (camera.gameObject.scene == scene)
+                camera.Follow = player.transform;
+        }
+
+        DialogueController2D[] dialogues =
+            Object.FindObjectsByType<DialogueController2D>(
+                FindObjectsInactive.Include);
+        foreach (DialogueController2D dialogue in dialogues)
+        {
+            if (dialogue.gameObject.scene == scene)
+                dialogue.BindPlayer(movement, player);
+        }
     }
 
     private static void ClearPendingArrival()

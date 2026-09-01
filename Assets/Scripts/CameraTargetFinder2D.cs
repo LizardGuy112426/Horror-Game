@@ -5,8 +5,14 @@ public class CameraTargetFinder2D : MonoBehaviour
 {
     private void Start()
     {
-        PlayerDoorInteractor2D player =
-            FindFirstObjectByType<PlayerDoorInteractor2D>();
+        BindToPersistentPlayer();
+    }
+
+    public void BindToPersistentPlayer()
+    {
+        PlayerDoorInteractor2D player = MCControllers.Instance != null
+            ? MCControllers.Instance.GetComponent<PlayerDoorInteractor2D>()
+            : FindAnyObjectByType<PlayerDoorInteractor2D>();
 
         if (player != null)
         {
