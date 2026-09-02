@@ -97,7 +97,11 @@ public class MCControllers : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && onGround)
         {
             rb.linearVelocityY = Jumpforce;
-            GameState.Instance.Jump = true;
+
+            if (GameState.Instance != null)
+            {
+                GameState.Instance.Jump = true;
+            }
         }
         if (isCrouching && onGround)
         {

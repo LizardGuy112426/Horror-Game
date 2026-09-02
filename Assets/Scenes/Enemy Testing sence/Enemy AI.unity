@@ -869,9 +869,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1035882720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e45d69a87da0c4aa51ed8db72aa738, type: 3}
+  m_Script: {fileID: 11500000, guid: 505252bb8126054468c1a4a0eeb29fce, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   patrolPoints:
   - {fileID: 419893008}
   - {fileID: 1132651318}
