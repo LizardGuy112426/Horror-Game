@@ -16,10 +16,7 @@ public sealed class EnemyAI : MonoBehaviour
     [Header("Chase")]
     [SerializeField, Min(0f)] private float detectionRadius = 5f;
     [SerializeField, Min(0f)] private float chaseSpeed = 3.5f;
-    [Tooltip("Optional explicit target. Leave empty to follow the persistent main character.")]
-    [SerializeField] private Transform playerTarget;
-    [Tooltip("Fallback used by the Enemy Testing scene when no persistent main character exists.")]
-    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private string targetTag = "Player";
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -65,25 +62,17 @@ public sealed class EnemyAI : MonoBehaviour
 
     private Transform FindPlayerInRange()
     {
-        Transform preferredTarget = playerTarget;
+        GameObject targetObject = GameObject.FindWithTag(targetTag);
 
-        if (preferredTarget == null && MCControllers.Instance != null)
-        {
-            preferredTarget = MCControllers.Instance.transform;
-        }
-
-        if (preferredTarget != null)
-        {
-            return IsWithinDetectionRange(preferredTarget.position) ? preferredTarget : null;
-        }
-
-        if (playerMask.value == 0)
-        {
+        if (targetObject == null)
             return null;
-        }
 
-        Collider2D detectedCollider = Physics2D.OverlapCircle(transform.position, detectionRadius, playerMask);
-        return detectedCollider != null ? detectedCollider.transform : null;
+        Transform target = targetObject.transform;
+
+        if (IsWithinDetectionRange(target.position))
+            return target;
+
+        return null;
     }
 
     private bool IsWithinDetectionRange(Vector3 targetPosition)
@@ -150,16 +139,27 @@ public sealed class EnemyAI : MonoBehaviour
         if (Mathf.Abs(horizontalDistance) <= arriveDistance)
         {
             rb.linearVelocityX = 0f;
+
+            if (animator != null)
+                animator.SetBool("isWalking", false);
+
             return;
         }
 
-        if (spriteRenderer != null)
+        // Flip enemy based on movement direction
+        if (spriteRenderer != null && flipSpriteWhenFacingLeft)
         {
-            spriteRenderer.flipX = flipSpriteWhenFacingLeft && horizontalDistance < 0f;
+            if (horizontalDistance < 0f)
+                spriteRenderer.flipX = false;   // Facing left
+            else if (horizontalDistance > 0f)
+                spriteRenderer.flipX = true;  // Facing right
         }
 
-        // Preserve the vertical velocity so gravity and floor collisions remain physics-driven.
+        // Move horizontally
         rb.linearVelocityX = Mathf.Sign(horizontalDistance) * speed;
+
+        if (animator != null)
+            animator.SetBool("isWalking", true);
     }
 
     private void OnDrawGizmosSelected()
