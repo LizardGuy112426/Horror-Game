@@ -29,5 +29,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Happy/Happy_Floor_2_Hallways.unity
     guid: 066375873bc03834a915ff0894e9e976
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/NM_LivingRoom.unity
+    guid: b2d41473e0f20154fa3ed4bd1b5aca9b
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/NM_Kitchen.unity
+    guid: 2404e87f6c45aaa4abd1464ffe0cb919
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/NM_Staircase.unity
+    guid: 45ad489dcb1d76546b6a8ecdbc6fb1e0
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/NM_Floor_2_Hallways.unity
+    guid: b994b995625349546985c95ec85f2066
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

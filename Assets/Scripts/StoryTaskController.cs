@@ -187,12 +187,29 @@ public static class StoryTaskRuntimeBootstrap
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name.StartsWith("NM_", StringComparison.Ordinal))
+        {
+            RemoveTaskSystem();
+            return;
+        }
+
         if (!scene.name.StartsWith("Happy_", StringComparison.Ordinal))
             return;
 
         EnsureTaskSystem();
         if (scene.name == "Happy_Kitchen")
             EnsureAndSynchronizeParents(scene);
+    }
+
+    private static void RemoveTaskSystem()
+    {
+        StoryTaskController controller = StoryTaskController.Instance;
+        if (controller == null)
+            return;
+
+        // Hide the inherited HUD before Unity destroys the persistent root at frame end.
+        controller.gameObject.SetActive(false);
+        UnityEngine.Object.Destroy(controller.gameObject);
     }
 
     private static void EnsureTaskSystem()
