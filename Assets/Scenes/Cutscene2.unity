@@ -394,7 +394,8 @@ MonoBehaviour:
   secondsPerCharacter: 0.035
   pageCompleteDelay: 3
   blackFadeDuration: 2
-  nextSceneName: 
+  finalBlackFadeDuration: 2
+  nextSceneName: NM_Bedroom1
   missingCgColor: {r: 0.09, g: 0.1, b: 0.14, a: 1}
 --- !u!4 &1396676635
 Transform:

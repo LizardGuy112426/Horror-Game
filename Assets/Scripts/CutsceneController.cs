@@ -46,6 +46,7 @@ public sealed class CutsceneController : MonoBehaviour
     [FormerlySerializedAs("finalPageDelay")]
     [SerializeField, Min(0f)] private float pageCompleteDelay = 3f;
     [SerializeField, Min(0f)] private float blackFadeDuration = 2f;
+    [SerializeField, Min(0f)] private float finalBlackFadeDuration = 2f;
     [FormerlySerializedAs("emptySceneName")]
     [SerializeField] private string nextSceneName = "Happy_LivingRoom";
     [SerializeField] private Color missingCgColor = new Color(0.09f, 0.1f, 0.14f, 1f);
@@ -104,6 +105,7 @@ public sealed class CutsceneController : MonoBehaviour
             yield return new WaitForSecondsRealtime(pageCompleteDelay);
         }
 
+        yield return PlayFinalBlackFade();
         LoadNextScene();
     }
 
@@ -142,6 +144,35 @@ public sealed class CutsceneController : MonoBehaviour
         blackOverlay.transform.SetAsLastSibling();
 
         Color overlayColor = blackOverlay.color;
+        overlayColor.a = 1f;
+        blackOverlay.color = overlayColor;
+    }
+
+    private IEnumerator PlayFinalBlackFade()
+    {
+        if (blackOverlay == null)
+            yield break;
+
+        blackOverlay.gameObject.SetActive(true);
+        blackOverlay.raycastTarget = true;
+        blackOverlay.transform.SetAsLastSibling();
+
+        Color overlayColor = blackOverlay.color;
+        overlayColor.a = 0f;
+        blackOverlay.color = overlayColor;
+
+        if (finalBlackFadeDuration > 0f)
+        {
+            float elapsed = 0f;
+            while (elapsed < finalBlackFadeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                overlayColor.a = Mathf.Clamp01(elapsed / finalBlackFadeDuration);
+                blackOverlay.color = overlayColor;
+                yield return null;
+            }
+        }
+
         overlayColor.a = 1f;
         blackOverlay.color = overlayColor;
     }
@@ -191,6 +222,7 @@ public sealed class CutsceneController : MonoBehaviour
             return;
         }
 
+        NightmareBedroomIntro2D.PrepareCutsceneArrival(nextSceneName);
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -200,6 +232,7 @@ public sealed class CutsceneController : MonoBehaviour
         secondsPerCharacter = Mathf.Max(0.005f, secondsPerCharacter);
         pageCompleteDelay = Mathf.Max(0f, pageCompleteDelay);
         blackFadeDuration = Mathf.Max(0f, blackFadeDuration);
+        finalBlackFadeDuration = Mathf.Max(0f, finalBlackFadeDuration);
     }
 
     private void EnsureFourPages()

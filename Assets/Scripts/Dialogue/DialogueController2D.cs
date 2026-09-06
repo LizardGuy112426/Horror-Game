@@ -28,8 +28,11 @@ public sealed class DialogueController2D : MonoBehaviour
     private int visibleCharacterCount;
     private bool isTyping;
     private bool isPlaying;
+    private bool automaticallyAdvance;
     private Coroutine typingCoroutine;
+    private Coroutine automaticAdvanceCoroutine;
     private Action completionCallback;
+    private float automaticLineDelay;
 
     public bool IsPlaying => isPlaying;
 
@@ -112,6 +115,26 @@ public sealed class DialogueController2D : MonoBehaviour
         PlayerDoorInteractor2D player,
         Action onComplete = null)
     {
+        return BeginPlayback(lines, player, false, 0f, onComplete);
+    }
+
+    /// <summary>Plays dialogue without player input, waiting after each fully typed line.</summary>
+    public bool PlayAutomatically(
+        DialogueLine[] lines,
+        PlayerDoorInteractor2D player,
+        float lineCompleteDelay,
+        Action onComplete = null)
+    {
+        return BeginPlayback(lines, player, true, lineCompleteDelay, onComplete);
+    }
+
+    private bool BeginPlayback(
+        DialogueLine[] lines,
+        PlayerDoorInteractor2D player,
+        bool shouldAutomaticallyAdvance,
+        float lineDelay,
+        Action onComplete)
+    {
         if (isPlaying || lines == null || lines.Length == 0)
             return false;
 
@@ -127,6 +150,8 @@ public sealed class DialogueController2D : MonoBehaviour
         completionCallback = onComplete;
         currentLineIndex = 0;
         isPlaying = true;
+        automaticallyAdvance = shouldAutomaticallyAdvance;
+        automaticLineDelay = Mathf.Max(0f, lineDelay);
 
         SetPlayerControl(false);
         if (dialogueRoot != null)
@@ -143,7 +168,7 @@ public sealed class DialogueController2D : MonoBehaviour
 
     private void Update()
     {
-        if (!isPlaying || !WasAdvancePressed())
+        if (!isPlaying || automaticallyAdvance || !WasAdvancePressed())
             return;
 
         if (isTyping)
@@ -166,6 +191,9 @@ public sealed class DialogueController2D : MonoBehaviour
 
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
+        if (automaticAdvanceCoroutine != null)
+            StopCoroutine(automaticAdvanceCoroutine);
+        automaticAdvanceCoroutine = null;
 
         if (nameBackground != null)
             nameBackground.gameObject.SetActive(true);
@@ -195,6 +223,23 @@ public sealed class DialogueController2D : MonoBehaviour
         isTyping = false;
         typingCoroutine = null;
         UpdateHint();
+
+        if (automaticallyAdvance)
+            automaticAdvanceCoroutine = StartCoroutine(AdvanceAutomatically());
+    }
+
+    private IEnumerator AdvanceAutomatically()
+    {
+        yield return new WaitForSecondsRealtime(automaticLineDelay);
+        automaticAdvanceCoroutine = null;
+
+        if (!isPlaying || isTyping)
+            yield break;
+
+        if (currentLineIndex < activeLines.Length - 1)
+            ShowLine(currentLineIndex + 1);
+        else
+            CloseDialogue();
     }
 
     private void CompleteCurrentLine()
@@ -216,9 +261,13 @@ public sealed class DialogueController2D : MonoBehaviour
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
+        if (automaticAdvanceCoroutine != null)
+            StopCoroutine(automaticAdvanceCoroutine);
         typingCoroutine = null;
+        automaticAdvanceCoroutine = null;
         isTyping = false;
         isPlaying = false;
+        automaticallyAdvance = false;
         activeLines = null;
 
         if (dialogueRoot != null)
@@ -243,11 +292,14 @@ public sealed class DialogueController2D : MonoBehaviour
     private void UpdateHint()
     {
         if (continueHintText != null)
+        {
+            continueHintText.gameObject.SetActive(!automaticallyAdvance);
             continueHintText.text = isTyping
                 ? "Click / Space to complete"
                 : currentLineIndex < activeLines.Length - 1
                     ? "Click / Space to continue"
                     : "Click / Space to close";
+        }
     }
 
     private static bool WasAdvancePressed()
@@ -263,6 +315,7 @@ public sealed class DialogueController2D : MonoBehaviour
         if (isPlaying)
         {
             isPlaying = false;
+            automaticallyAdvance = false;
             SetPlayerControl(true);
         }
     }
