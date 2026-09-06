@@ -48,6 +48,9 @@ TagManager:
   - name: Furnitures
     uniqueID: 3554404361
     locked: 0
+  - name: Button
+    uniqueID: 1300238549
+    locked: 0
   - name: Player
     uniqueID: 1379494433
     locked: 0
