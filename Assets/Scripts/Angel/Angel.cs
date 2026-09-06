@@ -1,16 +1,33 @@
 using UnityEngine;
 
-public class Angel : MonoBehaviour
+public class Angel: MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private string targetTag = "Player";
+    [SerializeField] private bool facesRightByDefault = true;
+    private Transform player;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        GameObject playerObject = GameObject.FindWithTag(targetTag);
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+    }
+
+    private void Update()
+    {
+        if (player == null)
+            return;
+        bool playerIsToTheRight = player.position.x > transform.position.x;
+
+        spriteRenderer.flipX = facesRightByDefault ? !playerIsToTheRight : playerIsToTheRight;
     }
 }
