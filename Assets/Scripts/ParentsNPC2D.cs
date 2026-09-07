@@ -28,14 +28,15 @@ public sealed class ParentsNPC2D : PlayerInteractable2D
     };
 
     private StoryTaskController subscribedController;
-    private bool stageActive;
+    private bool contentVisible;
+    private bool interactionActive;
 
     public StoryTaskStage RequiredTaskStage => requiredTaskStage;
     public override Vector3 InteractionPosition => interactionTrigger != null
         ? interactionTrigger.bounds.center
         : transform.position;
     public override bool CanInteract =>
-        isActiveAndEnabled && stageActive
+        isActiveAndEnabled && interactionActive
         && (dialogueController == null || !dialogueController.IsPlaying);
     public override int InteractionPriority => CanInteract ? 100 : 0;
 
@@ -121,15 +122,21 @@ public sealed class ParentsNPC2D : PlayerInteractable2D
             BindTaskController();
 
         StoryTaskController controller = StoryTaskController.Instance;
-        bool shouldBeActive = controller != null
-            && controller.CurrentStage == requiredTaskStage;
+        bool shouldShowContent = ShouldShowContent(controller);
+        bool shouldEnableInteraction = ShouldEnableInteraction(controller);
         bool contentMatches = contentRoot == null
-            || contentRoot.activeSelf == shouldBeActive;
+            || contentRoot.activeSelf == shouldShowContent;
         bool triggerMatches = interactionTrigger == null
-            || interactionTrigger.enabled == shouldBeActive;
+            || interactionTrigger.enabled == shouldEnableInteraction;
 
-        if (stageActive != shouldBeActive || !contentMatches || !triggerMatches)
-            ApplyStageState(shouldBeActive);
+        if (contentVisible != shouldShowContent
+            || interactionActive != shouldEnableInteraction
+            || !contentMatches
+            || !triggerMatches)
+        {
+            ApplyStageState(shouldShowContent, shouldEnableInteraction);
+        }
+
     }
 
     private void OnDisable()
@@ -164,17 +171,33 @@ public sealed class ParentsNPC2D : PlayerInteractable2D
     private void RefreshForCurrentStage()
     {
         StoryTaskController controller = StoryTaskController.Instance;
-        ApplyStageState(controller != null && controller.CurrentStage == requiredTaskStage);
+        ApplyStageState(ShouldShowContent(controller), ShouldEnableInteraction(controller));
     }
 
-    private void ApplyStageState(bool active)
+    private bool ShouldShowContent(StoryTaskController controller)
     {
-        stageActive = active;
+        if (controller == null)
+            return false;
+
+        return controller.CurrentStage == requiredTaskStage
+            || (requiredTaskStage == StoryTaskStage.TalkToParentsInLivingRoom
+                && controller.CurrentStage == StoryTaskStage.Completed);
+    }
+
+    private bool ShouldEnableInteraction(StoryTaskController controller)
+    {
+        return controller != null && controller.CurrentStage == requiredTaskStage;
+    }
+
+    private void ApplyStageState(bool showContent, bool enableInteraction)
+    {
+        contentVisible = showContent;
+        interactionActive = enableInteraction;
         if (contentRoot != null)
-            contentRoot.SetActive(stageActive);
+            contentRoot.SetActive(contentVisible);
         if (interactionTrigger != null)
-            interactionTrigger.enabled = stageActive;
-        if (!stageActive)
+            interactionTrigger.enabled = interactionActive;
+        if (!interactionActive)
             SetFocused(false);
     }
 

@@ -166,7 +166,6 @@ public static class StoryTaskRuntimeBootstrap
 {
     private const string ResourceName = "StoryTaskSystem";
     private const string KitchenParentsResource = "ParentsNPC_Kitchen";
-    private const string LivingParentsResource = "ParentsNPC_LivingRoom";
     private static bool isHooked;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -245,7 +244,6 @@ public static class StoryTaskRuntimeBootstrap
         string resourceName = scene.name switch
         {
             "Happy_Kitchen" => KitchenParentsResource,
-            "Happy_LivingRoom" => LivingParentsResource,
             _ => null
         };
         if (string.IsNullOrEmpty(resourceName))
