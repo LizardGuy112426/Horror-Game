@@ -162,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.120893
+      value: -0.10843849
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.y
@@ -455,6 +455,22 @@ PrefabInstance:
     - target: {fileID: 1043841224861515213, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_Name
       value: Parents - Kitchen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625707112727647195, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_Size.x
+      value: 2.221726
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625707112727647195, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_Size.y
+      value: 4.585176
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625707112727647195, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.639137
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625707112727647195, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.89258814
       objectReference: {fileID: 0}
     - target: {fileID: 2839668887672939238, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_SizeDelta.x
