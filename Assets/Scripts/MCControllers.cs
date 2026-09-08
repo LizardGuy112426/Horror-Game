@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MCControllers : MonoBehaviour
 {
@@ -12,9 +14,16 @@ public class MCControllers : MonoBehaviour
     [SerializeField] private Vector2 GroundChekerSize;
     [SerializeField] private LayerMask Ground;
     bool onGround;
+    [SerializeField] private float WalkingSFXInterval;
+    float WalkingSFXTime;
     [SerializeField] private Animator animator;
     private bool isFacingRight = true;
     private bool movementEnabled = true;
+    bool kill;
+    [SerializeField] private SpriteRenderer DadJumpscare;
+    [SerializeField] private Animator DadJumpscareAnimator;
+    [SerializeField] private SpriteRenderer MomJumpscare;
+    [SerializeField] private Animator MomJumpscareAnimator;
 
     public void SetMovementEnabled(bool value)
     {
@@ -46,6 +55,8 @@ public class MCControllers : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     private void OnDestroy()
@@ -123,7 +134,66 @@ public class MCControllers : MonoBehaviour
         {
             Flip();
         }
+
+        if (onGround && rb.linearVelocityX != 0)
+        {
+            WalkingSFXTime = WalkingSFXTime - Time.deltaTime;
+            if (WalkingSFXTime <= 0)
+            {
+                SoundEffectManager.instance.WalkSFX();
+                WalkingSFXTime = WalkingSFXInterval;
+            }
+        }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (DadJumpscare != null)
+            DadJumpscare.enabled = false;
+
+        if (MomJumpscare != null)
+            MomJumpscare.enabled = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Dad"))
+        {
+            // Play Dad jumpscare animation
+            if (DadJumpscareAnimator != null)
+                DadJumpscareAnimator.SetTrigger("Kill");
+
+            // Show Dad jumpscare sprite
+            if (DadJumpscare != null)
+                DadJumpscare.enabled = true;
+
+            // Play Dad jumpscare sound
+            SoundEffectManager.instance.DadJumpscare();
+        }
+        else if (collision.gameObject.CompareTag("Mom"))
+        {
+            // Play Mom jumpscare animation
+            if (MomJumpscareAnimator != null)
+                MomJumpscareAnimator.SetTrigger("Kill");
+
+            // Show Mom jumpscare sprite
+            if (MomJumpscare != null)
+                MomJumpscare.enabled = true;
+
+            // Play Mom jumpscare sound
+            SoundEffectManager.instance.MomJumpscare();
+        }
+    }
+
+
+
     void Flip()
     {
         isFacingRight = !isFacingRight;

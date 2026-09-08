@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CameraTargetFinder2D : MonoBehaviour
 {
+
     private void Start()
     {
         BindToPersistentPlayer();

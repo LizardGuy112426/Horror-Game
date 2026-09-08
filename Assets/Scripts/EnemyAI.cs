@@ -17,6 +17,7 @@ public sealed class EnemyAI : MonoBehaviour
     [SerializeField, Min(0f)] private float detectionRadius = 5f;
     [SerializeField, Min(0f)] private float chaseSpeed = 3.5f;
     [SerializeField] private string targetTag = "Player";
+    float WalkingSFXTime;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -30,6 +31,9 @@ public sealed class EnemyAI : MonoBehaviour
     private Transform player;
     private bool isChasing;
     private bool warnedAboutPatrolPoints;
+    [SerializeField] private float baseWalkingSFXInterval = 0.4f;
+    [SerializeField] private float minWalkingSFXInterval = 0.15f;
+    [SerializeField] private float Speed;
 
     private void Awake()
     {
@@ -46,6 +50,19 @@ public sealed class EnemyAI : MonoBehaviour
         if (animator != null)
         {
             animator.speed = isChasing ? chaseAnimationSpeed : patrolAnimationSpeed;
+        }
+
+        if (rb.linearVelocityX != 0)
+        {
+            WalkingSFXTime -= Time.deltaTime;
+            if (WalkingSFXTime <= 0)
+            {
+                float currentSpeed = Mathf.Abs(rb.linearVelocityX);
+                SoundEffectManager.instance.DadWalkSFX(currentSpeed);
+
+                float speedFraction = Mathf.InverseLerp(0f, Speed, currentSpeed);
+                WalkingSFXTime = Mathf.Lerp(baseWalkingSFXInterval, minWalkingSFXInterval, speedFraction);
+            }
         }
     }
 

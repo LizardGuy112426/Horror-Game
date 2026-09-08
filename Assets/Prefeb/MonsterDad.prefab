@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5003436723360197982}
   m_Layer: 0
   m_Name: MonsterDad
-  m_TagString: Untagged
+  m_TagString: Dad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,3 +216,6 @@ MonoBehaviour:
   patrolAnimationSpeed: 0.5
   chaseAnimationSpeed: 1
   flipSpriteWhenFacingLeft: 1
+  baseWalkingSFXInterval: 0.5
+  minWalkingSFXInterval: 0.5
+  Speed: 0

@@ -5131,7 +5131,6 @@ MonoBehaviour:
   doorAnimator: {fileID: 0}
   interactionAnimationState: Door
   fallbackAnimationDuration: 0.25
-  enemyFollowRadius: 3
 --- !u!4 &1022661367 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7228406977651709650, guid: 82a7d8f9187922d43818cfb73a5f4a67, type: 3}

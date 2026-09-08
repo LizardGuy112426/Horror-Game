@@ -10,7 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2705061705741265876, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: MonsterMom
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705061705741265876, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
+      propertyPath: m_TagString
+      value: Mom
       objectReference: {fileID: 0}
     - target: {fileID: 5185782306309863364, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
       propertyPath: m_LocalPosition.x
