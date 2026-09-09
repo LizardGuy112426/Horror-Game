@@ -8,6 +8,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public sealed class EnemyAI : MonoBehaviour
 {
+    public enum EnemyType { Dad, Mom }
+
+    [Header("Enemy Type")]
+    [Tooltip("Controls which SoundEffectManager clips (Dad or Mom) this instance uses.")]
+    [SerializeField] private EnemyType enemyType = EnemyType.Dad;
+
     [Header("Patrol")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField, Min(0f)] private float patrolSpeed = 2f;
@@ -30,6 +36,7 @@ public sealed class EnemyAI : MonoBehaviour
     private int patrolIndex;
     private Transform player;
     private bool isChasing;
+    private bool wasChasing;
     private bool warnedAboutPatrolPoints;
     [SerializeField] private float baseWalkingSFXInterval = 0.4f;
     [SerializeField] private float minWalkingSFXInterval = 0.15f;
@@ -52,18 +59,48 @@ public sealed class EnemyAI : MonoBehaviour
             animator.speed = isChasing ? chaseAnimationSpeed : patrolAnimationSpeed;
         }
 
+        // Fires once on the exact frame the enemy spots the player.
+        if (isChasing && !wasChasing)
+        {
+            PlaySpotSFX();
+        }
+        wasChasing = isChasing;
+
+        // Report proximity every frame while chasing so the shared heartbeat can scale with it.
+        if (isChasing)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            SoundEffectManager.instance.ReportChaseProximity(distanceToPlayer, detectionRadius);
+        }
+
         if (rb.linearVelocityX != 0)
         {
             WalkingSFXTime -= Time.deltaTime;
             if (WalkingSFXTime <= 0)
             {
                 float currentSpeed = Mathf.Abs(rb.linearVelocityX);
-                SoundEffectManager.instance.DadWalkSFX(currentSpeed);
+                PlayWalkSFX(currentSpeed);
 
                 float speedFraction = Mathf.InverseLerp(0f, Speed, currentSpeed);
                 WalkingSFXTime = Mathf.Lerp(baseWalkingSFXInterval, minWalkingSFXInterval, speedFraction);
             }
         }
+    }
+
+    private void PlaySpotSFX()
+    {
+        if (enemyType == EnemyType.Dad)
+            AudioManager.instance.DadSpotSFXPlay();
+        else
+            AudioManager.instance.MomSpotSFXPlay();
+    }
+
+    private void PlayWalkSFX(float currentSpeed)
+    {
+        if (enemyType == EnemyType.Dad)
+            SoundEffectManager.instance.DadWalkSFX(currentSpeed);
+        else
+            SoundEffectManager.instance.MomWalkSFX(currentSpeed);
     }
 
     private void FixedUpdate()

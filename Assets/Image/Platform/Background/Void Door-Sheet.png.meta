@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e935840ed9eba214b81fca55f5ee75de
+guid: 9a491759ecfec0247bfd49f0e8c7834d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5413695806953463806
-    second: Void Platform_0
+      213: 8675318466741491937
+    second: Void Door-Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Void Platform_0
+      name: Void Door-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 95
-        height: 16
+        width: 33
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2006488b850bed4b0800000000000000
-      internalID: -5413695806953463806
+      spriteID: 1e853838e2ce46870800000000000000
+      internalID: 8675318466741491937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Void Door-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2109dc1255b73f444b7f404be1b3d890
+      internalID: -41341115
       vertices: []
       indices: 
       edges: []
@@ -125,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 90d725a1028ce714482b33053ff4516b
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +155,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":33.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":1,"slicingType":2,"keepEmptyRects":true,"isAlternate":false}'
     nameFileIdTable:
-      Void Platform_0: -5413695806953463806
+      Void Door-Sheet_0: 8675318466741491937
+      Void Door-Sheet_1: -41341115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

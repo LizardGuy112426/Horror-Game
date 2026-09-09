@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   rb: {fileID: 443127608409178515}
   Speed: 3
-  Jumpforce: 6
+  Jumpforce: 7
   GroundChecker: {fileID: 1952576183680627679}
   GroundChekerSize: {x: 0.67, y: 0.07}
   Ground:
@@ -366,9 +366,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 67.23156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 67.231575
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 90.9149
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.7457101
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.5444828
+      objectReference: {fileID: 0}
     - target: {fileID: 1186835590908565761, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_EditorClassIdentifier
       value: Assembly-CSharp::CanvaCameraLink
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002596001515522751, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5002596001515522751, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5002596001515522751, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -514,6 +542,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 67.20643
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 67.20644
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 90.88092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2222977
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049524285741089413, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.6875534
+      objectReference: {fileID: 0}
     - target: {fileID: 1186835590908565761, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_EditorClassIdentifier
       value: Assembly-CSharp::CanvaCameraLink
@@ -522,6 +570,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3fbeb446832794d4187ab269a42679b5, type: 2}
+    - target: {fileID: 5002596001515522751, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5002596001515522751, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
@@ -537,6 +589,10 @@ PrefabInstance:
     - target: {fileID: 7753389101113101587, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_RenderMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8180840068222932454, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8823713766076187212, guid: 2b099e110de5cdf4188d37ba180a5a8c, type: 3}
       propertyPath: m_Name

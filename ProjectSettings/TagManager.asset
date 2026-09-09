@@ -9,6 +9,7 @@ TagManager:
   - Mom
   - Enemy
   - Jumpscare
+  - VoidDoor
   layers:
   - Default
   - TransparentFX
@@ -63,6 +64,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 2588384829
+    locked: 0
+  - name: Jumpscare
+    uniqueID: 3593565065
     locked: 0
   m_RenderingLayers:
   - Default

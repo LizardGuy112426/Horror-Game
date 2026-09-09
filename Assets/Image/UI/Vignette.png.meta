@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 936f959cbb02488449cf0adfba11389a
+guid: ebf452a3275a6564ab4fe5ea4c34b0da
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3170569884309980865
-    second: Wind 1-Sheet_0
-  - first:
-      213: -5131487220353290581
-    second: Wind 1-Sheet_1
+      213: -2631856780022775825
+    second: Vignette_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -54,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -78,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wind 1-Sheet_0
+      name: Vignette_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 14
-        width: 129
-        height: 7
+        x: 0
+        y: 0
+        width: 480
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f39f6261d7fdff3d0800000000000000
-      internalID: -3170569884309980865
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wind 1-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 171
-        y: 10
-        width: 91
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: baea2659f8b49c8b0800000000000000
-      internalID: -5131487220353290581
+      spriteID: feff907e334c97bd0800000000000000
+      internalID: -2631856780022775825
       vertices: []
       indices: 
       edges: []
@@ -160,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Wind 1-Sheet_0: -3170569884309980865
-      Wind 1-Sheet_1: -5131487220353290581
+      Vignette_0: -2631856780022775825
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
