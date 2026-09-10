@@ -11,6 +11,11 @@ public sealed class NightmareBedroomIntro2D : MonoBehaviour
 
     private static string pendingCutsceneSceneName;
 
+    public static bool HasPendingCutsceneArrival => string.Equals(
+        pendingCutsceneSceneName,
+        BedroomSceneName,
+        StringComparison.Ordinal);
+
     [Header("Opening Fade")]
     [SerializeField, Min(0f)] private float sceneRevealDuration = 2f;
 
@@ -64,15 +69,15 @@ public sealed class NightmareBedroomIntro2D : MonoBehaviour
         if (dialogue == null)
         {
             Debug.LogWarning("NM Bedroom intro could not find DialogueController2D. Player control was restored.", this);
-            SetPlayerControl(movement, interaction, true);
+            FinishIntro(movement, interaction);
             yield break;
         }
 
         if (!dialogue.PlayAutomatically(openingLines, interaction, lineCompleteDelay,
-                () => SetPlayerControl(movement, interaction, true)))
+                () => FinishIntro(movement, interaction)))
         {
             Debug.LogWarning("NM Bedroom intro could not start automatic dialogue. Player control was restored.", this);
-            SetPlayerControl(movement, interaction, true);
+            FinishIntro(movement, interaction);
         }
     }
 
@@ -157,6 +162,14 @@ public sealed class NightmareBedroomIntro2D : MonoBehaviour
             movement.SetMovementEnabled(enabled);
         if (interaction != null)
             interaction.SetInteractionEnabled(enabled);
+    }
+
+    private static void FinishIntro(
+        MCControllers movement,
+        PlayerDoorInteractor2D interaction)
+    {
+        SetPlayerControl(movement, interaction, true);
+        NightmareTaskController.Instance?.ShowHud();
     }
 
     private void OnValidate()

@@ -22,7 +22,10 @@ public sealed class TableHideSpot2D : PlayerInteractable2D
     private Rigidbody2D hiddenBody;
     private MCControllers hiddenMovement;
     private SpriteRenderer[] hiddenVisuals;
+    private bool[] hiddenVisualEnabledStates;
+    private static TableHideSpot2D activeHideSpot;
 
+    public static bool IsPlayerHidden => activeHideSpot != null && activeHideSpot.hiddenPlayer != null;
     public override Vector3 InteractionPosition => triggerZone != null
         ? triggerZone.bounds.center
         : transform.position;
@@ -106,8 +109,17 @@ public sealed class TableHideSpot2D : PlayerInteractable2D
             hiddenMovement = MCControllers.Instance;
 
         hiddenVisuals = player.GetComponentsInChildren<SpriteRenderer>(true);
-        foreach (SpriteRenderer visual in hiddenVisuals)
+        hiddenVisualEnabledStates = new bool[hiddenVisuals.Length];
+        for (int index = 0; index < hiddenVisuals.Length; index++)
+        {
+            SpriteRenderer visual = hiddenVisuals[index];
+            if (visual == null)
+                continue;
+
+            // Jumpscare renderers are player children but start disabled.
+            hiddenVisualEnabledStates[index] = visual.enabled;
             visual.enabled = false;
+        }
 
         hiddenMovement?.SetMovementEnabled(false);
         if (hiddenBody != null)
@@ -119,6 +131,7 @@ public sealed class TableHideSpot2D : PlayerInteractable2D
         player.TeleportTo(hidePosition.position);
         SetTableSprite(hiddenTableSprite);
         SetFocused(false);
+        activeHideSpot = this;
     }
 
     private void ExitHide()
@@ -131,20 +144,15 @@ public sealed class TableHideSpot2D : PlayerInteractable2D
 
         player.TeleportTo(exitPosition.position);
         hiddenMovement?.SetMovementEnabled(true);
-        if (hiddenVisuals != null)
-        {
-            foreach (SpriteRenderer visual in hiddenVisuals)
-            {
-                if (visual != null)
-                    visual.enabled = true;
-            }
-        }
+        RestorePlayerVisuals();
 
         hiddenPlayer = null;
         hiddenBody = null;
         hiddenMovement = null;
         hiddenVisuals = null;
+        hiddenVisualEnabledStates = null;
         nearbyPlayer = null;
+        ClearHiddenState();
         player.UnregisterInteractable(this);
     }
 
@@ -165,21 +173,37 @@ public sealed class TableHideSpot2D : PlayerInteractable2D
         if (hiddenBody != null)
             hiddenBody.simulated = true;
         hiddenMovement?.SetMovementEnabled(true);
-
-        if (hiddenVisuals != null)
-        {
-            foreach (SpriteRenderer visual in hiddenVisuals)
-            {
-                if (visual != null)
-                    visual.enabled = true;
-            }
-        }
+        RestorePlayerVisuals();
 
         hiddenPlayer = null;
         hiddenBody = null;
         hiddenMovement = null;
         hiddenVisuals = null;
+        hiddenVisualEnabledStates = null;
         nearbyPlayer = null;
+        ClearHiddenState();
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetHiddenState() => activeHideSpot = null;
+
+    private void ClearHiddenState()
+    {
+        if (activeHideSpot == this)
+            activeHideSpot = null;
+    }
+
+    private void RestorePlayerVisuals()
+    {
+        if (hiddenVisuals == null || hiddenVisualEnabledStates == null)
+            return;
+
+        for (int index = 0; index < hiddenVisuals.Length; index++)
+        {
+            SpriteRenderer visual = hiddenVisuals[index];
+            if (visual != null)
+                visual.enabled = hiddenVisualEnabledStates[index];
+        }
     }
 
     private void OnValidate()

@@ -37,7 +37,10 @@ public sealed class EnemyAI : MonoBehaviour
     private Transform player;
     private bool isChasing;
     private bool wasChasing;
+    private bool isWaitingAfterLosingTarget;
+    private float lostTargetWaitRemaining;
     private bool warnedAboutPatrolPoints;
+    private const float LostTargetWaitDuration = 1f;
     [SerializeField] private float baseWalkingSFXInterval = 0.4f;
     [SerializeField] private float minWalkingSFXInterval = 0.15f;
     [SerializeField] private float Speed;
@@ -54,23 +57,47 @@ public sealed class EnemyAI : MonoBehaviour
         player = FindPlayerInRange();
         isChasing = player != null;
 
+        if (isChasing)
+        {
+            isWaitingAfterLosingTarget = false;
+            lostTargetWaitRemaining = 0f;
+        }
+        else if (wasChasing)
+        {
+            isWaitingAfterLosingTarget = true;
+            lostTargetWaitRemaining = LostTargetWaitDuration;
+        }
+        else if (isWaitingAfterLosingTarget)
+        {
+            lostTargetWaitRemaining -= Time.deltaTime;
+            if (lostTargetWaitRemaining <= 0f)
+            {
+                lostTargetWaitRemaining = 0f;
+                isWaitingAfterLosingTarget = false;
+            }
+        }
+
         if (animator != null)
         {
             animator.speed = isChasing ? chaseAnimationSpeed : patrolAnimationSpeed;
         }
 
+        // Record this before optional audio playback so a missing audio manager
+        // can never prevent the chase/lost-target state machine from advancing.
+        bool startedChasing = isChasing && !wasChasing;
+        wasChasing = isChasing;
+
         // Fires once on the exact frame the enemy spots the player.
-        if (isChasing && !wasChasing)
+        if (startedChasing)
         {
             PlaySpotSFX();
         }
-        wasChasing = isChasing;
 
         // Report proximity every frame while chasing so the shared heartbeat can scale with it.
         if (isChasing)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            SoundEffectManager.instance.ReportChaseProximity(distanceToPlayer, detectionRadius);
+            SoundEffectManager.instance?.ReportChaseProximity(distanceToPlayer, detectionRadius);
         }
 
         if (rb.linearVelocityX != 0)
@@ -89,6 +116,9 @@ public sealed class EnemyAI : MonoBehaviour
 
     private void PlaySpotSFX()
     {
+        if (AudioManager.instance == null)
+            return;
+
         if (enemyType == EnemyType.Dad)
             AudioManager.instance.DadSpotSFXPlay();
         else
@@ -97,6 +127,9 @@ public sealed class EnemyAI : MonoBehaviour
 
     private void PlayWalkSFX(float currentSpeed)
     {
+        if (SoundEffectManager.instance == null)
+            return;
+
         if (enemyType == EnemyType.Dad)
             SoundEffectManager.instance.DadWalkSFX(currentSpeed);
         else
@@ -111,11 +144,20 @@ public sealed class EnemyAI : MonoBehaviour
             return;
         }
 
+        if (isWaitingAfterLosingTarget)
+        {
+            StopInPlace();
+            return;
+        }
+
         Patrol();
     }
 
     private Transform FindPlayerInRange()
     {
+        if (TableHideSpot2D.IsPlayerHidden)
+            return null;
+
         GameObject targetObject = GameObject.FindWithTag(targetTag);
 
         if (targetObject == null)
@@ -157,6 +199,14 @@ public sealed class EnemyAI : MonoBehaviour
         {
             patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
         }
+    }
+
+    private void StopInPlace()
+    {
+        rb.linearVelocityX = 0f;
+
+        if (animator != null)
+            animator.SetBool("isWalking", false);
     }
 
     private bool TryGetPatrolTarget(out Transform target)

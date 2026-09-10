@@ -406,6 +406,8 @@ MonoBehaviour:
     dialogue: "\u770B\u8D77\u6765\u597D\u5F00\u5FC3\u554A...\r\n"
   - speakerName: "\u4F73\u601D"
     dialogue: "\u53EF\u60DC\u4E0D\u4F1A\u518D\u6709\u4E86\u5427...\r\n"
+  nightmareObjective: 0
+  inventoryIcon: {fileID: 0}
 --- !u!1001 &368187353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -420,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2319939
+      value: -1.1994908
       objectReference: {fileID: 0}
     - target: {fileID: 4143001216842864146, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6282,6 +6284,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+--- !u!1001 &2100000990
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2000001, guid: 7f3a9a11b4a84ea1a4784e039e98df20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000001, guid: 7f3a9a11b4a84ea1a4784e039e98df20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7f3a9a11b4a84ea1a4784e039e98df20, type: 3}
 --- !u!4 &2120711175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
@@ -6371,3 +6394,4 @@ SceneRoots:
   - {fileID: 1210112598}
   - {fileID: 1675923242}
   - {fileID: 1672268762}
+  - {fileID: 2100000990}

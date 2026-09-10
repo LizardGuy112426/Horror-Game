@@ -140,7 +140,7 @@ public class MCControllers : MonoBehaviour
             WalkingSFXTime = WalkingSFXTime - Time.deltaTime;
             if (WalkingSFXTime <= 0)
             {
-                SoundEffectManager.instance.WalkSFX();
+                SoundEffectManager.instance?.WalkSFX();
                 WalkingSFXTime = WalkingSFXInterval;
             }
         }
@@ -155,6 +155,8 @@ public class MCControllers : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        kill = false;
+
         if (DadJumpscare != null)
             DadJumpscare.enabled = false;
 
@@ -164,8 +166,14 @@ public class MCControllers : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (kill)
+            return;
+
         if (collision.gameObject.CompareTag("Dad"))
         {
+            kill = true;
+            NightmareTaskController.Instance?.ResetCurrentRun();
+
             // Play Dad jumpscare animation
             if (DadJumpscareAnimator != null)
                 DadJumpscareAnimator.SetTrigger("Kill");
@@ -175,10 +183,13 @@ public class MCControllers : MonoBehaviour
                 DadJumpscare.enabled = true;
 
             // Play Dad jumpscare sound
-            SoundEffectManager.instance.DadJumpscare();
+            SoundEffectManager.instance?.DadJumpscare();
         }
         else if (collision.gameObject.CompareTag("Mom"))
         {
+            kill = true;
+            NightmareTaskController.Instance?.ResetCurrentRun();
+
             // Play Mom jumpscare animation
             if (MomJumpscareAnimator != null)
                 MomJumpscareAnimator.SetTrigger("Kill");
@@ -188,7 +199,7 @@ public class MCControllers : MonoBehaviour
                 MomJumpscare.enabled = true;
 
             // Play Mom jumpscare sound
-            SoundEffectManager.instance.MomJumpscare();
+            SoundEffectManager.instance?.MomJumpscare();
         }
     }
 
