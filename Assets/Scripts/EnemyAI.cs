@@ -9,6 +9,7 @@ using UnityEngine;
 public sealed class EnemyAI : MonoBehaviour
 {
     public enum EnemyType { Dad, Mom }
+    private enum EventMode { None, Idle, Chase }
 
     [Header("Enemy Type")]
     [Tooltip("Controls which SoundEffectManager clips (Dad or Mom) this instance uses.")]
@@ -45,15 +46,79 @@ public sealed class EnemyAI : MonoBehaviour
     [SerializeField] private float minWalkingSFXInterval = 0.15f;
     [SerializeField] private float Speed;
 
+    private EventMode eventMode;
+    private Transform eventTarget;
+    private bool simulationBeforeEvent;
+
+    public void ConfigureEnemyType(EnemyType type) => enemyType = type;
+
+    public void SetEventIdle()
+    {
+        CacheComponents();
+        if (eventMode == EventMode.None)
+            simulationBeforeEvent = rb.simulated;
+        eventMode = EventMode.Idle;
+        eventTarget = null;
+        ResetChaseState();
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+        StopInPlace();
+        if (animator != null)
+            animator.speed = patrolAnimationSpeed;
+    }
+
+    public void ChaseForEvent(Transform target)
+    {
+        CacheComponents();
+        if (eventMode == EventMode.None)
+            simulationBeforeEvent = rb.simulated;
+        eventMode = EventMode.Chase;
+        eventTarget = target;
+        rb.simulated = simulationBeforeEvent;
+        ResetChaseState();
+    }
+
+    public void ReleaseEventControl()
+    {
+        if (eventMode == EventMode.None)
+            return;
+        rb.simulated = simulationBeforeEvent;
+        eventMode = EventMode.None;
+        eventTarget = null;
+        ResetChaseState();
+        StopInPlace();
+    }
+
+    private void ResetChaseState()
+    {
+        player = null;
+        isChasing = false;
+        wasChasing = false;
+        isWaitingAfterLosingTarget = false;
+        lostTargetWaitRemaining = 0f;
+    }
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator ??= GetComponent<Animator>();
-        spriteRenderer ??= GetComponent<SpriteRenderer>();
+        CacheComponents();
+    }
+
+    private void CacheComponents()
+    {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (animator == null) animator = GetComponent<Animator>();
+        if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        if (eventMode == EventMode.Idle || PlayerUnavailable())
+        {
+            ResetChaseState();
+            StopInPlace();
+            return;
+        }
+
         player = FindPlayerInRange();
         isChasing = player != null;
 
@@ -97,7 +162,8 @@ public sealed class EnemyAI : MonoBehaviour
         if (isChasing)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-            SoundEffectManager.instance?.ReportChaseProximity(distanceToPlayer, detectionRadius);
+            if (SoundEffectManager.instance != null)
+                SoundEffectManager.instance.ReportChaseProximity(distanceToPlayer, detectionRadius);
         }
 
         if (rb.linearVelocityX != 0)
@@ -138,13 +204,20 @@ public sealed class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isChasing)
+        if (eventMode == EventMode.Idle || PlayerUnavailable()
+            || (eventMode == EventMode.Chase && (TableHideSpot2D.IsPlayerHidden || eventTarget == null)))
+        {
+            StopInPlace();
+            return;
+        }
+
+        if (isChasing && player != null)
         {
             MoveHorizontallyTo(player.position, chaseSpeed);
             return;
         }
 
-        if (isWaitingAfterLosingTarget)
+        if (isWaitingAfterLosingTarget || eventMode == EventMode.Chase)
         {
             StopInPlace();
             return;
@@ -158,17 +231,29 @@ public sealed class EnemyAI : MonoBehaviour
         if (TableHideSpot2D.IsPlayerHidden)
             return null;
 
-        GameObject targetObject = GameObject.FindWithTag(targetTag);
+        if (eventMode == EventMode.Chase)
+            return eventTarget != null && eventTarget.gameObject.activeInHierarchy ? eventTarget : null;
 
-        if (targetObject == null)
-            return null;
+        Transform target = MCControllers.Instance != null ? MCControllers.Instance.transform : null;
+        if (target == null)
+        {
+            GameObject targetObject = GameObject.FindWithTag(targetTag);
+            if (targetObject == null)
+                return null;
+            target = targetObject.transform;
+        }
 
-        Transform target = targetObject.transform;
 
         if (IsWithinDetectionRange(target.position))
             return target;
 
         return null;
+    }
+
+    private static bool PlayerUnavailable()
+    {
+        MCControllers movement = MCControllers.Instance;
+        return movement != null && (movement.IsDying || movement.IsSceneTransitioning);
     }
 
     private bool IsWithinDetectionRange(Vector3 targetPosition)
@@ -181,7 +266,7 @@ public sealed class EnemyAI : MonoBehaviour
     {
         if (!TryGetPatrolTarget(out Transform target))
         {
-            rb.linearVelocityX = 0f;
+            StopInPlace();
 
             if (!warnedAboutPatrolPoints)
             {
@@ -205,7 +290,7 @@ public sealed class EnemyAI : MonoBehaviour
     {
         rb.linearVelocityX = 0f;
 
-        if (animator != null)
+        if (animator != null && animator.isActiveAndEnabled)
             animator.SetBool("isWalking", false);
     }
 

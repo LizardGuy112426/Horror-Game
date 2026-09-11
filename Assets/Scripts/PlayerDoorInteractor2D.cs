@@ -24,7 +24,7 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
 
     private void Update()
     {
-        if (!interactionEnabled)
+        if (!interactionEnabled || PlayerControlBlocked())
             return;
 
         RefreshFocusedInteractables();
@@ -81,12 +81,18 @@ public sealed class PlayerDoorInteractor2D : MonoBehaviour
 
     public void SetInteractionEnabled(bool value)
     {
-        interactionEnabled = value;
+        interactionEnabled = value && !PlayerControlBlocked();
         if (!interactionEnabled)
         {
             ClearFocusedItem();
             ClearFocusedDoor();
         }
+    }
+
+    private bool PlayerControlBlocked()
+    {
+        MCControllers movement = GetComponent<MCControllers>();
+        return movement != null && (movement.IsDying || movement.IsSceneTransitioning);
     }
 
     public void TeleportTo(Vector3 destination)

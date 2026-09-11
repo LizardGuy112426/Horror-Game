@@ -57,13 +57,13 @@ public class SoundEffectManager : MonoBehaviour
 
     public void WalkSFX()
     {
-        if (jumpscarePlaying) return;
+        if (jumpscarePlaying || WalkAudioSource == null || WalkingSFX == null) return;
         WalkAudioSource.volume = walkVolume;
         WalkAudioSource.PlayOneShot(WalkingSFX);
     }
     public void DadWalkSFX(float currentSpeed)
     {
-        if (jumpscarePlaying) return;
+        if (jumpscarePlaying || DadWalkAudioSource == null || DadWalkingSFX == null) return;
         float speedFraction = Mathf.InverseLerp(monsterMinSpeed, monsterMaxSpeed, Mathf.Abs(currentSpeed));
         DadWalkAudioSource.pitch = Mathf.Lerp(monsterMinPitch, monsterMaxPitch, speedFraction);
         DadWalkAudioSource.volume = monsterWalkVolume;
@@ -71,7 +71,7 @@ public class SoundEffectManager : MonoBehaviour
     }
     public void MomWalkSFX(float currentSpeed)
     {
-        if (jumpscarePlaying) return;
+        if (jumpscarePlaying || MomWalkAudioSource == null || MomWalkingSFX == null) return;
         float speedFraction = Mathf.InverseLerp(monsterMinSpeed, monsterMaxSpeed, Mathf.Abs(currentSpeed));
         MomWalkAudioSource.pitch = Mathf.Lerp(monsterMinPitch, monsterMaxPitch, speedFraction);
         MomWalkAudioSource.volume = monsterWalkVolume;
@@ -103,6 +103,21 @@ public class SoundEffectManager : MonoBehaviour
     public void MomJumpscare()
     {
         PlayJumpscare(MomJumpscareSFX);
+    }
+
+    /// <summary>Returns the actual playback time, or zero when audio is unavailable.</summary>
+    public float PlayJumpscareFor(EnemyAI.EnemyType type)
+    {
+        return PlayJumpscare(type == EnemyAI.EnemyType.Dad ? DadJumpscareSFX : MomJumpscareSFX);
+    }
+
+    public void StopJumpscare()
+    {
+        if (jumpscareRoutine != null)
+            StopCoroutine(jumpscareRoutine);
+        jumpscareRoutine = null;
+        jumpscarePlaying = false;
+        StopIfPlaying(JumpscareAudioSource);
     }
 
 
@@ -147,10 +162,10 @@ public class SoundEffectManager : MonoBehaviour
             HeartbeatAudioSource.Stop();
     }
 
-    private void PlayJumpscare(AudioClip clip)
+    private float PlayJumpscare(AudioClip clip)
     {
-        if (clip == null || JumpscareAudioSource == null)
-            return;
+        if (clip == null || JumpscareAudioSource == null || !JumpscareAudioSource.isActiveAndEnabled)
+            return 0f;
 
         MuteAllOtherSounds();
 
@@ -160,7 +175,9 @@ public class SoundEffectManager : MonoBehaviour
         if (jumpscareRoutine != null)
             StopCoroutine(jumpscareRoutine);
 
-        jumpscareRoutine = StartCoroutine(ClearJumpscareFlagAfter(clip.length));
+        float duration = clip.length / Mathf.Max(0.01f, Mathf.Abs(JumpscareAudioSource.pitch));
+        jumpscareRoutine = StartCoroutine(ClearJumpscareFlagAfter(duration));
+        return duration;
     }
 
     private void MuteAllOtherSounds()
@@ -188,7 +205,7 @@ public class SoundEffectManager : MonoBehaviour
 
     private IEnumerator ClearJumpscareFlagAfter(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         jumpscarePlaying = false;
         jumpscareRoutine = null;
     }
@@ -204,6 +221,12 @@ public class SoundEffectManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+            instance = null;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

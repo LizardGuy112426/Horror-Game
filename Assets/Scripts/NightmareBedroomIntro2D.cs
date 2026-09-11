@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public sealed class NightmareBedroomIntro2D : MonoBehaviour
 {
     public const string BedroomSceneName = "NM_Bedroom1";
+    public const string BedroomStartSpawnId = "Cutscene2_BedroomStart";
 
     private static string pendingCutsceneSceneName;
 
@@ -47,6 +48,8 @@ public sealed class NightmareBedroomIntro2D : MonoBehaviour
             ? BedroomSceneName
             : string.Empty;
     }
+
+    public static void ClearPendingArrival() => pendingCutsceneSceneName = string.Empty;
 
     private IEnumerator Start()
     {

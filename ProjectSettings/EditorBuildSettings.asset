@@ -53,5 +53,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nightmare/Void.unity
     guid: 03c51defb89de7d448f07a6d32aef24c
+  - enabled: 1
+    path: Assets/Scenes/BlankEnding.unity
+    guid: 7f86dbe659f2484d89e261f4e421ce54
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

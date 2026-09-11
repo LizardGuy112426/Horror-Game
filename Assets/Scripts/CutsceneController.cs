@@ -223,6 +223,8 @@ public sealed class CutsceneController : MonoBehaviour
         }
 
         NightmareBedroomIntro2D.PrepareCutsceneArrival(nextSceneName);
+        if (nextSceneName == NightmareBedroomIntro2D.BedroomSceneName)
+            SceneSpawnManager2D.PrepareArrival(nextSceneName, NightmareBedroomIntro2D.BedroomStartSpawnId);
         SceneManager.LoadScene(nextSceneName);
     }
 

@@ -307,6 +307,28 @@ public sealed class DialogueController2D : MonoBehaviour
             playerInteraction.SetInteractionEnabled(enabled);
     }
 
+    /// <summary>Closes interrupted dialogue without granting items or advancing a sequence.</summary>
+    public void CancelPlayback()
+    {
+        bool wasPlaying = isPlaying;
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+        if (automaticAdvanceCoroutine != null)
+            StopCoroutine(automaticAdvanceCoroutine);
+        typingCoroutine = null;
+        automaticAdvanceCoroutine = null;
+        completionCallback = null;
+        activeLines = null;
+        isPlaying = false;
+        isTyping = false;
+        automaticallyAdvance = false;
+        keepPlayerLockedOnCompletion = false;
+        if (dialogueRoot != null)
+            dialogueRoot.SetActive(false);
+        if (wasPlaying)
+            SetPlayerControl(true);
+    }
+
     private void UpdateHint()
     {
         if (continueHintText != null)
@@ -330,13 +352,7 @@ public sealed class DialogueController2D : MonoBehaviour
 
     private void OnDisable()
     {
-        if (isPlaying)
-        {
-            isPlaying = false;
-            automaticallyAdvance = false;
-            keepPlayerLockedOnCompletion = false;
-            SetPlayerControl(true);
-        }
+        CancelPlayback();
     }
 
     private void OnValidate()
