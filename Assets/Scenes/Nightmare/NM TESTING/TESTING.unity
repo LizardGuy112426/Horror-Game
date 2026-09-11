@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
   m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
@@ -4186,7 +4186,7 @@ Transform:
   m_GameObject: {fileID: 2200000000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2, y: -2.2, z: 0}
+  m_LocalPosition: {x: 5.92, y: -2.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4289,9 +4289,9 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.875, y: 0.8125}
+    newSize: {x: 0.875, y: 0.8125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -4308,15 +4308,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2d3e4f5607a49ab8c91de0f3a4b5c6d, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NightmareDiaryInteractable2D
   interactionTrigger: {fileID: 2200000003}
   promptObject: {fileID: 0}
   interactionSize: {x: 1.5, y: 1.5}
   promptOffset: {x: 0, y: 1.1, z: 0}
   previewReaderImmediately: 1
-  openingLines: []
-  followUpLines: []
+  openingLines:
+  - speakerName: 
+    dialogue: 
+  followUpLines:
+  - speakerName: 
+    dialogue: 
   diaryPageSprite: {fileID: 0}
   diaryPageText: "\u8BF7\u5728 Dairy \u7684 Inspector \u586B\u5199 Diary Page Text\u3002"
   optionPanelSprite: {fileID: -6794205791535205385, guid: 71bd8abcd5508b946979c604fe921410, type: 3}
@@ -4333,7 +4337,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e4f5a6718b4c9da0b1c2d3e4f5a6b7, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiaryReaderOverlay2D
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
