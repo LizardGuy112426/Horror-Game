@@ -33,6 +33,7 @@ public sealed class DialogueController2D : MonoBehaviour
     private Coroutine automaticAdvanceCoroutine;
     private Action completionCallback;
     private float automaticLineDelay;
+    private bool keepPlayerLockedOnCompletion;
 
     public bool IsPlaying => isPlaying;
 
@@ -115,7 +116,19 @@ public sealed class DialogueController2D : MonoBehaviour
         PlayerDoorInteractor2D player,
         Action onComplete = null)
     {
-        return BeginPlayback(lines, player, false, 0f, onComplete);
+        return BeginPlayback(lines, player, false, 0f, false, onComplete);
+    }
+
+    /// <summary>
+    /// Plays manual dialogue while leaving movement and interactions locked for the completion callback.
+    /// The callback is responsible for starting the next modal or restoring player control.
+    /// </summary>
+    public bool PlayKeepingPlayerLocked(
+        DialogueLine[] lines,
+        PlayerDoorInteractor2D player,
+        Action onComplete = null)
+    {
+        return BeginPlayback(lines, player, false, 0f, true, onComplete);
     }
 
     /// <summary>Plays dialogue without player input, waiting after each fully typed line.</summary>
@@ -125,7 +138,7 @@ public sealed class DialogueController2D : MonoBehaviour
         float lineCompleteDelay,
         Action onComplete = null)
     {
-        return BeginPlayback(lines, player, true, lineCompleteDelay, onComplete);
+        return BeginPlayback(lines, player, true, lineCompleteDelay, false, onComplete);
     }
 
     private bool BeginPlayback(
@@ -133,6 +146,7 @@ public sealed class DialogueController2D : MonoBehaviour
         PlayerDoorInteractor2D player,
         bool shouldAutomaticallyAdvance,
         float lineDelay,
+        bool shouldKeepPlayerLockedOnComplete,
         Action onComplete)
     {
         if (isPlaying || lines == null || lines.Length == 0)
@@ -152,6 +166,7 @@ public sealed class DialogueController2D : MonoBehaviour
         isPlaying = true;
         automaticallyAdvance = shouldAutomaticallyAdvance;
         automaticLineDelay = Mathf.Max(0f, lineDelay);
+        keepPlayerLockedOnCompletion = shouldKeepPlayerLockedOnComplete;
 
         SetPlayerControl(false);
         if (dialogueRoot != null)
@@ -269,10 +284,13 @@ public sealed class DialogueController2D : MonoBehaviour
         isPlaying = false;
         automaticallyAdvance = false;
         activeLines = null;
+        bool keepPlayerLocked = keepPlayerLockedOnCompletion;
+        keepPlayerLockedOnCompletion = false;
 
         if (dialogueRoot != null)
             dialogueRoot.SetActive(false);
-        SetPlayerControl(true);
+        if (!keepPlayerLocked)
+            SetPlayerControl(true);
 
         Action callback = completionCallback;
         completionCallback = null;
@@ -316,6 +334,7 @@ public sealed class DialogueController2D : MonoBehaviour
         {
             isPlaying = false;
             automaticallyAdvance = false;
+            keepPlayerLockedOnCompletion = false;
             SetPlayerControl(true);
         }
     }

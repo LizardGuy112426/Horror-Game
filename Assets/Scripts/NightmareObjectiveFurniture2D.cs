@@ -5,13 +5,13 @@ using UnityEngine;
 /// interaction used by existing furniture and records its objective on dialogue completion.
 /// </summary>
 [DisallowMultipleComponent]
-[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(ItemDialogueInteractable2D))]
 [RequireComponent(typeof(ItemInteractionTrigger2D))]
 public sealed class NightmareObjectiveFurniture2D : MonoBehaviour
 {
-    [Header("World Visual")]
+    [Header("Optional World Visual")]
+    [Tooltip("Optional. Leave empty to preserve this object's current visual, or use no SpriteRenderer at all.")]
     [SerializeField] private Sprite worldSprite;
     [SerializeField] private Vector2 interactionSize = new(1.5f, 1.5f);
     [SerializeField] private Vector3 promptOffset = new(0f, 1.1f, 0f);
@@ -28,28 +28,22 @@ public sealed class NightmareObjectiveFurniture2D : MonoBehaviour
 
     private void OnValidate()
     {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (renderer != null && worldSprite != null)
-            renderer.sprite = worldSprite;
-
-        BoxCollider2D trigger = GetComponent<BoxCollider2D>();
-        if (trigger != null)
-        {
-            trigger.isTrigger = true;
-            trigger.size = interactionSize;
-        }
-
+        ApplyWorldVisual();
+        ConfigureTrigger();
+        UpdateExistingPromptPosition();
     }
 
     private void EnsureInteraction()
     {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (worldSprite != null)
-            renderer.sprite = worldSprite;
-
         interactionCollider = GetComponent<BoxCollider2D>();
-        interactionCollider.isTrigger = true;
-        interactionCollider.size = interactionSize;
+        if (interactionCollider == null)
+        {
+            Debug.LogWarning($"Nightmare furniture '{name}' is missing a BoxCollider2D.", this);
+            return;
+        }
+
+        ApplyWorldVisual();
+        ConfigureTrigger();
 
         dialogueItem = GetComponent<ItemDialogueInteractable2D>();
         interactionTrigger = GetComponent<ItemInteractionTrigger2D>();
@@ -60,35 +54,32 @@ public sealed class NightmareObjectiveFurniture2D : MonoBehaviour
             return;
         }
 
-        promptObject = CreatePrompt();
+        promptObject = WorldEPrompt2D.GetOrCreate(transform, promptOffset);
         dialogueItem.Configure(interactionCollider, promptObject, null);
         interactionTrigger.Configure(dialogueItem);
     }
 
-    private GameObject CreatePrompt()
+    private void ApplyWorldVisual()
+    {
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if (renderer != null && worldSprite != null)
+            renderer.sprite = worldSprite;
+    }
+
+    private void ConfigureTrigger()
+    {
+        BoxCollider2D trigger = GetComponent<BoxCollider2D>();
+        if (trigger == null)
+            return;
+
+        trigger.isTrigger = true;
+        trigger.size = interactionSize;
+    }
+
+    private void UpdateExistingPromptPosition()
     {
         Transform existingPrompt = transform.Find("E Prompt");
         if (existingPrompt != null)
-            return existingPrompt.gameObject;
-
-        GameObject prompt = new("E Prompt", typeof(TextMesh));
-        prompt.transform.SetParent(transform, false);
-        prompt.transform.localPosition = promptOffset;
-
-        TextMesh text = prompt.GetComponent<TextMesh>();
-        text.text = "E";
-        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        text.fontSize = 54;
-        text.characterSize = 0.1f;
-        text.anchor = TextAnchor.MiddleCenter;
-        text.alignment = TextAlignment.Center;
-        text.color = Color.white;
-
-        MeshRenderer renderer = prompt.GetComponent<MeshRenderer>();
-        if (renderer != null)
-            renderer.sortingOrder = 100;
-
-        prompt.SetActive(false);
-        return prompt;
+            existingPrompt.localPosition = promptOffset;
     }
 }

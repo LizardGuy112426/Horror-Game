@@ -20,9 +20,9 @@ public sealed class ItemDialogueInteractable2D : PlayerInteractable2D
     };
 
     [Header("Optional Nightmare Objective")]
-    [Tooltip("Leave as None for ordinary dialogue furniture, including all Happy scenes.")]
+    [Tooltip("Leave as None for ordinary dialogue furniture, including all Happy scenes. Use only Clothes, Identity Card, or Wallet here; Front Door Key is granted by Dairy.")]
     [SerializeField] private NightmareObjectiveItem nightmareObjective = NightmareObjectiveItem.None;
-    [Tooltip("Shown in the next bottom inventory slot after this dialogue finishes.")]
+    [Tooltip("Shown in the next bottom inventory slot after this dialogue finishes. This never changes the world SpriteRenderer.")]
     [SerializeField] private Sprite inventoryIcon;
 
     private bool hasCompleted;

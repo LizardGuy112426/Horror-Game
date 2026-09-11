@@ -1,5 +1,7 @@
 public enum NightmareTaskStage
 {
     FindWayOut,
-    CollectEscapeItems
+    CollectEscapeItems,
+    GoToParentsBedroomForKey,
+    GoToFrontDoor
 }

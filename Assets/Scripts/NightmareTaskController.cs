@@ -37,6 +37,8 @@ public sealed class NightmareTaskController : MonoBehaviour
     [Header("Task Text")]
     [SerializeField] private string findWayOutText = "找到离开这里的方法。";
     [SerializeField] private string collectEscapeItemsText = "躲避怪物，获得关键物品，逃离这里。";
+    [SerializeField] private string goToParentsBedroomForKeyText = "前往父母房获得大门钥匙。";
+    [SerializeField] private string goToFrontDoorText = "离开房间后，前往大门口。";
 
     [Header("Prefab UI References")]
     [Tooltip("The child Canvas that contains the editable Nightmare task HUD.")]
@@ -68,7 +70,7 @@ public sealed class NightmareTaskController : MonoBehaviour
 
     public bool CanCollectObjective(NightmareObjectiveItem objective)
     {
-        return objective != NightmareObjectiveItem.None
+        return IsRequiredObjective(objective)
             && currentStage == NightmareTaskStage.CollectEscapeItems
             && !IsObjectiveCollected(objective);
     }
@@ -86,6 +88,30 @@ public sealed class NightmareTaskController : MonoBehaviour
             objective = objective,
             icon = inventoryIcon
         });
+
+        if (AreAllRequiredObjectivesCollected())
+            currentStage = NightmareTaskStage.GoToParentsBedroomForKey;
+
+        RefreshHud();
+        return true;
+    }
+
+    /// <summary>Records the diary key in the next inventory slot and unlocks the front-door task.</summary>
+    public bool TryCollectFrontDoorKey(Sprite inventoryIcon, int expectedRunVersion)
+    {
+        if (expectedRunVersion != runVersion
+            || currentStage != NightmareTaskStage.GoToParentsBedroomForKey
+            || IsObjectiveCollected(NightmareObjectiveItem.FrontDoorKey))
+        {
+            return false;
+        }
+
+        collectedObjectives.Add(new CollectedObjective
+        {
+            objective = NightmareObjectiveItem.FrontDoorKey,
+            icon = inventoryIcon
+        });
+        currentStage = NightmareTaskStage.GoToFrontDoor;
         RefreshHud();
         return true;
     }
@@ -161,6 +187,28 @@ public sealed class NightmareTaskController : MonoBehaviour
         return null;
     }
 
+    private bool AreAllRequiredObjectivesCollected()
+    {
+        foreach (NightmareObjectiveItem objective in RequiredObjectives)
+        {
+            if (!IsObjectiveCollected(objective))
+                return false;
+        }
+
+        return true;
+    }
+
+    private static bool IsRequiredObjective(NightmareObjectiveItem objective)
+    {
+        foreach (NightmareObjectiveItem requiredObjective in RequiredObjectives)
+        {
+            if (objective == requiredObjective)
+                return true;
+        }
+
+        return false;
+    }
+
     private bool EnsureHud()
     {
         if (HasCompleteUi())
@@ -213,9 +261,14 @@ public sealed class NightmareTaskController : MonoBehaviour
 
         if (taskText != null)
         {
-            taskText.text = currentStage == NightmareTaskStage.FindWayOut
-                ? findWayOutText
-                : collectEscapeItemsText;
+            taskText.text = currentStage switch
+            {
+                NightmareTaskStage.FindWayOut => findWayOutText,
+                NightmareTaskStage.CollectEscapeItems => collectEscapeItemsText,
+                NightmareTaskStage.GoToParentsBedroomForKey => goToParentsBedroomForKeyText,
+                NightmareTaskStage.GoToFrontDoor => goToFrontDoorText,
+                _ => string.Empty
+            };
         }
 
         bool showObjectives = currentStage == NightmareTaskStage.CollectEscapeItems;
