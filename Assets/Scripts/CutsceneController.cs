@@ -21,15 +21,17 @@ public sealed class CgPage
 }
 
 /// <summary>
-/// Plays four CG pages automatically. A full-screen black overlay fades away before the first
+/// Plays configured CG pages automatically. A full-screen black overlay fades away before the first
 /// dialogue, then each completed page remains visible for a configurable delay.
 /// </summary>
 public sealed class CutsceneController : MonoBehaviour
 {
     public const int RequiredPageCount = 4;
 
-    [Header("Four CG pages")]
+    [Header("CG Pages")]
+    [SerializeField, Min(1)] private int pageCount = RequiredPageCount;
     [SerializeField] private CgPage[] pages = new CgPage[RequiredPageCount];
+    [SerializeField] private bool clearGameplayPlayerOnStart;
 
     [Header("UI references")]
     [SerializeField] private Image cgImage;
@@ -70,16 +72,29 @@ public sealed class CutsceneController : MonoBehaviour
         dialogueText = bodyText;
         continueHintText = hintText;
         blackOverlay = openingBlackOverlay;
-        EnsureFourPages();
+        EnsurePages();
     }
 
     private void Awake()
     {
-        EnsureFourPages();
+        EnsurePages();
         if (cgImage == null || dialogueText == null)
             BuildFallbackUi();
 
         PrepareOpeningBlackOverlay();
+        NightmareScreenFade2D.ReleaseOverlayAfterSceneHandoff();
+        if (clearGameplayPlayerOnStart)
+        {
+            MCControllers player = MCControllers.Instance;
+            if (player != null)
+            {
+                player.gameObject.SetActive(false);
+                Destroy(player.gameObject);
+            }
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 1f;
+        }
         StoryFadeTransition2D transition = FindAnyObjectByType<StoryFadeTransition2D>();
         if (transition != null)
             transition.ReleaseOverlayAfterSceneHandoff();
@@ -98,7 +113,7 @@ public sealed class CutsceneController : MonoBehaviour
         PreparePageVisual(0, false);
         yield return PlayOpeningBlackFade();
 
-        for (int pageIndex = 0; pageIndex < RequiredPageCount; pageIndex++)
+        for (int pageIndex = 0; pageIndex < pages.Length; pageIndex++)
         {
             PreparePageVisual(pageIndex, true);
             yield return TypePage(pages[pageIndex].dialogue ?? string.Empty);
@@ -179,7 +194,7 @@ public sealed class CutsceneController : MonoBehaviour
 
     private void PreparePageVisual(int index, bool showDialogue)
     {
-        int clampedIndex = Mathf.Clamp(index, 0, RequiredPageCount - 1);
+        int clampedIndex = Mathf.Clamp(index, 0, pages.Length - 1);
         CgPage page = pages[clampedIndex] ?? new CgPage();
         pages[clampedIndex] = page;
 
@@ -230,21 +245,22 @@ public sealed class CutsceneController : MonoBehaviour
 
     private void OnValidate()
     {
-        EnsureFourPages();
+        EnsurePages();
         secondsPerCharacter = Mathf.Max(0.005f, secondsPerCharacter);
         pageCompleteDelay = Mathf.Max(0f, pageCompleteDelay);
         blackFadeDuration = Mathf.Max(0f, blackFadeDuration);
         finalBlackFadeDuration = Mathf.Max(0f, finalBlackFadeDuration);
     }
 
-    private void EnsureFourPages()
+    private void EnsurePages()
     {
+        pageCount = Mathf.Max(1, pageCount);
         if (pages == null)
-            pages = new CgPage[RequiredPageCount];
-        else if (pages.Length != RequiredPageCount)
-            Array.Resize(ref pages, RequiredPageCount);
+            pages = new CgPage[pageCount];
+        else if (pages.Length != pageCount)
+            Array.Resize(ref pages, pageCount);
 
-        for (int i = 0; i < RequiredPageCount; i++)
+        for (int i = 0; i < pageCount; i++)
         {
             pages[i] ??= new CgPage
             {

@@ -56,5 +56,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BlankEnding.unity
     guid: 7f86dbe659f2484d89e261f4e421ce54
+  - enabled: 1
+    path: Assets/Scenes/Cutscene3.unity
+    guid: 491b29a8d78b480bb6a5de8c3d359df4
+  - enabled: 1
+    path: Assets/Scenes/NewsIntro.unity
+    guid: 4035df1e1e567bf47bae69986075d5dc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -49,6 +50,13 @@ public sealed class EnemyAI : MonoBehaviour
     private EventMode eventMode;
     private Transform eventTarget;
     private bool simulationBeforeEvent;
+    private Func<MCControllers, bool> storyContactHandler;
+
+    public void SetStoryContactHandler(Func<MCControllers, bool> handler) => storyContactHandler = handler;
+
+    public bool TryHandleStoryContact(MCControllers target) => storyContactHandler?.Invoke(target) == true;
+
+    private void OnDisable() => storyContactHandler = null;
 
     public void ConfigureEnemyType(EnemyType type) => enemyType = type;
 
@@ -80,6 +88,7 @@ public sealed class EnemyAI : MonoBehaviour
 
     public void ReleaseEventControl()
     {
+        storyContactHandler = null;
         if (eventMode == EventMode.None)
             return;
         rb.simulated = simulationBeforeEvent;

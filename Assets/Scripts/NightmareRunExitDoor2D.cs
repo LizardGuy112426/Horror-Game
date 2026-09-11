@@ -13,7 +13,7 @@ public sealed class NightmareRunExitDoor2D : PlayerInteractable2D
     [SerializeField] private Vector3 promptOffset = new(0f, 1.7f, 0f);
 
     [Header("Scene Transition")]
-    [SerializeField] private string targetSceneName = "BlankEnding";
+    [SerializeField] private string targetSceneName = "NewsIntro";
     [SerializeField, Min(0f)] private float fadeOutDuration = 2f;
 
     private bool runPathEnabled;

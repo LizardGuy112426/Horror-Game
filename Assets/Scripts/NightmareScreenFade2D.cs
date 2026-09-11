@@ -16,6 +16,41 @@ public sealed class NightmareScreenFade2D : MonoBehaviour
 
     private Image overlay;
     private Coroutine activeRoutine;
+    private string pendingScene;
+
+    public static bool CancelPendingScene(string sceneName)
+    {
+        if (instance == null || instance.pendingScene != sceneName || instance.activeRoutine == null)
+            return false;
+        ReleaseOverlayAfterSceneHandoff();
+        return true;
+    }
+
+    public static void ReleaseOverlayAfterSceneHandoff()
+    {
+        if (instance == null) return;
+        instance.pendingScene = null;
+        Destroy(instance.gameObject);
+        instance.gameObject.SetActive(false);
+        instance = null;
+    }
+
+    private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        StopAllCoroutines();
+        activeRoutine = null;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (string.IsNullOrEmpty(pendingScene)) return;
+        bool interrupted = scene.name != pendingScene;
+        pendingScene = null;
+        if (interrupted) ReleaseOverlayAfterSceneHandoff();
+    }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStaticState()
@@ -122,6 +157,7 @@ public sealed class NightmareScreenFade2D : MonoBehaviour
 
     private IEnumerator FadeAndLoadRoutine(string targetSceneName, float duration)
     {
+        pendingScene = targetSceneName;
         PrepareOverlay(overlay != null && overlay.gameObject.activeSelf ? overlay.color.a : 0f);
         yield return FadeTo(1f, duration);
         activeRoutine = null;

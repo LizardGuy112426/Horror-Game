@@ -39,6 +39,24 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     [Header("RUN Exit")]
     [SerializeField] private NightmareRunExitDoor2D runExitDoor;
 
+    [Header("STAY Dialogue And Ending")]
+    [SerializeField] private string staySceneName = "Cutscene3";
+    [SerializeField, Min(0f)] private float stayFadeDuration = 2f;
+    [SerializeField] private DialogueLine[] stayLines =
+    {
+        new DialogueLine { speakerName = "父母", dialogue = "...孩子。你真的要那样做吗？..." },
+        new DialogueLine { speakerName = "思佳", dialogue = "..." },
+        new DialogueLine { speakerName = "思佳", dialogue = "...我知道我从来都不是想要和弟弟挣什么..." },
+        new DialogueLine { speakerName = "思佳", dialogue = "我只是..." },
+        new DialogueLine { speakerName = "思佳", dialogue = "想要被你们认真对待。" },
+        new DialogueLine { speakerName = "爸爸", dialogue = "..." },
+        new DialogueLine { speakerName = "爸爸", dialogue = "我们，也很多次尝试过和你聊聊，只是，也不知道怎么开口，我身为父亲，真的。" },
+        new DialogueLine { speakerName = "爸爸", dialogue = "很对不起你。让你独自承受了那么多。" },
+        new DialogueLine { speakerName = "妈妈", dialogue = "妈妈，不，我们从来没有想这样对待你。是我疏忽了你。" },
+        new DialogueLine { speakerName = "妈妈", dialogue = "不要再自己忍耐了...对不起..." },
+        new DialogueLine { speakerName = "思佳", dialogue = "..." }
+    };
+
     private PlayerDoorInteractor2D activePlayer;
     private Coroutine cameraRoutine;
     private Transform originalCameraFollow;
@@ -53,6 +71,8 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     private EnemyAI eventMom;
     private GameObject parentsRoot;
     private DialogueController2D activeDialogue;
+    private bool staySelected;
+    private bool stayDialogueStarted;
 
     public void Configure(
         BoxCollider2D trigger,
@@ -79,6 +99,9 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
 
     private void OnDisable()
     {
+        if (staySelected && NightmareScreenFade2D.CancelPendingScene(staySceneName)
+            && activeMovement != null)
+            activeMovement.CancelSceneTransition();
         CancelSequence(true);
     }
 
@@ -232,7 +255,7 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
         if (!sequenceInProgress || activePlayer == null)
             return;
 
-        choiceUi = NightmareFrontDoorChoiceUI.Show(ChooseRun, OnChoiceTimeout);
+        choiceUi = NightmareFrontDoorChoiceUI.Show(ChooseRun, OnChoiceTimeout, ChooseStay);
         if (choiceUi != null)
             return;
 
@@ -265,6 +288,61 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
         choiceResolved = true;
         SetPlayerControl(activePlayer, false);
         StartParentsChase();
+    }
+
+    private void ChooseStay()
+    {
+        choiceUi = null;
+        if (!sequenceInProgress || activePlayer == null || choiceResolved)
+            return;
+
+        choiceResolved = true;
+        staySelected = true;
+        activeDialogue = FindDialogueController();
+        if (activeDialogue == null || stayLines == null || stayLines.Length == 0
+            || !Application.CanStreamedLevelBeLoaded(staySceneName))
+        {
+            Debug.LogError("STAY needs a DialogueCanvas, dialogue lines and an enabled Cutscene3 scene.", this);
+            CancelSequence(true);
+            return;
+        }
+        SetPlayerControl(activePlayer, false);
+        runExitDoor.DeactivateRunPath(activePlayer);
+        eventDad.SetStoryContactHandler(OnStayParentContact);
+        eventMom.SetStoryContactHandler(OnStayParentContact);
+        StartParentsChase();
+    }
+
+    private bool OnStayParentContact(MCControllers player)
+    {
+        if (!sequenceInProgress || !staySelected || player != activeMovement)
+            return false;
+        if (stayDialogueStarted)
+            return true;
+
+        stayDialogueStarted = true;
+        eventDad.SetEventIdle();
+        eventMom.SetEventIdle();
+        if (AudioManager.instance != null)
+            AudioManager.instance.StopEnemySpotSound();
+        if (!activeDialogue.PlayKeepingPlayerLocked(stayLines, activePlayer, FinishStayDialogue))
+        {
+            Debug.LogError("STAY dialogue could not start.", this);
+            CancelSequence(true);
+        }
+        return true;
+    }
+
+    private void FinishStayDialogue()
+    {
+        activeDialogue = null;
+        if (!sequenceInProgress || activeMovement == null || !activeMovement.BeginSceneTransition())
+            return;
+        if (!NightmareScreenFade2D.FadeToScene(staySceneName, stayFadeDuration))
+        {
+            activeMovement.CancelSceneTransition();
+            CancelSequence(true);
+        }
     }
 
     private void SpawnEventParents()
@@ -320,6 +398,8 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     {
         if (parentsRoot != null)
         {
+            if (eventDad != null) eventDad.SetStoryContactHandler(null);
+            if (eventMom != null) eventMom.SetStoryContactHandler(null);
             parentsRoot.SetActive(false);
             Destroy(parentsRoot);
         }

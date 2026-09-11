@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>Owns the editable RUN/STAY modal. STAY is intentionally disabled for this story pass.</summary>
+/// <summary>Owns the editable, timed RUN/STAY modal.</summary>
 public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
 {
     private const string ResourceName = "NightmareFrontDoorChoiceUI";
@@ -17,13 +17,15 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
 
     private Action runCallback;
     private Action timeoutCallback;
+    private Action stayCallback;
+    private enum Choice { Run, Stay, Timeout }
     private double deadline;
     private bool resolved;
     private bool cursorCaptured;
     private bool storedCursorState;
     private CursorLockMode storedCursorLockMode;
 
-    public static NightmareFrontDoorChoiceUI Show(Action onRun, Action onTimeout = null)
+    public static NightmareFrontDoorChoiceUI Show(Action onRun, Action onTimeout = null, Action onStay = null)
     {
         GameObject prefab = Resources.Load<GameObject>(ResourceName);
         if (prefab == null)
@@ -43,7 +45,7 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
             return null;
         }
 
-        choice.Initialize(onRun, onTimeout);
+        choice.Initialize(onRun, onTimeout, onStay);
         return choice;
     }
 
@@ -59,10 +61,11 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
         stayButton = stay;
     }
 
-    private void Initialize(Action onRun, Action onTimeout)
+    private void Initialize(Action onRun, Action onTimeout, Action onStay)
     {
         runCallback = onRun;
         timeoutCallback = onTimeout;
+        stayCallback = onStay;
         resolved = false;
         deadline = Time.realtimeSinceStartupAsDouble + ChoiceDuration;
         storedCursorState = Cursor.visible;
@@ -91,18 +94,24 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
             runButton.interactable = true;
         }
 
-        // STAY is a visible placeholder until its story branch is authored.
         if (stayButton != null)
         {
-            stayButton.onClick.RemoveAllListeners();
-            stayButton.interactable = false;
+            stayButton.onClick.RemoveListener(ChooseStay);
+            stayButton.onClick.AddListener(ChooseStay);
+            stayButton.interactable = onStay != null;
         }
     }
 
     private void ChooseRun()
     {
         // Check the same deadline here and in Update, regardless of UI update order.
-        Resolve(Time.realtimeSinceStartupAsDouble >= deadline);
+        Resolve(Time.realtimeSinceStartupAsDouble >= deadline ? Choice.Timeout : Choice.Run);
+    }
+
+    private void ChooseStay()
+    {
+        if (stayCallback != null)
+            Resolve(Time.realtimeSinceStartupAsDouble >= deadline ? Choice.Timeout : Choice.Stay);
     }
 
     private void Update()
@@ -116,7 +125,7 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
         }
         UpdateTimeText();
         if (Time.realtimeSinceStartupAsDouble >= deadline)
-            Resolve(true);
+            Resolve(Choice.Timeout);
     }
 
     private void UpdateTimeText()
@@ -126,17 +135,21 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
                 (float)(deadline - Time.realtimeSinceStartupAsDouble))).ToString();
     }
 
-    private void Resolve(bool timedOut)
+    private void Resolve(Choice choice)
     {
         if (resolved)
             return;
         resolved = true;
         if (runButton != null)
             runButton.interactable = false;
+        if (stayButton != null)
+            stayButton.interactable = false;
 
-        Action callback = timedOut ? timeoutCallback : runCallback;
+        Action callback = choice == Choice.Timeout ? timeoutCallback
+            : choice == Choice.Stay ? stayCallback : runCallback;
         runCallback = null;
         timeoutCallback = null;
+        stayCallback = null;
         gameObject.SetActive(false);
         Destroy(gameObject);
         callback?.Invoke();
@@ -147,6 +160,7 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
         resolved = true;
         runCallback = null;
         timeoutCallback = null;
+        stayCallback = null;
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
@@ -156,8 +170,11 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
         resolved = true;
         runCallback = null;
         timeoutCallback = null;
+        stayCallback = null;
         if (runButton != null)
             runButton.onClick.RemoveListener(ChooseRun);
+        if (stayButton != null)
+            stayButton.onClick.RemoveListener(ChooseStay);
 
         if (!Application.isPlaying || !cursorCaptured)
             return;

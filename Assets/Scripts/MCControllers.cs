@@ -201,6 +201,10 @@ public class MCControllers : MonoBehaviour
         if (kill || IsSceneTransitioning || TableHideSpot2D.IsPlayerHidden)
             return;
 
+        EnemyAI enemy = collision.gameObject.GetComponentInParent<EnemyAI>();
+        if (enemy != null && enemy.TryHandleStoryContact(this))
+            return;
+
         if (collision.gameObject.CompareTag("Dad"))
             BeginDeath(EnemyAI.EnemyType.Dad);
         else if (collision.gameObject.CompareTag("Mom"))

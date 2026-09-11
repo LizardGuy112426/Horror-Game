@@ -704,6 +704,31 @@ MonoBehaviour:
   dadSpawnPoint: {fileID: 2146000001}
   momSpawnPoint: {fileID: 2146000011}
   runExitDoor: {fileID: 767334206}
+  staySceneName: Cutscene3
+  stayFadeDuration: 2
+  stayLines:
+  - speakerName: "父母"
+    dialogue: "...孩子。你真的要那样做吗？..."
+  - speakerName: "思佳"
+    dialogue: "..."
+  - speakerName: "思佳"
+    dialogue: "...我知道我从来都不是想要和弟弟挣什么..."
+  - speakerName: "思佳"
+    dialogue: "我只是..."
+  - speakerName: "思佳"
+    dialogue: "想要被你们认真对待。"
+  - speakerName: "爸爸"
+    dialogue: "..."
+  - speakerName: "爸爸"
+    dialogue: "我们，也很多次尝试过和你聊聊，只是，也不知道怎么开口，我身为父亲，真的。"
+  - speakerName: "爸爸"
+    dialogue: "很对不起你。让你独自承受了那么多。"
+  - speakerName: "妈妈"
+    dialogue: "妈妈，不，我们从来没有想这样对待你。是我疏忽了你。"
+  - speakerName: "妈妈"
+    dialogue: "不要再自己忍耐了...对不起..."
+  - speakerName: "思佳"
+    dialogue: "..."
 --- !u!61 &513789357
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -846,7 +871,7 @@ MonoBehaviour:
   promptObject: {fileID: 0}
   interactionSize: {x: 2.8, y: 3.2}
   promptOffset: {x: 0, y: 1.7, z: 0}
-  targetSceneName: BlankEnding
+  targetSceneName: NewsIntro
   fadeOutDuration: 2
 --- !u!61 &767334207
 BoxCollider2D:
