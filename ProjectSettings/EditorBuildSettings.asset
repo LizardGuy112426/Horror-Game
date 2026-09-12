@@ -65,5 +65,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NewsIntro.unity
     guid: 4035df1e1e567bf47bae69986075d5dc
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/Ending Animation.unity
+    guid: 95862f5d9ff9446419c7f17fda0d8d5f
+  - enabled: 1
+    path: Assets/Scenes/Nightmare/ChooseEnding.unity
+    guid: 839e3e4e33e3bcc4a80f2fad39ccbe45
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

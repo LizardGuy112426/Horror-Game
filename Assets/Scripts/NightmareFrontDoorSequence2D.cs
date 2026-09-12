@@ -11,6 +11,7 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     [Header("Sequence Trigger")]
     [SerializeField] private BoxCollider2D sequenceTrigger;
     [SerializeField] private Vector2 triggerSize = new(2.8f, 3.2f);
+    [SerializeField] private string endingSceneName = "Ending Animation";
 
     [Header("Dialogue")]
     [SerializeField] private DialogueLine[] openingLines =
@@ -151,7 +152,7 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
 
     private void TryStartSequence(Collider2D other)
     {
-        if (sequenceInProgress || runPathSelected || sequenceFinished || !IsFrontDoorTaskActive())
+        if (sequenceFinished || !IsFrontDoorTaskActive())
             return;
 
         PlayerDoorInteractor2D player = other.GetComponentInParent<PlayerDoorInteractor2D>();
@@ -161,35 +162,25 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
         MCControllers movement = player.GetComponent<MCControllers>();
         if (movement == null || movement.IsDying || movement.IsSceneTransitioning)
             return;
-        if (dadPrefab == null || momPrefab == null || dadSpawnPoint == null || momSpawnPoint == null
-            || dadPrefab.GetComponent<EnemyAI>() == null || momPrefab.GetComponent<EnemyAI>() == null
-            || runExitDoor == null)
+
+        if (string.IsNullOrWhiteSpace(endingSceneName)
+            || !Application.CanStreamedLevelBeLoaded(endingSceneName.Trim()))
         {
-            Debug.LogError("Front Door needs both EnemyAI prefabs, both spawn points and its RUN exit.", this);
-            sequenceFinished = true;
+            Debug.LogError(
+                $"Front Door cannot load ending scene '{endingSceneName}'. "
+                + "Check Ending Scene Name and Build Settings.", this);
             return;
         }
 
-        activePlayer = player;
-        activeMovement = movement;
-        activeMovement.DeathStarted += OnPlayerDeath;
-        runExitDoor.TransitionStarted += OnExitTransitionStarted;
-        sequenceInProgress = true;
-        choiceResolved = false;
-        SetPlayerControl(activePlayer, false);
-        SpawnEventParents();
-
-        DialogueController2D dialogue = FindDialogueController();
-        activeDialogue = dialogue;
-        if (dialogue != null
-            && dialogue.PlayKeepingPlayerLocked(openingLines, activePlayer, StartCameraSequence))
-        {
+        if (!movement.BeginSceneTransition())
             return;
-        }
 
-        if (dialogue == null)
-            Debug.LogWarning("Front Door sequence could not find DialogueController2D. Continuing safely.", this);
-        StartCameraSequence();
+        ChooseEndingArrivalState.Prepare(player.transform.position);
+        sequenceFinished = true;
+        SetPlayerControl(player, false);
+        player.gameObject.SetActive(false);
+        Destroy(player.gameObject);
+        SceneManager.LoadScene(endingSceneName.Trim());
     }
 
     private void StartCameraSequence()
@@ -478,5 +469,34 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
             movement.SetMovementEnabled(enabled);
         if (player != null)
             player.SetInteractionEnabled(enabled);
+    }
+}
+
+/// <summary>Keeps the exact LivingRoom door-contact position across the animation scene.</summary>
+public static class ChooseEndingArrivalState
+{
+    private static bool pending;
+    private static Vector3 position;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void Reset()
+    {
+        pending = false;
+        position = default;
+    }
+
+    public static void Prepare(Vector3 playerPosition)
+    {
+        position = playerPosition;
+        pending = true;
+    }
+
+    public static bool TryConsume(out Vector3 playerPosition)
+    {
+        playerPosition = position;
+        bool hadPending = pending;
+        pending = false;
+        position = default;
+        return hadPending;
     }
 }

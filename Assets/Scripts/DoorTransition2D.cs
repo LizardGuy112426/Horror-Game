@@ -26,6 +26,11 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     [Tooltip("Enter a Spawn ID from the target Scene. Leave empty to keep the Player's saved Scene position.")]
     [SerializeField] private string targetSpawnId = string.Empty;
 
+    [Header("Optional Nightmare Return Route")]
+    [SerializeField] private bool useRouteAfterReachingFloorTwo;
+    [SerializeField] private string returnSceneName = "NM_Floor_2_Hallways";
+    [SerializeField] private string returnSpawnId = "Floor2_FromBedroom";
+
     [SerializeField, Min(0f)]
     private float interactionCooldown = 0.25f;
 
@@ -98,10 +103,11 @@ public sealed class DoorTransition2D : PlayerInteractable2D
 
     public override bool Interact(PlayerDoorInteractor2D player)
     {
-        if (player == null || Time.time < nextInteractionTime)
+        if (player == null || !CanInteract)
             return false;
 
-        if (string.IsNullOrWhiteSpace(targetSceneName))
+        ResolveDestination(out string sceneName, out string spawnId);
+        if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogWarning(
                 $"Door '{name}' has no Target Scene Name.",
@@ -111,10 +117,10 @@ public sealed class DoorTransition2D : PlayerInteractable2D
             return false;
         }
 
-        if (!Application.CanStreamedLevelBeLoaded(targetSceneName))
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.LogWarning(
-                $"Door '{name}' cannot load scene '{targetSceneName}'. "
+                $"Door '{name}' cannot load scene '{sceneName}'. "
                 + "Check the spelling and add the scene to Build Settings.",
                 this
             );
@@ -135,7 +141,7 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         }
 
         // Start the complete transition.
-        transitionCoroutine = StartCoroutine(PlayTransition());
+        transitionCoroutine = StartCoroutine(PlayTransition(sceneName, spawnId));
 
         return true;
     }
@@ -195,7 +201,16 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     // COMPLETE TRANSITION
     // =========================================================
 
-    private IEnumerator PlayTransition()
+    private void ResolveDestination(out string sceneName, out string spawnId)
+    {
+        bool useReturnRoute = useRouteAfterReachingFloorTwo
+            && NightmareTaskController.Instance != null
+            && NightmareTaskController.Instance.HasReachedFloorTwoThisRun;
+        sceneName = useReturnRoute ? returnSceneName : targetSceneName;
+        spawnId = useReturnRoute ? returnSpawnId : targetSpawnId;
+    }
+
+    private IEnumerator PlayTransition(string sceneName, string spawnId)
     {
         // -----------------------------------------------------
         // VOID DOOR ONLY
@@ -210,7 +225,7 @@ public sealed class DoorTransition2D : PlayerInteractable2D
         // ORIGINAL DOOR FUNCTION
         // -----------------------------------------------------
 
-        yield return StartCoroutine(PlayAnimationAndLoadScene());
+        yield return StartCoroutine(PlayAnimationAndLoadScene(sceneName, spawnId));
     }
 
     // =========================================================
@@ -287,7 +302,7 @@ public sealed class DoorTransition2D : PlayerInteractable2D
     // ORIGINAL DOOR ANIMATION + SCENE LOAD
     // =========================================================
 
-    private IEnumerator PlayAnimationAndLoadScene()
+    private IEnumerator PlayAnimationAndLoadScene(string sceneName, string spawnId)
     {
         float animationDuration = 0f;
 
@@ -317,15 +332,15 @@ public sealed class DoorTransition2D : PlayerInteractable2D
             yield return new WaitForSeconds(animationDuration);
 
         Debug.Log(
-            $"DOOR '{name}' → Scene: '{targetSceneName}' | " +
-            $"Spawn ID: '{targetSpawnId}'"
+            $"DOOR '{name}' → Scene: '{sceneName}' | " +
+            $"Spawn ID: '{spawnId}'"
         );
 
         SceneSpawnManager2D.PrepareArrival(
-            targetSceneName,
-            targetSpawnId
+            sceneName,
+            spawnId
         );
 
-        SceneManager.LoadScene(targetSceneName);
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -497,17 +497,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
---- !u!114 &368187354 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1271762590123792815, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
-  m_PrefabInstance: {fileID: 368187353}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
 --- !u!20 &368187355 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7848129123051001499, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
@@ -552,6 +541,84 @@ Transform:
   - {fileID: 76113245}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &452574868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452574869}
+  - component: {fileID: 452574870}
+  m_Layer: 0
+  m_Name: Detect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452574869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452574868}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1522656370}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &452574870
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452574868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.8, y: 3.2}
+  m_EdgeRadius: 0
 --- !u!1001 &507831412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -657,137 +724,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79b811ea1c5bed746a1c6e389e9e152c, type: 3}
---- !u!1 &513789354
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 513789355}
-  - component: {fileID: 513789357}
-  - component: {fileID: 513789356}
-  m_Layer: 0
-  m_Name: Front Door Sequence Trigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &513789355
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513789354}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1522656370}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &513789356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513789354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a7d949eac102964793fb0684a20e5f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NightmareFrontDoorSequence2D
-  sequenceTrigger: {fileID: 513789357}
-  triggerSize: {x: 2.8, y: 3.2}
-  openingLines:
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u6211\u771F\u7684\u8981\u8FD9\u4E48\u505A\u5417\uFF1F\u6216\u8BB8\u6211\u8FD8\u6709..."
-  cameraFocusPoint: {fileID: 1349541116}
-  sceneCamera: {fileID: 368187354}
-  cameraPanDuration: 1
-  cameraHoldDuration: 2
-  cameraReturnDuration: 1
-  dadPrefab: {fileID: 2705061705741265876, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
-  momPrefab: {fileID: 2936630904677412706, guid: c5797d1962a05314c8930bcbdb6a9453, type: 3}
-  dadSpawnPoint: {fileID: 2146000001}
-  momSpawnPoint: {fileID: 2146000011}
-  runExitDoor: {fileID: 767334206}
-  staySceneName: Cutscene3
-  stayFadeDuration: 2
-  stayLines:
-  - speakerName: "\u7236\u6BCD"
-    dialogue: "...\u5B69\u5B50\u3002\u4F60\u771F\u7684\u8981\u90A3\u6837\u505A\u5417\uFF1F..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: ...
-  - speakerName: "\u601D\u4F73"
-    dialogue: "...\u6211\u77E5\u9053\u6211\u4ECE\u6765\u90FD\u4E0D\u662F\u60F3\u8981\u548C\u5F1F\u5F1F\u6323\u4EC0\u4E48..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u6211\u53EA\u662F..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u60F3\u8981\u88AB\u4F60\u4EEC\u8BA4\u771F\u5BF9\u5F85\u3002"
-  - speakerName: "\u7238\u7238"
-    dialogue: ...
-  - speakerName: "\u7238\u7238"
-    dialogue: "\u6211\u4EEC\uFF0C\u4E5F\u5F88\u591A\u6B21\u5C1D\u8BD5\u8FC7\u548C\u4F60\u804A\u804A\uFF0C\u53EA\u662F\uFF0C\u4E5F\u4E0D\u77E5\u9053\u600E\u4E48\u5F00\u53E3\uFF0C\u6211\u8EAB\u4E3A\u7236\u4EB2\uFF0C\u771F\u7684\u3002"
-  - speakerName: "\u7238\u7238"
-    dialogue: "\u5F88\u5BF9\u4E0D\u8D77\u4F60\u3002\u8BA9\u4F60\u72EC\u81EA\u627F\u53D7\u4E86\u90A3\u4E48\u591A\u3002"
-  - speakerName: "\u5988\u5988"
-    dialogue: "\u5988\u5988\uFF0C\u4E0D\uFF0C\u6211\u4EEC\u4ECE\u6765\u6CA1\u6709\u60F3\u8FD9\u6837\u5BF9\u5F85\u4F60\u3002\u662F\u6211\u758F\u5FFD\u4E86\u4F60\u3002"
-  - speakerName: "\u5988\u5988"
-    dialogue: "\u4E0D\u8981\u518D\u81EA\u5DF1\u5FCD\u8010\u4E86...\u5BF9\u4E0D\u8D77..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: ...
---- !u!61 &513789357
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513789354}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.8, y: 3.2}
-  m_EdgeRadius: 0
 --- !u!1 &685211881
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,103 +771,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &767334204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 767334205}
-  - component: {fileID: 767334207}
-  - component: {fileID: 767334206}
-  m_Layer: 0
-  m_Name: Front Door RUN Exit
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &767334205
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767334204}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1522656370}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &767334206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767334204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fffcf35aad21ffd4fabd4114c8f175a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NightmareRunExitDoor2D
-  interactionTrigger: {fileID: 767334207}
-  promptObject: {fileID: 0}
-  interactionSize: {x: 2.8, y: 3.2}
-  promptOffset: {x: 0, y: 1.7, z: 0}
-  targetSceneName: NewsIntro
-  fadeOutDuration: 2
---- !u!61 &767334207
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767334204}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.8, y: 3.2}
-  m_EdgeRadius: 0
 --- !u!1 &806677801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,37 +3718,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
   m_PrefabInstance: {fileID: 1977988725}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1349541115
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1349541116}
-  m_Layer: 0
-  m_Name: Front Door Camera Focus
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1349541116
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1349541115}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.15, y: -1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1368913124
 GameObject:
   m_ObjectHideFlags: 0
@@ -4425,8 +4233,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 513789355}
-  - {fileID: 767334205}
+  - {fileID: 452574869}
   m_Father: {fileID: 421616960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1522656371
@@ -9028,68 +8835,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
   m_PrefabInstance: {fileID: 1511213677}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2146000000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2146000001}
-  m_Layer: 0
-  m_Name: Front Door Dad Spawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2146000001
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2146000000}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.53, y: -1.594, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2146000010
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2146000011}
-  m_Layer: 0
-  m_Name: Front Door Mom Spawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2146000011
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2146000010}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.4, y: -1.594, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &187990733917543306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9159,12 +8904,286 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82a7d8f9187922d43818cfb73a5f4a67, type: 3}
+--- !u!1 &2147000000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000001}
+  - component: {fileID: 2147000002}
+  m_Layer: 0
+  m_Name: Choose Ending Sequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2147000011}
+  - {fileID: 2147000021}
+  - {fileID: 2147000031}
+  - {fileID: 2147000041}
+  - {fileID: 2147000051}
+  - {fileID: 2147000061}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2147000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6d1274399b4a60883b2e4d8645fc31, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::ChooseEndingSequence2D
+  fallbackPlayerStart: {fileID: 2147000011}
+  runTarget: {fileID: 2147000021}
+  frontDoorTrigger: {fileID: 452574870}
+  sceneCamera: {fileID: 0}
+  dadPrefab: {fileID: 2705061705741265876, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
+  momPrefab: {fileID: 2936630904677412706, guid: c5797d1962a05314c8930bcbdb6a9453, type: 3}
+  dadSpawnPoint: {fileID: 2147000031}
+  momSpawnPoint: {fileID: 2147000041}
+  dadDoorStop: {fileID: 2147000051}
+  momDoorStop: {fileID: 2147000061}
+  runParentSpeed: 3.5
+  playerAutoWalkSpeed: 3
+  playerArriveDistance: 0.05
+  runSceneName: NewsIntro
+  runFadeDuration: 2
+  staySceneName: Cutscene3
+  stayFadeDuration: 2
+  stayLines:
+  - speakerName: "\u7236\u6BCD"
+    dialogue: "...\u5B69\u5B50\u3002\u4F60\u771F\u7684\u8981\u90A3\u6837\u505A\u5417\uFF1F..."
+  - speakerName: "\u601D\u4F73"
+    dialogue: ...
+  - speakerName: "\u601D\u4F73"
+    dialogue: "...\u6211\u77E5\u9053\u6211\u4ECE\u6765\u90FD\u4E0D\u662F\u60F3\u8981\u548C\u5F1F\u5F1F\u6323\u4EC0\u4E48..."
+  - speakerName: "\u601D\u4F73"
+    dialogue: "\u6211\u53EA\u662F..."
+  - speakerName: "\u601D\u4F73"
+    dialogue: "\u60F3\u8981\u88AB\u4F60\u4EEC\u8BA4\u771F\u5BF9\u5F85\u3002"
+  - speakerName: "\u7238\u7238"
+    dialogue: ...
+  - speakerName: "\u7238\u7238"
+    dialogue: "\u6211\u4EEC\uFF0C\u4E5F\u5F88\u591A\u6B21\u5C1D\u8BD5\u8FC7\u548C\u4F60\u804A\u804A\uFF0C\u53EA\u662F\uFF0C\u4E5F\u4E0D\u77E5\u9053\u600E\u4E48\u5F00\u53E3\uFF0C\u6211\u8EAB\u4E3A\u7236\u4EB2\uFF0C\u771F\u7684\u3002"
+  - speakerName: "\u7238\u7238"
+    dialogue: "\u5F88\u5BF9\u4E0D\u8D77\u4F60\u3002\u8BA9\u4F60\u72EC\u81EA\u627F\u53D7\u4E86\u90A3\u4E48\u591A\u3002"
+  - speakerName: "\u5988\u5988"
+    dialogue: "\u5988\u5988\uFF0C\u4E0D\uFF0C\u6211\u4EEC\u4ECE\u6765\u6CA1\u6709\u60F3\u8FD9\u6837\u5BF9\u5F85\u4F60\u3002\u662F\u6211\u758F\u5FFD\u4E86\u4F60\u3002"
+  - speakerName: "\u5988\u5988"
+    dialogue: "\u4E0D\u8981\u518D\u81EA\u5DF1\u5FCD\u8010\u4E86...\u5BF9\u4E0D\u8D77..."
+  - speakerName: "\u601D\u4F73"
+    dialogue: ...
+--- !u!1 &2147000010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000011}
+  m_Layer: 0
+  m_Name: Choose Ending Player Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.65, y: -2.21875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2147000020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000021}
+  m_Layer: 0
+  m_Name: Front Door Run Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5, y: -2.21875, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2147000030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000031}
+  m_Layer: 0
+  m_Name: Choose Ending Dad Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.53, y: -1.594, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2147000040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000041}
+  m_Layer: 0
+  m_Name: Choose Ending Mom Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000040}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 16.4, y: -1.594, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2147000050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000051}
+  m_Layer: 0
+  m_Name: Dad Door Stop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3, y: -1.594, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2147000060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2147000061}
+  m_Layer: 0
+  m_Name: Mom Door Stop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2147000061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147000060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4, y: -1.594, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2147000001}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2146000001}
-  - {fileID: 2146000011}
   - {fileID: 932104662}
   - {fileID: 421616960}
   - {fileID: 187990733917543306}
@@ -9176,4 +9195,4 @@ SceneRoots:
   - {fileID: 1210112598}
   - {fileID: 1675923242}
   - {fileID: 1672268762}
-  - {fileID: 1349541116}
+  - {fileID: 2147000001}

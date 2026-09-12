@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MCControllers : MonoBehaviour
 {
+    private static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
+    private static readonly int WalkingState = Animator.StringToHash("Base Layer.Walking");
     public static MCControllers Instance { get; private set; }
     public bool IsDying => kill;
     public bool IsSceneTransitioning { get; private set; }
@@ -29,6 +31,9 @@ public class MCControllers : MonoBehaviour
     [SerializeField] private Animator animator;
     private bool isFacingRight = true;
     private bool movementEnabled = true;
+    private bool scriptedHorizontalMovement;
+    private bool scriptedWalkingAnimationOnly;
+    private float scriptedHorizontalVelocity;
     bool kill;
     [SerializeField] private SpriteRenderer DadJumpscare;
     [SerializeField] private Animator DadJumpscareAnimator;
@@ -37,7 +42,13 @@ public class MCControllers : MonoBehaviour
 
     public void SetMovementEnabled(bool value)
     {
+        scriptedHorizontalMovement = false;
+        scriptedWalkingAnimationOnly = false;
+        scriptedHorizontalVelocity = 0f;
         movementEnabled = value && !IsDying && !IsSceneTransitioning;
+
+        if (animator != null)
+            animator.speed = 1f;
 
         if (!movementEnabled)
         {
@@ -50,6 +61,88 @@ public class MCControllers : MonoBehaviour
                 animator.SetBool("isWalking", false);
         }
     }
+
+    /// <summary>Moves the player for a story sequence while normal input stays locked.</summary>
+    public bool SetScriptedHorizontalVelocity(float velocity)
+    {
+        if (IsDying || IsSceneTransitioning || rb == null)
+            return false;
+
+        bool startWalkingAnimation = !scriptedHorizontalMovement
+            || Mathf.Abs(scriptedHorizontalVelocity) <= 0.01f;
+        movementEnabled = false;
+        scriptedHorizontalMovement = true;
+        scriptedWalkingAnimationOnly = false;
+        scriptedHorizontalVelocity = velocity;
+        rb.linearVelocityX = velocity;
+
+        if (animator != null)
+        {
+            animator.speed = 1f;
+            animator.SetBool("onGround", true);
+            animator.SetBool("isCrouching", false);
+            animator.SetBool("isWalking", Mathf.Abs(velocity) > 0.01f);
+            if (startWalkingAnimation && Mathf.Abs(velocity) > 0.01f
+                && animator.HasState(0, WalkingState))
+            {
+                animator.Play(WalkingState, 0, 0f);
+                animator.Update(0f);
+            }
+        }
+
+        if (velocity > 0f && !isFacingRight)
+            Flip();
+        else if (velocity < 0f && isFacingRight)
+            Flip();
+
+        return true;
+    }
+
+    /// <summary>Shows frame zero of Walking while a story sequence keeps the player stationary.</summary>
+    public void PlayScriptedWalkingAnimation()
+    {
+        if (IsDying || IsSceneTransitioning || animator == null)
+            return;
+
+        movementEnabled = false;
+        scriptedHorizontalMovement = false;
+        scriptedWalkingAnimationOnly = true;
+        scriptedHorizontalVelocity = 0f;
+        if (rb != null)
+            rb.linearVelocityX = 0f;
+
+        animator.SetBool("onGround", true);
+        animator.SetBool("isCrouching", false);
+        animator.SetBool("isWalking", true);
+        if (animator.HasState(0, WalkingState))
+        {
+            animator.Play(WalkingState, 0, 0f);
+            animator.Update(0f);
+            animator.speed = 0f;
+        }
+    }
+
+    public void StopScriptedMovement()
+    {
+        scriptedHorizontalMovement = false;
+        scriptedWalkingAnimationOnly = false;
+        scriptedHorizontalVelocity = 0f;
+        if (rb != null)
+            rb.linearVelocityX = 0f;
+        if (animator != null)
+        {
+            animator.speed = 1f;
+            animator.SetBool("onGround", true);
+            animator.SetBool("isCrouching", false);
+            animator.SetBool("isWalking", false);
+            if (animator.HasState(0, IdleState))
+            {
+                animator.Play(IdleState, 0, 0f);
+                animator.Update(0f);
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         if (GroundChecker == null)
@@ -88,6 +181,30 @@ public class MCControllers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (scriptedWalkingAnimationOnly)
+        {
+            rb.linearVelocityX = 0f;
+            if (animator != null)
+            {
+                animator.SetBool("onGround", true);
+                animator.SetBool("isCrouching", false);
+                animator.SetBool("isWalking", true);
+            }
+            return;
+        }
+
+        if (scriptedHorizontalMovement)
+        {
+            rb.linearVelocityX = scriptedHorizontalVelocity;
+            if (animator != null)
+            {
+                animator.SetBool("onGround", true);
+                animator.SetBool("isCrouching", false);
+                animator.SetBool("isWalking", Mathf.Abs(scriptedHorizontalVelocity) > 0.01f);
+            }
+            return;
+        }
+
         if (!movementEnabled)
         {
             xInput = 0f;
@@ -206,20 +323,26 @@ public class MCControllers : MonoBehaviour
             return;
 
         if (collision.gameObject.CompareTag("Dad"))
-            BeginDeath(EnemyAI.EnemyType.Dad);
+            BeginDeath(EnemyAI.EnemyType.Dad, false);
         else if (collision.gameObject.CompareTag("Mom"))
-            BeginDeath(EnemyAI.EnemyType.Mom);
+            BeginDeath(EnemyAI.EnemyType.Mom, false);
     }
 
-    private void BeginDeath(EnemyAI.EnemyType type)
+    /// <summary>Forces the normal Nightmare death/respawn flow from an ending scene.</summary>
+    public void BeginNightmareDeath(EnemyAI.EnemyType type)
+    {
+        BeginDeath(type, true);
+    }
+
+    private void BeginDeath(EnemyAI.EnemyType type, bool forceNightmareReturn)
     {
         if (kill || IsSceneTransitioning)
             return;
 
         kill = true;
         LockPlayerBody();
-        bool returnToBedroom = NightmareTaskController.IsNightmareGameplayScene(
-            SceneManager.GetActiveScene().name);
+        bool returnToBedroom = forceNightmareReturn
+            || NightmareTaskController.IsNightmareGameplayScene(SceneManager.GetActiveScene().name);
         if (returnToBedroom && NightmareTaskController.Instance != null)
             NightmareTaskController.Instance.ResetCurrentRun();
 

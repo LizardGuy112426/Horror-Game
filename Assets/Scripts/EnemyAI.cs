@@ -49,6 +49,7 @@ public sealed class EnemyAI : MonoBehaviour
 
     private EventMode eventMode;
     private Transform eventTarget;
+    private float eventChaseSpeed = -1f;
     private bool simulationBeforeEvent;
     private Func<MCControllers, bool> storyContactHandler;
 
@@ -77,11 +78,17 @@ public sealed class EnemyAI : MonoBehaviour
 
     public void ChaseForEvent(Transform target)
     {
+        ChaseForEvent(target, -1f);
+    }
+
+    public void ChaseForEvent(Transform target, float speedOverride)
+    {
         CacheComponents();
         if (eventMode == EventMode.None)
             simulationBeforeEvent = rb.simulated;
         eventMode = EventMode.Chase;
         eventTarget = target;
+        eventChaseSpeed = speedOverride;
         rb.simulated = simulationBeforeEvent;
         ResetChaseState();
     }
@@ -94,6 +101,7 @@ public sealed class EnemyAI : MonoBehaviour
         rb.simulated = simulationBeforeEvent;
         eventMode = EventMode.None;
         eventTarget = null;
+        eventChaseSpeed = -1f;
         ResetChaseState();
         StopInPlace();
     }
@@ -222,7 +230,10 @@ public sealed class EnemyAI : MonoBehaviour
 
         if (isChasing && player != null)
         {
-            MoveHorizontallyTo(player.position, chaseSpeed);
+            float speed = eventMode == EventMode.Chase && eventChaseSpeed >= 0f
+                ? eventChaseSpeed
+                : chaseSpeed;
+            MoveHorizontallyTo(player.position, speed);
             return;
         }
 

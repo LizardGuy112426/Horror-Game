@@ -10,35 +10,54 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000000, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: m_Name
-      value: Nightmare Identity Card Furniture
+      value: NightmareIdentityCardFurniture
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000001, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 1000002, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5481919849797688533, guid: 15298951320d93c4da580a2a83f131a9, type: 3}
+    - target: {fileID: 1000002, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.17526102
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: inventoryIcon
+      value: 
       objectReference: {fileID: 5481919849797688533, guid: 15298951320d93c4da580a2a83f131a9, type: 3}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: nightmareObjective
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
-      propertyPath: inventoryIcon
-      value: 0
-      objectReference: {fileID: 5481919849797688533, guid: 15298951320d93c4da580a2a83f131a9, type: 3}
-    - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
       value: "\u6211\u7684\u8EAB\u4EFD\u8BC1\u8FD8\u5728\u8FD9\u91CC\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 1000006, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: worldSprite
-      value: 0
+      value: 
       objectReference: {fileID: 5481919849797688533, guid: 15298951320d93c4da580a2a83f131a9, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
---- !u!4 &2000001 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1000001, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
-  m_PrefabInstance: {fileID: 2000000}
-  m_PrefabAsset: {fileID: 0}

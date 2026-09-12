@@ -33,6 +33,7 @@ public sealed class NightmareTaskController : MonoBehaviour
 
     public NightmareTaskStage CurrentStage => currentStage;
     public int RunVersion => runVersion;
+    public bool HasReachedFloorTwoThisRun { get; private set; }
 
     [Header("Task Text")]
     [SerializeField] private string findWayOutText = "找到离开这里的方法。";
@@ -120,6 +121,7 @@ public sealed class NightmareTaskController : MonoBehaviour
     public void ResetCurrentRun()
     {
         runVersion++;
+        HasReachedFloorTwoThisRun = false;
         currentStage = NightmareTaskStage.FindWayOut;
         collectedObjectives.Clear();
         RefreshHud();
@@ -139,6 +141,9 @@ public sealed class NightmareTaskController : MonoBehaviour
 
     internal void SynchronizeForScene(Scene scene, bool shouldShowHud)
     {
+        if (scene.name == FloorTwoSceneName)
+            HasReachedFloorTwoThisRun = true;
+
         if (scene.name == FloorTwoSceneName
             && currentStage == NightmareTaskStage.FindWayOut)
         {
