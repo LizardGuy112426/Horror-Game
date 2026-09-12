@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9087478479778092296}
   - component: {fileID: 1735915521134217363}
   - component: {fileID: 787135636333766064}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4004543174992227704}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dialogue UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6681885848152537793}
   - component: {fileID: 8499410747450330318}
   - component: {fileID: 848026751591692573}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Content Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 4977304237369271592}
   - component: {fileID: 4389135946577448375}
   - component: {fileID: 6060638873568248127}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DialogueCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ Canvas:
   m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1706582467
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &4977304237369271592
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 7260837878076426201}
   - component: {fileID: 317593862722536411}
   - component: {fileID: 269492563683945774}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 371779260003551762}
   - component: {fileID: 5600243955525471898}
   - component: {fileID: 859789774464189259}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

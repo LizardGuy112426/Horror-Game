@@ -7,10 +7,10 @@ using UnityEngine.UI;
 /// An Inspector-configurable door that loads another scene when the player presses E.
 /// 
 /// Normal Door:
-///     E → Door Animation → Scene Transition
+///     E → Door Open SFX → Door Animation → Scene Transition → Door Close SFX (in new scene)
 ///
 /// VoidDoor:
-///     E → Fade Image to 100% → Door Animation → Scene Transition
+///     E → Door Open SFX → Fade Image to 100% → Door Animation → Scene Transition → Door Close SFX
 /// </summary>
 public sealed class DoorTransition2D : PlayerInteractable2D
 {
@@ -127,6 +127,12 @@ public sealed class DoorTransition2D : PlayerInteractable2D
 
         player.ForgetDoor(this);
         SetFocused(false);
+
+        if (SoundEffectManager.instance != null)
+        {
+            SoundEffectManager.instance.PlayDoorOpen();
+            SoundEffectManager.instance.PlayDoorCloseOnSceneLoad();
+        }
 
         // Start the complete transition.
         transitionCoroutine = StartCoroutine(PlayTransition());

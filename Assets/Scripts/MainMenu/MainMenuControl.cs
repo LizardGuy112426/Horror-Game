@@ -24,7 +24,7 @@ public class MainMenuControl : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("Cutscene");
+        SceneManager.LoadScene("Transition");
     }
 
     public void OpenOption()

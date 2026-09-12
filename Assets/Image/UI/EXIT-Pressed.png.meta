@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 05d7b7e3b69edc648aa24e62f7e218b1
+guid: 3976fc9b08a32bd40aee0ad4972fb070
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7518132026514195565
-    second: Painting_0
+      213: 2507451635129320264
+    second: EXIT-Pressed_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Painting_0
+      name: EXIT-Pressed_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 32
+        width: 151
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d64cddece35c55860800000000000000
-      internalID: 7518132026514195565
+      spriteID: 8430b532af14cc220800000000000000
+      internalID: 2507451635129320264
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Painting_0: 7518132026514195565
+      EXIT-Pressed_0: 2507451635129320264
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

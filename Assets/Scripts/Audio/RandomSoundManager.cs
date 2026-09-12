@@ -5,6 +5,8 @@ using UnityEngine;
 /// Attach to any GameObject to have it randomly play one of several sounds
 /// at randomized intervals, each with its own independent chance of playing.
 /// Useful for ambient horror SFX: creaks, whispers, drips, distant noises, etc.
+/// Volume is controlled by SoundEffectManager's EnemyVolume, shared with
+/// Dad/Mom footsteps and Jumpscare.
 /// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class RandomSoundPlayer : MonoBehaviour
@@ -34,7 +36,6 @@ public class RandomSoundPlayer : MonoBehaviour
 
     [Header("Output")]
     [SerializeField] private AudioSource audioSource;
-    [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
 
     private float timer;
     private readonly List<RandomSoundEntry> candidateBuffer = new List<RandomSoundEntry>();
@@ -93,8 +94,8 @@ public class RandomSoundPlayer : MonoBehaviour
 
         RandomSoundEntry chosen = candidateBuffer[Random.Range(0, candidateBuffer.Count)];
         audioSource.pitch = Random.Range(chosen.pitchRange.x, chosen.pitchRange.y);
-        audioSource.PlayOneShot(chosen.clip, chosen.volume * masterVolume);
-    }
 
-    public void SetMasterVolume(float volume) => masterVolume = Mathf.Clamp01(volume);
+        float enemyVolume = SoundEffectManager.instance != null ? SoundEffectManager.instance.GetEnemyVolume() : 1f;
+        audioSource.PlayOneShot(chosen.clip, chosen.volume * enemyVolume);
+    }
 }
