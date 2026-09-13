@@ -12,6 +12,20 @@ public sealed class CgPage
     [Tooltip("Drag the CG sprite for this page here. Leaving it empty shows the neutral placeholder.")]
     public Sprite cgSprite;
 
+    [Tooltip("Optional image sequence for this page. When assigned, it replaces the single CG Sprite.")]
+    public Sprite[] cgSequence = Array.Empty<Sprite>();
+
+    [Min(0f)]
+    [Tooltip("How long each sequence image remains fully visible before the next crossfade.")]
+    public float sequenceHoldDuration = 0.35f;
+
+    [Min(0f)]
+    [Tooltip("How long each crossfade to the next sequence image takes.")]
+    public float sequenceCrossfadeDuration = 0.45f;
+
+    [Tooltip("Switch to this page immediately instead of crossfading from the previous page.")]
+    public bool skipCrossfadeFromPrevious;
+
     [Tooltip("Optional name shown in the dialogue name bar.")]
     public string speakerName;
 
@@ -47,11 +61,14 @@ public sealed class CutsceneController : MonoBehaviour
     [SerializeField, Min(0.005f)] private float secondsPerCharacter = 0.035f;
     [FormerlySerializedAs("finalPageDelay")]
     [SerializeField, Min(0f)] private float pageCompleteDelay = 3f;
+    [SerializeField, Min(0f)] private float pageCrossfadeDuration = 0.45f;
     [SerializeField, Min(0f)] private float blackFadeDuration = 2f;
     [SerializeField, Min(0f)] private float finalBlackFadeDuration = 2f;
     [FormerlySerializedAs("emptySceneName")]
     [SerializeField] private string nextSceneName = "Happy_LivingRoom";
     [SerializeField] private Color missingCgColor = new Color(0.09f, 0.1f, 0.14f, 1f);
+
+    private Image sequenceOverlayImage;
 
     public void Configure(Image image, Image box, Text nameText, Text bodyText, Text hintText)
     {
@@ -115,8 +132,33 @@ public sealed class CutsceneController : MonoBehaviour
 
         for (int pageIndex = 0; pageIndex < pages.Length; pageIndex++)
         {
-            PreparePageVisual(pageIndex, true);
-            yield return TypePage(pages[pageIndex].dialogue ?? string.Empty);
+            CgPage page = pages[pageIndex];
+            if (pageIndex == 0)
+            {
+                PreparePageVisual(pageIndex, true);
+            }
+            else
+            {
+                PreparePageDialogue(page, true);
+                if (page.skipCrossfadeFromPrevious)
+                {
+                    SetPageImage(page);
+                }
+                else
+                {
+                    Sprite nextSprite = GetPageInitialSprite(page);
+                    Color nextColor = nextSprite == null ? missingCgColor : Color.white;
+                    yield return CrossfadeTo(nextSprite, pageCrossfadeDuration, nextColor);
+                }
+            }
+
+            Coroutine imageSequence = HasImageSequence(page)
+                ? StartCoroutine(PlayImageSequence(page))
+                : null;
+            yield return TypePage(page.dialogue ?? string.Empty);
+            if (imageSequence != null)
+                yield return imageSequence;
+
             yield return new WaitForSecondsRealtime(pageCompleteDelay);
         }
 
@@ -199,12 +241,25 @@ public sealed class CutsceneController : MonoBehaviour
         pages[clampedIndex] = page;
 
         if (cgImage != null)
-        {
-            cgImage.sprite = page.cgSprite;
-            cgImage.color = page.cgSprite == null ? missingCgColor : Color.white;
-            cgImage.preserveAspect = true;
-        }
+            SetPageImage(page);
 
+        PreparePageDialogue(page, showDialogue);
+    }
+
+    private void SetPageImage(CgPage page)
+    {
+        if (cgImage == null)
+            return;
+
+        HideSequenceOverlay();
+        Sprite initialSprite = GetPageInitialSprite(page);
+        cgImage.sprite = initialSprite;
+        cgImage.color = initialSprite == null ? missingCgColor : Color.white;
+        cgImage.preserveAspect = true;
+    }
+
+    private void PreparePageDialogue(CgPage page, bool showDialogue)
+    {
         if (dialogueBox != null)
             dialogueBox.gameObject.SetActive(showDialogue);
         if (speakerNameText != null)
@@ -221,6 +276,127 @@ public sealed class CutsceneController : MonoBehaviour
                 dialogueText.text = line.Substring(0, visibleCharacterCount);
             yield return new WaitForSecondsRealtime(secondsPerCharacter);
         }
+    }
+
+    private IEnumerator PlayImageSequence(CgPage page)
+    {
+        int currentIndex = FindNextSequenceSprite(page, 0);
+        if (currentIndex < 0 || cgImage == null)
+            yield break;
+
+        cgImage.sprite = page.cgSequence[currentIndex];
+        cgImage.color = Color.white;
+
+        while (true)
+        {
+            int nextIndex = FindNextSequenceSprite(page, currentIndex + 1);
+            if (nextIndex < 0)
+                yield break;
+
+            float holdDuration = Mathf.Max(0f, page.sequenceHoldDuration);
+            if (holdDuration > 0f)
+                yield return new WaitForSecondsRealtime(holdDuration);
+
+            yield return CrossfadeTo(
+                page.cgSequence[nextIndex], page.sequenceCrossfadeDuration, Color.white);
+            currentIndex = nextIndex;
+        }
+    }
+
+    private IEnumerator CrossfadeTo(Sprite nextSprite, float duration, Color targetColor)
+    {
+        Image overlay = EnsureSequenceOverlay();
+        if (overlay == null)
+            yield break;
+
+        overlay.gameObject.SetActive(true);
+        overlay.sprite = nextSprite;
+        overlay.preserveAspect = true;
+        targetColor.a = 1f;
+        Color transparentTarget = targetColor;
+        transparentTarget.a = 0f;
+        overlay.color = transparentTarget;
+
+        Color sourceColor = cgImage.color;
+        sourceColor.a = 1f;
+
+        float safeDuration = Mathf.Max(0f, duration);
+        float elapsed = 0f;
+        while (elapsed < safeDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float progress = safeDuration <= 0f ? 1f : Mathf.Clamp01(elapsed / safeDuration);
+            Color fadingSource = sourceColor;
+            fadingSource.a = 1f - progress;
+            Color fadingTarget = targetColor;
+            fadingTarget.a = progress;
+            cgImage.color = fadingSource;
+            overlay.color = fadingTarget;
+            yield return null;
+        }
+
+        cgImage.sprite = nextSprite;
+        cgImage.color = targetColor;
+        HideSequenceOverlay();
+    }
+
+    private Image EnsureSequenceOverlay()
+    {
+        if (sequenceOverlayImage != null || cgImage == null)
+            return sequenceOverlayImage;
+
+        GameObject overlayObject = new GameObject(
+            "CG Sequence Overlay", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        RectTransform sourceRect = cgImage.rectTransform;
+        RectTransform overlayRect = overlayObject.GetComponent<RectTransform>();
+        overlayRect.SetParent(sourceRect.parent, false);
+        overlayRect.anchorMin = sourceRect.anchorMin;
+        overlayRect.anchorMax = sourceRect.anchorMax;
+        overlayRect.anchoredPosition = sourceRect.anchoredPosition;
+        overlayRect.sizeDelta = sourceRect.sizeDelta;
+        overlayRect.pivot = sourceRect.pivot;
+        overlayRect.localRotation = sourceRect.localRotation;
+        overlayRect.localScale = sourceRect.localScale;
+        overlayRect.SetSiblingIndex(sourceRect.GetSiblingIndex() + 1);
+
+        sequenceOverlayImage = overlayObject.GetComponent<Image>();
+        sequenceOverlayImage.material = cgImage.material;
+        sequenceOverlayImage.type = cgImage.type;
+        sequenceOverlayImage.preserveAspect = true;
+        sequenceOverlayImage.raycastTarget = false;
+        sequenceOverlayImage.maskable = cgImage.maskable;
+        sequenceOverlayImage.gameObject.SetActive(false);
+        return sequenceOverlayImage;
+    }
+
+    private void HideSequenceOverlay()
+    {
+        if (sequenceOverlayImage == null)
+            return;
+        sequenceOverlayImage.color = new Color(1f, 1f, 1f, 0f);
+        sequenceOverlayImage.gameObject.SetActive(false);
+    }
+
+    private static bool HasImageSequence(CgPage page)
+    {
+        return FindNextSequenceSprite(page, 0) >= 0;
+    }
+
+    private static Sprite GetPageInitialSprite(CgPage page)
+    {
+        int index = FindNextSequenceSprite(page, 0);
+        return index >= 0 ? page.cgSequence[index] : page?.cgSprite;
+    }
+
+    private static int FindNextSequenceSprite(CgPage page, int startIndex)
+    {
+        if (page?.cgSequence == null)
+            return -1;
+
+        for (int index = Mathf.Max(0, startIndex); index < page.cgSequence.Length; index++)
+            if (page.cgSequence[index] != null)
+                return index;
+        return -1;
     }
 
     private void LoadNextScene()
@@ -248,6 +424,7 @@ public sealed class CutsceneController : MonoBehaviour
         EnsurePages();
         secondsPerCharacter = Mathf.Max(0.005f, secondsPerCharacter);
         pageCompleteDelay = Mathf.Max(0f, pageCompleteDelay);
+        pageCrossfadeDuration = Mathf.Max(0f, pageCrossfadeDuration);
         blackFadeDuration = Mathf.Max(0f, blackFadeDuration);
         finalBlackFadeDuration = Mathf.Max(0f, finalBlackFadeDuration);
     }
@@ -267,6 +444,8 @@ public sealed class CutsceneController : MonoBehaviour
                 speakerName = string.Empty,
                 dialogue = $"CG {i + 1} dialogue — replace this text in the Inspector."
             };
+            pages[i].sequenceHoldDuration = Mathf.Max(0f, pages[i].sequenceHoldDuration);
+            pages[i].sequenceCrossfadeDuration = Mathf.Max(0f, pages[i].sequenceCrossfadeDuration);
         }
     }
 
