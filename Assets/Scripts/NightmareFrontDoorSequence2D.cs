@@ -178,8 +178,6 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
         ChooseEndingArrivalState.Prepare(player.transform.position);
         sequenceFinished = true;
         SetPlayerControl(player, false);
-        player.gameObject.SetActive(false);
-        Destroy(player.gameObject);
         SceneManager.LoadScene(endingSceneName.Trim());
     }
 

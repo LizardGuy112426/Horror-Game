@@ -8193,8 +8193,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5556632502529600366, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5556632502529600366, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
       propertyPath: m_SortingOrder
       value: 63
+      objectReference: {fileID: 0}
+    - target: {fileID: 5556632502529600366, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 518925557
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9038,6 +9046,10 @@ PrefabInstance:
     - target: {fileID: 2003374352, guid: f910b934cd65433d80d8572b1602605c, type: 3}
       propertyPath: m_Name
       value: PlantsHideSpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2003374354, guid: f910b934cd65433d80d8572b1602605c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

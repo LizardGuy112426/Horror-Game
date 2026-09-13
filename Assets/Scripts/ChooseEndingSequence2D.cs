@@ -31,6 +31,11 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
     [SerializeField] private Transform momDoorStop;
     [SerializeField, Min(0.1f)] private float runParentSpeed = 3.5f;
 
+    [Header("Event Parent Rendering")]
+    [SerializeField] private string parentSortingLayer = "Player";
+    [SerializeField] private int dadSortingOrder = 21;
+    [SerializeField] private int momSortingOrder = 20;
+
     [Header("RUN Ending")]
     [SerializeField, Min(0.1f)] private float playerAutoWalkSpeed = 3f;
     [SerializeField, Min(0.01f)] private float playerArriveDistance = 0.05f;
@@ -168,7 +173,21 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
 
         enemy.ConfigureEnemyType(type);
         enemy.SetEventIdle();
+        ApplyParentRendering(instance, type);
         return enemy;
+    }
+
+    private void ApplyParentRendering(GameObject instance, EnemyAI.EnemyType type)
+    {
+        int sortingOrder = type == EnemyAI.EnemyType.Dad
+            ? dadSortingOrder
+            : momSortingOrder;
+
+        foreach (SpriteRenderer renderer in instance.GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            renderer.sortingLayerName = parentSortingLayer;
+            renderer.sortingOrder = sortingOrder;
+        }
     }
 
     private void StartChoiceChase()
