@@ -119,6 +119,135 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &297414919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 297414921}
+  - component: {fileID: 297414920}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &297414920
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297414919}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 884d87f8c3454a3479519decbf8a8d37, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &297414921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297414919}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.54124, y: -2.08975, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &653696588
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,28 +508,28 @@ MonoBehaviour:
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u7ECF\u8FC7\u8FD9\u6B21\u7684\u4E8B\u4EF6\u540E\uFF0C"
+    dialogue: "\u5728\u548C\u7238\u5988\u6C9F\u901A\u4E4B\u540E\uFF0C"
   - cgSprite: {fileID: -8985976283102869554, guid: fa8c5f4995403df4996f3c7d500412b5, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 1
     speakerName: 
-    dialogue: "\u6211\u4E0D\u77E5\u9053\u8FD9\u91CC\u4EE5\u540E\u4F1A\u4E0D\u4F1A\u5982\u540C\u4E4B\u524D\u4E00\u6837\u5E78\u798F\u3002"
+    dialogue: "\u6211\u4E0D\u77E5\u9053\u4EE5\u540E\u8FD8\u4F1A\u4E0D\u4F1A\u53D8\u56DE\u5411\u4E4B\u524D\u4E00\u6837\u5E78\u798F"
   - cgSprite: {fileID: 5797927986208340108, guid: 9f717d6bcc9ce774093c0005e2768e6d, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u4F46\u8FD9\u6B21\u6211\u4E0D\u518D\u662F\u4E00\u4E2A\u4EBA\u4E86\u3002"
+    dialogue: "\u4F46\u81F3\u5C11\u6211\u4E0D\u518D\u662F\u4E00\u4E2A\u4EBA\u4E86\u3002"
   - cgSprite: {fileID: 5797927986208340108, guid: 9f717d6bcc9ce774093c0005e2768e6d, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 1
     speakerName: 
-    dialogue: "\u4F60\u8BF4\u5BF9\u5417\uFF1F"
+    dialogue: "\u5E0C\u671B\u662F\u5427\u3002\u3002\u3002"
   clearGameplayPlayerOnStart: 1
   cgImage: {fileID: 653696591}
   dialogueBox: {fileID: 0}
@@ -912,3 +1041,4 @@ SceneRoots:
   - {fileID: 1955808691}
   - {fileID: 666940959}
   - {fileID: 1396676635}
+  - {fileID: 297414921}

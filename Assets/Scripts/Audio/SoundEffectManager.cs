@@ -12,6 +12,7 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private AudioClip ButtonClickSFX;
     [SerializeField] private AudioClip WalkingSFX;
     [SerializeField] private AudioClip JumpingSFX;
+    [SerializeField] private AudioClip LandingSFX;
     [SerializeField] private AudioClip SpidermanSFX;
     [SerializeField] private AudioClip DadWalkingSFX;
     [SerializeField] private AudioClip MomWalkingSFX;
@@ -79,6 +80,11 @@ public class SoundEffectManager : MonoBehaviour
 
     public bool IsJumpscarePlaying => jumpscarePlaying;
 
+    public void ClickSFX()
+    {
+        if (jumpscarePlaying) return;
+        AudioSource.PlayOneShot(ButtonClickSFX, masterVolume * duckFactor);
+    }
     public void HoverSFX()
     {
         if (jumpscarePlaying) return;
@@ -114,8 +120,15 @@ public class SoundEffectManager : MonoBehaviour
     public void JumpSFX()
     {
         if (jumpscarePlaying) return;
-        AudioSource.PlayOneShot(JumpingSFX, masterVolume * duckFactor);
+        AudioSource.PlayOneShot(JumpingSFX, masterVolume * duckFactor /2);
     }
+
+    public void LandSFX()
+    {
+        if (jumpscarePlaying) return;
+        AudioSource.PlayOneShot(LandingSFX, masterVolume * duckFactor /2.5f);
+    }
+
     public void SpiderSFX()
     {
         if (jumpscarePlaying) return;
@@ -124,12 +137,6 @@ public class SoundEffectManager : MonoBehaviour
 
     /// <summary>Length of the Spiderman interact clip in seconds, or 0 if unset.</summary>
     public float GetSpiderSFXDuration() => SpidermanSFX != null ? SpidermanSFX.length : 0f;
-
-    public void ClickSFX()
-    {
-        if (jumpscarePlaying) return;
-        AudioSource.PlayOneShot(ButtonClickSFX, masterVolume * duckFactor);
-    }
 
     /// <summary>Sets the single master volume shared by combined sound categories (Hover, Click, Jump, Heartbeat, Spiderman Interact).</summary>
     public void ChangeVolume(float volume)

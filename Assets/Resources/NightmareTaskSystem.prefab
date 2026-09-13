@@ -1606,10 +1606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593a7024fc6ab624995b9a1a696358cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NightmareTaskController
-  findWayOutText: "\u627E\u5230\u79BB\u5F00\u8FD9\u91CC\u7684\u65B9\u6CD5\u3002"
-  collectEscapeItemsText: "\u8EB2\u907F\u602A\u7269\uFF0C\u83B7\u5F97\u5173\u952E\u7269\u54C1\uFF0C\u9003\u79BB\u8FD9\u91CC\u3002"
-  goToParentsBedroomForKeyText: "\u524D\u5F80\u7236\u6BCD\u623F\u83B7\u5F97\u5927\u95E8\u94A5\u5319\u3002"
-  goToFrontDoorText: "\u79BB\u5F00\u623F\u95F4\u540E\uFF0C\u524D\u5F80\u5927\u95E8\u3002"
+  findWayOutText: "\u79BB\u5F00\u8FD9\u4E2A\u5BB6"
+  collectEscapeItemsText: "\u6536\u96C6\u7269\u54C1\u4E26\u9003\u96E2"
+  goToParentsBedroomForKeyText: "\u524D\u5F80\u7236\u6BCD\u623F\u83B7\u53D6\u5927\u95E8\u94A5\u5319 "
+  goToFrontDoorText: "\u79BB\u5F00\u623F\u95F4\uFF0C\u5E76\u524D\u5F80\u5927\u95E8\u3002"
   hudRoot: {fileID: 1010}
   taskText: {fileID: 1053}
   objectiveRoot: {fileID: 1070}

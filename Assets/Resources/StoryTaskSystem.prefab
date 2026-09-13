@@ -130,9 +130,9 @@ MonoBehaviour:
   normalTextColor: {r: 1, g: 1, b: 1, a: 1}
   completedTextColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   goToKitchenText: "\u524D\u5F80\u53A8\u623F"
-  talkInKitchenText: "\u5728\u53A8\u623F\u4E0E\u7236\u6BCD\u5BF9\u8BDD"
-  returnToLivingRoomText: "\u8FD4\u56DE\u5BA2\u5385"
-  talkInLivingRoomText: "\u5728\u5BA2\u5385\u4E0E\u7236\u6BCD\u5BF9\u8BDD"
+  talkInKitchenText: "\u548C\u7236\u6BCD\u5BF9\u8BDD"
+  returnToLivingRoomText: "\u524D\u5F80\u5BA2\u5385"
+  talkInLivingRoomText: "\u548C\u7236\u6BCD\u5BF9\u8BDD"
   completedText: "\u4EFB\u52A1\u5B8C\u6210"
   finalTransition: {fileID: 5546910809755602692}
 --- !u!114 &5546910809755602692

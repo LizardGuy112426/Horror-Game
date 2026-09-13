@@ -20,7 +20,10 @@ public class MainMenuControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OpenOption();
+        }
     }
     public void StartGame()
     {
@@ -33,6 +36,7 @@ public class MainMenuControl : MonoBehaviour
     }
     public void CloseOption()
     {
+        SoundEffectManager.instance.ClickSFX();
         OptionScreen.SetActive(false);
     }
 
@@ -44,4 +48,6 @@ public class MainMenuControl : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+   
 }

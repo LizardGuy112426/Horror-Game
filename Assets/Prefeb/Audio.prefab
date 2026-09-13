@@ -624,9 +624,10 @@ MonoBehaviour:
   AudioSource: {fileID: 4320168484721133671}
   WalkAudioSource: {fileID: 4320168484721133671}
   ButtonHoverSFX: {fileID: 8300000, guid: fb5dd48f4142a8a48995a8ca0a30003f, type: 3}
-  ButtonClickSFX: {fileID: 8300000, guid: 0e61d8a06ec98cc43b2e693f979d240d, type: 3}
+  ButtonClickSFX: {fileID: 8300000, guid: 0b084c66e63c70649820953be784e1f7, type: 3}
   WalkingSFX: {fileID: 8300000, guid: 3563a994add3a264ba49d95022a8ed37, type: 3}
-  JumpingSFX: {fileID: 0}
+  JumpingSFX: {fileID: 8300000, guid: a179f00bda7c53645bf28492334d8e68, type: 3}
+  LandingSFX: {fileID: 8300000, guid: 599abf54263ed9e43b64e65adf2de9db, type: 3}
   SpidermanSFX: {fileID: 8300000, guid: d570f3f2d0246864a9ea1b1960d61b0a, type: 3}
   DadWalkingSFX: {fileID: 8300000, guid: 5cde9bdd148d8c94dae3bf8a31469b7f, type: 3}
   MomWalkingSFX: {fileID: 8300000, guid: 5cde9bdd148d8c94dae3bf8a31469b7f, type: 3}
@@ -674,6 +675,12 @@ MonoBehaviour:
   MomSpotSFX: {fileID: 8300000, guid: 43c769878c8208c4683fb491bcfc179e, type: 3}
   EnemySpotAudioSource: {fileID: 1110891146114538827}
   EnemySpotVolume: 1
+  MainMenu: {fileID: 0}
+  Footage1: {fileID: 0}
+  Footage2: {fileID: 0}
+  Void: {fileID: 0}
+  GoodEnding: {fileID: 0}
+  BadEnding: {fileID: 0}
 --- !u!1 &4400208050890194544
 GameObject:
   m_ObjectHideFlags: 0

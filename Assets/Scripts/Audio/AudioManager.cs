@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -40,6 +41,21 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Ending Animation")
+        {
+            StopIfPlaying(EnemySpotAudioSource);
+        }
+    }
+
+    private static void StopIfPlaying(AudioSource source)
+    {
+        if (source != null)
+            source.Stop();
     }
 
     private void Update()

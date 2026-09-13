@@ -10,35 +10,38 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000000, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: m_Name
-      value: Nightmare Own Clothes Furniture
+      value: NightmareOwnClothesFurniture
       objectReference: {fileID: 0}
     - target: {fileID: 1000002, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: m_Sprite
-      value: 0
+      value: 
+      objectReference: {fileID: 5167690650097798016, guid: 1150c84283ff1344485467e0c9d68984, type: 3}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000003, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
+      propertyPath: inventoryIcon
+      value: 
       objectReference: {fileID: 5167690650097798016, guid: 1150c84283ff1344485467e0c9d68984, type: 3}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: nightmareObjective
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
-      propertyPath: inventoryIcon
-      value: 0
-      objectReference: {fileID: 5167690650097798016, guid: 1150c84283ff1344485467e0c9d68984, type: 3}
-    - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
       value: "\u8FD9\u662F\u6211\u7684\u8863\u7269\u3002\u5E26\u4E0A\u5B83\uFF0C\u4E5F\u8BB8\u80FD\u79BB\u5F00\u8FD9\u91CC\u3002"
       objectReference: {fileID: 0}
     - target: {fileID: 1000006, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: worldSprite
-      value: 0
+      value: 
       objectReference: {fileID: 5167690650097798016, guid: 1150c84283ff1344485467e0c9d68984, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
---- !u!4 &2000001 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1000001, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
-  m_PrefabInstance: {fileID: 2000000}
-  m_PrefabAsset: {fileID: 0}

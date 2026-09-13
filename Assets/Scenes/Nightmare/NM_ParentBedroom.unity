@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2d3e4f5607a49ab8c91de0f3a4b5c6d, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NightmareDiaryInteractable2D
   interactionTrigger: {fileID: 725308096}
   promptObject: {fileID: 0}
@@ -584,12 +584,12 @@ MonoBehaviour:
   followUpLines:
   - speakerName: "\u4F73\u601D"
     dialogue: "\u8FD9\u90FD\u662F\u4EC0\u4E48\u8DDF\u4EC0\u4E48\u554A..."
-  diaryPageSprite: {fileID: 0}
+  diaryPageSprite: {fileID: 21300000, guid: 5d82899c65f6194448f3d8835585b1b1, type: 3}
   diaryPageText: "\u8BF7\u5728 Inspector \u586B\u5199\u65E5\u8BB0\u6B63\u6587\u3002"
   optionPanelSprite: {fileID: -6794205791535205385, guid: 71bd8abcd5508b946979c604fe921410, type: 3}
   closeButtonSprite: {fileID: -8542653549661865833, guid: 53f72eb821030a54cb88190937e00df6, type: 3}
   readerFont: {fileID: 12800000, guid: 0f72133291e5de047b2f0ee7afe91862, type: 3}
-  keyInventoryIcon: {fileID: 0}
+  keyInventoryIcon: {fileID: 21300000, guid: 95e644d353c032e4ba0c59ca99673383, type: 3}
 --- !u!114 &725308098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3e4f5a6718b4c9da0b1c2d3e4f5a6b7, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DiaryReaderOverlay2D
 --- !u!1 &767521498
 GameObject:

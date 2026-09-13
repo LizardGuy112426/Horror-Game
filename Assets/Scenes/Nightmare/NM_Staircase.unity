@@ -217,6 +217,9 @@ MonoBehaviour:
   promptObject: {fileID: 1746109527}
   targetSceneName: NM_Floor_2_Hallways
   targetSpawnId: Floor2_FromStaircase
+  useRouteAfterReachingFloorTwo: 0
+  returnSceneName: NM_Floor_2_Hallways
+  returnSpawnId: Floor2_FromBedroom
   interactionCooldown: 0.25
   doorAnimator: {fileID: 0}
   interactionAnimationState: Door
@@ -3006,8 +3009,16 @@ PrefabInstance:
       value: Door Right
       objectReference: {fileID: 0}
     - target: {fileID: 9008707254561647230, guid: bbfcfb1d80911524c842125dbd6ff658, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008707254561647230, guid: bbfcfb1d80911524c842125dbd6ff658, type: 3}
       propertyPath: m_SortingOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008707254561647230, guid: bbfcfb1d80911524c842125dbd6ff658, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -740562935
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -33,6 +33,11 @@ public sealed class NightmareBedroomIntro2D : MonoBehaviour
         {
             speakerName = "",
             dialogue = "Opening line 2 - replace this text in the Inspector."
+        },
+        new DialogueLine
+        {
+            speakerName = "",
+            dialogue = "Opening line 2 - replace this text in the Inspector."
         }
     };
 

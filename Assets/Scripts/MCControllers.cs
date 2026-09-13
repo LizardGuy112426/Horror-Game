@@ -26,6 +26,10 @@ public class MCControllers : MonoBehaviour
     [SerializeField] private Vector2 GroundChekerSize;
     [SerializeField] private LayerMask Ground;
     bool onGround;
+    bool wasOnGround;
+    [Tooltip("Minimum time between jump triggers, regardless of how many Update() frames pass before physics actually lifts the player off the ground checker.")]
+    [SerializeField] private float jumpDebounce = 0.1f;
+    private float nextJumpAllowedTime = 0f;
     [SerializeField] private float WalkingSFXInterval;
     float WalkingSFXTime;
     [SerializeField] private Animator animator;
@@ -236,15 +240,26 @@ public class MCControllers : MonoBehaviour
         }
         onGround = Physics2D.OverlapBox(GroundChecker.position, GroundChekerSize, 0, Ground);
 
-        if (Input.GetKey(KeyCode.Space) && onGround)
+        if (Input.GetKey(KeyCode.Space) && onGround && Time.time >= nextJumpAllowedTime)
         {
             rb.linearVelocityY = Jumpforce;
+            nextJumpAllowedTime = Time.time + jumpDebounce;
 
             if (GameState.Instance != null)
             {
                 GameState.Instance.Jump = true;
             }
+            if (SoundEffectManager.instance != null)
+                SoundEffectManager.instance.JumpSFX();
         }
+
+        if (onGround && !wasOnGround)
+        {
+            if (SoundEffectManager.instance != null)
+                SoundEffectManager.instance.LandSFX();
+        }
+        wasOnGround = onGround;
+
         if (isCrouching && onGround)
         {
             rb.linearVelocityX = (xInput * Speed) / 2;
@@ -255,7 +270,7 @@ public class MCControllers : MonoBehaviour
         }
         else
         {
-            animator.SetBool("onGround",false);
+            animator.SetBool("onGround", false);
         }
         if (xInput > 0 && !isFacingRight)
         {
@@ -483,5 +498,5 @@ public class MCControllers : MonoBehaviour
         localScale.x *= -1;
         transform.localScale = localScale;
     }
-   
+
 }
