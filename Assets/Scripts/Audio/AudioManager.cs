@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,12 @@ public class AudioManager : MonoBehaviour
     [Tooltip("How long to wait after the last chase report before starting to fade out.")]
     [SerializeField, Min(0f)] private float chaseGraceDuration = 3f;
 
+    [Header("Chase Music Suppression")]
+    [Tooltip("Chase music will never start (and immediately stops if already playing) while the active scene's name is in this list. " +
+             "Useful for cutscene/Timeline scenes where enemy detection logic might still technically fire.")]
+    [SerializeField] private List<string> chaseMusicDisabledScenes = new List<string>();
+
+    private bool chaseMusicSuppressed;
     private float lastChasingTime = -999f;
     private bool isChaseMusicActive;
     private Coroutine chaseMusicFadeRoutine;
@@ -41,6 +48,24 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoadedForChaseSuppression;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoadedForChaseSuppression;
+    }
+
+    private void HandleSceneLoadedForChaseSuppression(Scene scene, LoadSceneMode mode)
+    {
+        chaseMusicSuppressed = chaseMusicDisabledScenes.Contains(scene.name);
+
+        if (chaseMusicSuppressed)
+            StopChaseMusicImmediately();
     }
 
     private void Start()
@@ -71,10 +96,26 @@ public class AudioManager : MonoBehaviour
         BGMSource.volume = volume;
     }
 
+    /// <summary>
+    /// Manually suppress or re-allow chase music, e.g. from a Timeline Signal at the start/end
+    /// of a cutscene. Independent of (and combined with) the scene-name list above — either one
+    /// suppressing counts as suppressed.
+    /// </summary>
+    public void SetChaseMusicSuppressed(bool suppressed)
+    {
+        chaseMusicSuppressed = suppressed;
+
+        if (suppressed)
+            StopChaseMusicImmediately();
+    }
+
     /// <summary>Call every frame from a chasing enemy (mirrors SoundEffectManager.ReportChaseProximity).
-    /// Keeps the chase music going and resets the 3-second grace timer.</summary>
+    /// Keeps the chase music going and resets the 3-second grace timer. Does nothing while suppressed.</summary>
     public void ReportChasing()
     {
+        if (chaseMusicSuppressed)
+            return;
+
         lastChasingTime = Time.time;
 
         if (!isChaseMusicActive)
@@ -102,6 +143,22 @@ public class AudioManager : MonoBehaviour
             StopCoroutine(chaseMusicFadeRoutine);
 
         chaseMusicFadeRoutine = StartCoroutine(FadeBGMVolume(0f, chaseFadeOutTime));
+    }
+
+    /// <summary>Hard cut, no fade — used when suppression kicks in, since we don't want
+    /// even a brief fade-out audible over cutscene audio.</summary>
+    private void StopChaseMusicImmediately()
+    {
+        isChaseMusicActive = false;
+
+        if (chaseMusicFadeRoutine != null)
+        {
+            StopCoroutine(chaseMusicFadeRoutine);
+            chaseMusicFadeRoutine = null;
+        }
+
+        if (BGMSource != null)
+            BGMSource.Stop();
     }
 
     private IEnumerator FadeBGMVolume(float targetVolume, float duration)

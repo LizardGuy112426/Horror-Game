@@ -31,4 +31,38 @@ public class TimelineAudioBridge : MonoBehaviour
         if (SoundEffectManager.instance != null)
             SoundEffectManager.instance.ClickSFX(); // placeholder call
     }
+
+    // --- Cutscene movement lock ---
+    // Same problem as audio: MCControllers is DontDestroyOnLoad, so Activation Track
+    // can't reference it either. Use a Signal at the start of the cutscene calling
+    // LockPlayerMovement(), and another Signal at the end calling UnlockPlayerMovement().
+
+    public void LockPlayerMovement()
+    {
+        if (MCControllers.Instance != null)
+            MCControllers.Instance.SetMovementEnabled(false);
+    }
+
+    public void UnlockPlayerMovement()
+    {
+        if (MCControllers.Instance != null)
+            MCControllers.Instance.SetMovementEnabled(true);
+    }
+
+    // --- Chase music suppression for cutscenes ---
+    // If enemy detection logic can still technically fire during this Timeline scene
+    // (e.g. the enemy or player object persists), this stops chase music from ever
+    // starting (or immediately kills it if it started) so it can't play over cutscene audio.
+
+    public void SuppressChaseMusic()
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.SetChaseMusicSuppressed(true);
+    }
+
+    public void UnsuppressChaseMusic()
+    {
+        if (AudioManager.instance != null)
+            AudioManager.instance.SetChaseMusicSuppressed(false);
+    }
 }

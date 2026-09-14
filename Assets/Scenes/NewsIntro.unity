@@ -147,7 +147,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c87272e63c473ef4a9abed17f3020824, type: 3}
+  m_Resource: {fileID: 8300000, guid: 923622595a3024740a52d0eb3b109f08, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.847
   m_Pitch: 1
@@ -990,75 +990,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372061467}
   m_CullTransparentMesh: 1
---- !u!1 &1417791307
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1417791309}
-  - component: {fileID: 1417791308}
-  m_Layer: 0
-  m_Name: CutsceneController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1417791308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1417791307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d2f14a8f6e1442d9d7d81fbcd8a02b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CutsceneController
-  pageCount: 1
-  pages:
-  - cgSprite: {fileID: -4942639155145601319, guid: fdd9abbaf62e810418eaeaaebdf48b82, type: 3}
-    cgSequence: []
-    sequenceHoldDuration: 0.35
-    sequenceCrossfadeDuration: 0.45
-    skipCrossfadeFromPrevious: 0
-    speakerName: 
-    dialogue: 
-  clearGameplayPlayerOnStart: 0
-  cgImage: {fileID: 1083710824}
-  dialogueBox: {fileID: 0}
-  speakerNameText: {fileID: 0}
-  dialogueText: {fileID: 0}
-  continueHintText: {fileID: 0}
-  blackOverlay: {fileID: 589344078}
-  dialogueBoxSprite: {fileID: 0}
-  dialogueFont: {fileID: 0}
-  secondsPerCharacter: 0.035
-  pageCompleteDelay: 3
-  pageCrossfadeDuration: 0.45
-  blackFadeDuration: 2
-  finalBlackFadeDuration: 2
-  nextSceneName: MainMenu
-  missingCgColor: {r: 0.09, g: 0.1, b: 0.14, a: 1}
---- !u!4 &1417791309
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1417791307}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1618097527
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,6 +1134,5 @@ SceneRoots:
   - {fileID: 958354247}
   - {fileID: 1618097530}
   - {fileID: 100809108}
-  - {fileID: 1417791309}
   - {fileID: 6852698}
   - {fileID: 502797517}

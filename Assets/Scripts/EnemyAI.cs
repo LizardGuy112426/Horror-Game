@@ -175,12 +175,18 @@ public sealed class EnemyAI : MonoBehaviour
             PlaySpotSFX();
         }
 
-        // Report proximity every frame while chasing so the shared heartbeat can scale with it.
+        // Report proximity every frame while chasing so the shared heartbeat can scale with it,
+        // and separately report to AudioManager so the chase music starts/keeps resetting its
+        // grace timer. Both calls are required — they are two independent systems.
         if (isChasing)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
             if (SoundEffectManager.instance != null)
                 SoundEffectManager.instance.ReportChaseProximity(distanceToPlayer, detectionRadius);
+
+            if (AudioManager.instance != null)
+                AudioManager.instance.ReportChasing();
         }
 
         if (rb.linearVelocityX != 0)
