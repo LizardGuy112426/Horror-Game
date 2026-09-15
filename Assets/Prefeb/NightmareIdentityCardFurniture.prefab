@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u6211\u7684\u8EAB\u4EFD\u8BC1\u8FD8\u5728\u8FD9\u91CC\u3002"
+      value: My ID card is still here.
       objectReference: {fileID: 0}
     - target: {fileID: 1000006, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: worldSprite

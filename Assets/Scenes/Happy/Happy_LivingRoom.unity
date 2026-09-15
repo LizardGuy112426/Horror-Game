@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u5C0F\u5929\u4F7F\u5E26\u7740\u751F\u65E5\u5E3D\u5462\uFF0C\u771F\u53EF\u7231\uFF01"
+      value: The little angel is wearing a birthday hat. So cute!
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
@@ -328,7 +328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
@@ -427,6 +427,138 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+--- !u!1001 &285403302
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 543447608239473593, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050437942763538521, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477843966933979308, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399492756737181852, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399492756737181852, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767628543540983201, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767628543540983201, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5935001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.21875
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5125540026066006541, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -331.6438
+      objectReference: {fileID: 0}
+    - target: {fileID: 5125540026066006541, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -272.89648
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750533812502194545, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6783461922275173934, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Name
+      value: Dad Jumpscare Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481940761218164957, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 738.1655
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481940761218164957, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -55.927734
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646880070718126856, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181740668679937850, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 108.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8181740668679937850, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 108.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616900061839341270, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Name
+      value: MC
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616900061839341270, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9104170047585037160, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 824913736803494555, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+    - {fileID: 3218019534292780560, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+    - {fileID: 3097453041057264604, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
 --- !u!82 &297254455 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 4663899107583286707, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
@@ -544,10 +676,11 @@ MonoBehaviour:
   dialogueController: {fileID: 0}
   repeatable: 1
   dialogueLines:
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u4ECA\u5929\u7B2C1\u6B21\u548C\u201C\u5BB6\u4EBA\u201D\u8FC7\u751F\u65E5\uFF0C\u771F\u7684\u597D\u5F00\u5FC3\u554A\u3002"
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u7EC8\u4E8E\u8131\u79BB\u4EE5\u524D\u5B64\u72EC\u7684\u65E5\u5B50\u4E86\u3002"
+  - speakerName: SiJia
+    dialogue: "It\u2019s my first time celebrating my birthday with a \u201Cfamily\u201D
+      today. I\u2019m really happy.\r\n"
+  - speakerName: SiJia
+    dialogue: "I\u2019m finally free from those lonely days.\r\n"
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!1001 &368187353
@@ -8646,11 +8779,149 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1110891146114538827, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+--- !u!1001 &1695659790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 64799231493164429, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377658877612404376, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554830094418157293, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: NormalAudioSource
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2544861626054195784, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412225640240839856, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985822481008271275, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClickSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeEnemyVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877918621971849633, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_Name
+      value: OptionCanva
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
 --- !u!1001 &1740001501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8659,6 +8930,39 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[0].dialogue
+      value: "This is your birthday cake! Let\u2019s make a wish first!\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[1].dialogue
+      value: Okay!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[2].dialogue
+      value: "...\uFF08Makes a wish\uFF09"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[3].dialogue
+      value: "Are you done? If you are, let\u2019s cut the cake and open your presents!
+        There\u2019s a big surprise waiting for you inside!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[0].speakerName
+      value: Dad
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[1].speakerName
+      value: SiJia
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[2].speakerName
+      value: SiJia
+      objectReference: {fileID: 0}
+    - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
+      propertyPath: dialogueLines.Array.data[3].speakerName
+      value: Mom
+      objectReference: {fileID: 0}
     - target: {fileID: 4368030354671329358, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.62
@@ -8829,19 +9133,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u5988\u5988\uFF0C\u8FD9\u662F\u4ECA\u5929\u51FA\u53BB\u4E70\u4E86\u65B0\u7684\u82B1\u653E\u82B1\u76C6\u5417\uFF1F"
+      value: 'Mom, did you buy these new flowers today and put them in the flowerpot?
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u597D\u6F02\u4EAE\uFF01\u597D\u9999\uFF01"
+      value: "It\u2019s so pretty! And it smells amazing!\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name
@@ -9077,3 +9383,5 @@ SceneRoots:
   - {fileID: 929690693}
   - {fileID: 1740001501}
   - {fileID: 1608593305}
+  - {fileID: 1695659790}
+  - {fileID: 285403302}

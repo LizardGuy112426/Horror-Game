@@ -220,7 +220,7 @@ AudioSource:
   m_GameObject: {fileID: 15198286}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1283905154529532879, guid: b51dc0037f923ae43979d51b6510f29f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 68399b3713bb0e7439e573c9201c4658, type: 3}
   m_PlayOnAwake: 1
@@ -4057,8 +4057,8 @@ MonoBehaviour:
   dialogueCanvasPrefab: {fileID: 4589322377792762357, guid: 79b811ea1c5bed746a1c6e389e9e152c, type: 3}
   lineCompleteDelay: 2
   openingLines:
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u6211\u771F\u7684\u8981\u51FA\u53BB\u5417\uFF1F"
+  - speakerName: SiJia
+    dialogue: Do I really want to leave?
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

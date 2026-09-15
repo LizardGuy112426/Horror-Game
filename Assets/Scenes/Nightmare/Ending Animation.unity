@@ -5370,27 +5370,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u662F\u554A\uFF0C\u5988\u5988\u5F88\u559C\u6B22\u82B1\u3002"
+      value: Yeah. Mom really loves flowers.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u6211\u4E5F\u4E00\u6837\u3002"
+      value: So do I.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "...\u660E\u660E\uFF0C\u82B1\u6735\u662F\u90A3\u4E48\u7684\u6E29\u99A8\u3002"
+      value: ...Flowers are supposed to feel so warm and comforting.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name
@@ -5965,10 +5965,10 @@ MonoBehaviour:
   dialogueController: {fileID: 0}
   repeatable: 1
   dialogueLines:
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u770B\u8D77\u6765\u597D\u5F00\u5FC3\u554A...\r\n"
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u53EF\u60DC\u4E0D\u4F1A\u518D\u6709\u4E86\u5427...\r\n"
+  - speakerName: SiJia
+    dialogue: "Everyone looks so happy...\r\n"
+  - speakerName: SiJia
+    dialogue: "I guess we'll never have moments like this again...\r\n"
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!212 &1377916339

@@ -662,35 +662,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u751F\u65E5\u5FEB\u4E50\uFF0C\u4ECA\u5929\u5988\u5988\u505A\u4E86\u5927\u9910\uFF0C\u5FEB\u6765\u5403\u5427\uFF01"
+      value: "Happy birthday! Mom made a big feast today. Come on, let\u2019s eat!\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u771F\u7684\u5417\uFF1F\u8C22\u8C22\u7238\u7238\u5988\u5988\uFF01"
+      value: Really? Thank you, Mom and Dad!
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "\u4ECA\u5929\u7684\u83DC\u600E\u4E48\u6837\uFF0C\u5F88\u5408\u80C3\u53E3\u5427\uFF01\u5594\u5BF9\u4E86\uFF0C\u7B49\u4E0B\u8FD8\u6709\u60CA\u559C\u5594\uFF01"
+      value: "How\u2019s the food? It\u2019s just the way you like it, right?Oh,
+        and there\u2019s another surprise for you later!"
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[3].dialogue
-      value: "\u597D\u671F\u5F85\u2026"
+      value: "I can\u2019t wait..."
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u7238\u7238"
+      value: Dad
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[2].speakerName
-      value: "\u5988\u5988"
+      value: Mom
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[3].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 7392265164620869866, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4416,27 +4417,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u597D\u5C0F\u7684\u4E1C\u897F\uFF01\u8BDD\u8BF4\u4E3A\u4EC0\u4E48\u5BB6\u91CC\u4F1A\u6709\u5976\u74F6\u5976\u5634\u5462\uFF1F"
+      value: "It\u2019s so tiny! But\u2026 why do we have a baby bottle and pacifier
+        at home?"
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u6211\u4F3C\u4E4E\u4E5F\u4E0D\u7528\u8FD9\u4E9B\u4E1C\u897F\u4E86\u5462\u3002"
+      value: "I guess I don\u2019t need these things anymore."
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "\u7B97\u4E86\uFF01\u4ECA\u5929\u53EF\u662F\u6211\u751F\u65E5\u5462\uFF01"
+      value: "Forget it! It\u2019s my birthday today!"
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name
@@ -4728,11 +4730,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u5988\u5988\u4ECA\u5929\u505A\u4E86\u597D\u591A\u83DC\uFF01\u90FD\u662F\u6211\u7231\u5403\u7684\uFF01"
+      value: "Mom made so many dishes today! They\u2019re all my favorites!"
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name
@@ -6414,6 +6416,63 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &1819875875
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4261402655646477187, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_Name
+      value: Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.23579
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.27994
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
 --- !u!1 &1871089046
 GameObject:
   m_ObjectHideFlags: 0
@@ -6972,3 +7031,4 @@ SceneRoots:
   - {fileID: 1455962257}
   - {fileID: 1199051928}
   - {fileID: 304286615}
+  - {fileID: 1819875875}

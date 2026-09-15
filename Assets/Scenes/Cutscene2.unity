@@ -288,7 +288,7 @@ AudioSource:
   m_GameObject: {fileID: 966069818}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1283905154529532879, guid: b51dc0037f923ae43979d51b6510f29f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: c87272e63c473ef4a9abed17f3020824, type: 3}
   m_PlayOnAwake: 1
@@ -507,28 +507,32 @@ MonoBehaviour:
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u56E0\u4E3A\u6211\u771F\u771F\u5207\u5207\u5730\u4F53\u9A8C\u8FC7\u90A3\u4E9B\u597D\uFF0C\u6240\u4EE5\u540E\u6765\u53D8\u6210\u90A3\u6837\uFF0C\u6211\u624D\u89C9\u5F97\u66F4\u96BE\u63A5\u53D7\u3002"
+    dialogue: Because I had truly experienced how good things could be, it became
+      even harder for me to accept what happened afterward.
   - cgSprite: {fileID: -2951442481413526113, guid: 5fdf75e96e9a43a4a9b7844b60a95535, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u5988\u5988\uFF0C\u4F60\u809A\u5B50\u600E\u4E48\u53D8\u8FD9\u4E48\u5927\uFF1F\u4F60\u662F\u4E0D\u662F\u751F\u75C5\u4E86\u5440\uFF1F"
+    dialogue: Mom, why has your belly gotten so big? Are you sick?
   - cgSprite: {fileID: -2951442481413526113, guid: 5fdf75e96e9a43a4a9b7844b60a95535, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 1
     speakerName: 
-    dialogue: "\u5988\u5988\uFF1A\u4E0D\u662F\u7684\uFF0C\u8FD9\u662F\u4F60\u4EE5\u540E\u7684\u73A9\u4F34\u3002\u6709\u4E86\u4ED6\uFF0C\u5BB6\u91CC\u53EA\u4F1A\u66F4\u70ED\u95F9\u3002\u653E\u5FC3\u5427\uFF0C\u7238\u7238\u5988\u5988\u8FD8\u662F\u4F1A\u50CF\u73B0\u5728\u4E00\u6837\u7231\u4F60\uFF0C\u4F60\u4EC0\u4E48\u90FD\u4E0D\u4F1A\u5931\u53BB\u7684\u3002"
+    dialogue: "Mom: No, I\u2019m not sick. This is your future playmate.\r\nWith
+      him around, our home will only become livelier.\r\nDon\u2019t worry. Dad and
+      I will still love you just as much as we do now. You won\u2019t lose anything.\r\n"
   - cgSprite: {fileID: -6775534545575389172, guid: 3fc2f7194e4c5de499e139fa3eded808, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u539F\u6765\u662F\u8FD9\u6837\u554A\uFF01\u542C\u8D77\u6765\u771F\u597D\uFF0C\u6211\u5DF2\u7ECF\u5F00\u59CB\u671F\u5F85\u4E86\uFF01"
+    dialogue: "Oh, I see! That sounds wonderful. I\u2019m already looking forward
+      to it!"
   - cgSprite: {fileID: 0}
     cgSequence:
     - {fileID: 3817004439461758447, guid: f5d06f180ffe7924fabd10e0542879e4, type: 3}
@@ -538,7 +542,7 @@ MonoBehaviour:
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u53EF\u90A3\u65F6\u5019\u7684\u6211\uFF0C\u5C45\u7136\u50BB\u50BB\u5730\u5168\u4FE1\u4E86\u3002"
+    dialogue: "But back then\u2026 I was foolish enough to believe every single word."
   clearGameplayPlayerOnStart: 0
   cgImage: {fileID: 653696591}
   dialogueBox: {fileID: 0}

@@ -24,11 +24,11 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private AudioClip DoorCloseSFX;
 
     [Header("Master Volume")]
-    [Tooltip("Controls Hover, Click, Jump, Heartbeat, and Spiderman Interact together. Dad/Mom Walk, Jumpscare, and ambient enemy idle sounds share EnemyVolume instead.")]
+    [Tooltip("Controls UI, jump, landing, and general interaction sounds. Door and footstep volumes stay fixed.")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
 
     [Header("Player Walk (fixed ratio, not independently adjustable)")]
-    [Tooltip("Player footsteps always play at this fraction of masterVolume.")]
+    [Tooltip("Player footsteps always play at this fixed volume.")]
     private const float WalkVolumeMultiplier = 0.3f;
 
     [Header("Ducking (lowers other sounds while player walk SFX plays)")]
@@ -42,7 +42,7 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private float monsterMaxSpeed = 8f;
     [SerializeField] private float monsterMinPitch = 0.85f;
     [SerializeField] private float monsterMaxPitch = 1.4f;
-    [Tooltip("Shared by Dad/Mom footsteps, Jumpscare, and ambient enemy idle sounds (RandomSoundPlayer).")]
+    [Tooltip("Legacy Inspector value retained for scene compatibility. Enemy volume is controlled globally.")]
     [Range(0f, 1f)][SerializeField] private float EnemyVolume = 1f;
     [SerializeField] private AudioSource DadWalkAudioSource;
     [SerializeField] private AudioSource MomWalkAudioSource;
@@ -96,7 +96,7 @@ public class SoundEffectManager : MonoBehaviour
     {
         if (jumpscarePlaying || WalkAudioSource == null || WalkingSFX == null) return;
 
-        WalkAudioSource.PlayOneShot(WalkingSFX, masterVolume * WalkVolumeMultiplier);
+        WalkAudioSource.PlayOneShot(WalkingSFX, WalkVolumeMultiplier);
 
         if (duckRoutine != null)
             StopCoroutine(duckRoutine);
@@ -108,14 +108,14 @@ public class SoundEffectManager : MonoBehaviour
         if (jumpscarePlaying || DadWalkAudioSource == null || DadWalkingSFX == null) return;
         float speedFraction = Mathf.InverseLerp(monsterMinSpeed, monsterMaxSpeed, Mathf.Abs(currentSpeed));
         DadWalkAudioSource.pitch = Mathf.Lerp(monsterMinPitch, monsterMaxPitch, speedFraction);
-        DadWalkAudioSource.PlayOneShot(DadWalkingSFX, EnemyVolume * duckFactor);
+        DadWalkAudioSource.PlayOneShot(DadWalkingSFX, duckFactor);
     }
     public void MomWalkSFX(float currentSpeed)
     {
         if (jumpscarePlaying || MomWalkAudioSource == null || MomWalkingSFX == null) return;
         float speedFraction = Mathf.InverseLerp(monsterMinSpeed, monsterMaxSpeed, Mathf.Abs(currentSpeed));
         MomWalkAudioSource.pitch = Mathf.Lerp(monsterMinPitch, monsterMaxPitch, speedFraction);
-        MomWalkAudioSource.PlayOneShot(MomWalkingSFX, EnemyVolume * duckFactor);
+        MomWalkAudioSource.PlayOneShot(MomWalkingSFX, duckFactor);
     }
     public void JumpSFX()
     {
@@ -147,7 +147,7 @@ public class SoundEffectManager : MonoBehaviour
     public void PlayDoorOpen()
     {
         if (jumpscarePlaying || AudioSource == null || DoorOpenSFX == null) return;
-        AudioSource.PlayOneShot(DoorOpenSFX, masterVolume * duckFactor);
+        AudioSource.PlayOneShot(DoorOpenSFX, duckFactor);
     }
 
     /// <summary>
@@ -167,17 +167,17 @@ public class SoundEffectManager : MonoBehaviour
         SceneManager.sceneLoaded -= HandleDoorCloseSceneLoaded;
 
         if (jumpscarePlaying || AudioSource == null || DoorCloseSFX == null) return;
-        AudioSource.PlayOneShot(DoorCloseSFX, masterVolume * duckFactor);
+        AudioSource.PlayOneShot(DoorCloseSFX, duckFactor);
     }
 
-    /// <summary>Shared volume control for Dad/Mom footsteps, Jumpscare, and ambient enemy idle sounds.</summary>
+    /// <summary>Compatibility entry point used by existing Enemy Sound sliders.</summary>
     public void ChangeEnemyVolume(float volume)
     {
         EnemyVolume = Mathf.Clamp01(volume);
+        EnemyVolumeController2D.SetVolume(EnemyVolume);
     }
 
-    /// <summary>Read-only access so other scripts (e.g. RandomSoundPlayer) can scale their own playback by EnemyVolume.</summary>
-    public float GetEnemyVolume() => EnemyVolume;
+    public float GetEnemyVolume() => EnemyVolumeController2D.CurrentVolume;
 
     private IEnumerator DuckOtherSoundsRoutine(float duration)
     {
@@ -242,7 +242,7 @@ public class SoundEffectManager : MonoBehaviour
         }
 
         float proximity = 1f - Mathf.Clamp01(distanceToPlayer / Mathf.Max(0.01f, maxDistance));
-        HeartbeatAudioSource.volume = Mathf.Lerp(heartbeatMinVolume, heartbeatMaxVolume, proximity) * masterVolume * duckFactor;
+        HeartbeatAudioSource.volume = Mathf.Lerp(heartbeatMinVolume, heartbeatMaxVolume, proximity) * duckFactor;
 
         if (heartbeatPitchScales)
             HeartbeatAudioSource.pitch = Mathf.Lerp(heartbeatMinPitch, heartbeatMaxPitch, proximity);
@@ -255,7 +255,7 @@ public class SoundEffectManager : MonoBehaviour
 
         MuteAllOtherSounds();
 
-        JumpscareAudioSource.PlayOneShot(clip, EnemyVolume);
+        JumpscareAudioSource.PlayOneShot(clip, 1f);
 
         if (jumpscareRoutine != null)
             StopCoroutine(jumpscareRoutine);

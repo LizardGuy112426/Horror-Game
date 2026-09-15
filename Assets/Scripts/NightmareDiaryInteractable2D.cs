@@ -20,21 +20,21 @@ public sealed class NightmareDiaryInteractable2D : PlayerInteractable2D
     [Header("Diary Dialogue")]
     [SerializeField] private DialogueLine[] openingLines =
     {
-        new DialogueLine { speakerName = "佳思", dialogue = "大门钥匙。" },
-        new DialogueLine { speakerName = "佳思", dialogue = "这是什么？" },
-        new DialogueLine { speakerName = "佳思", dialogue = "我不记得爸爸还是妈妈有写日记的习惯呢。" },
-        new DialogueLine { speakerName = "佳思", dialogue = "打开来看看吧。" }
+        new DialogueLine { speakerName = "SiJia", dialogue = "The front door key." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "What's this?" },
+        new DialogueLine { speakerName = "SiJia", dialogue = "I don't remember Dad or Mom ever keeping a diary." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "Let's open it and take a look." }
     };
     [SerializeField] private DialogueLine[] followUpLines =
     {
-        new DialogueLine { speakerName = "佳思", dialogue = "这都是什么跟什么啊..." }
+        new DialogueLine { speakerName = "SiJia", dialogue = "What is all this supposed to mean...?" }
     };
 
     [Header("Diary Reader")]
     [Tooltip("Shown on the left side of the reading page. This does not change the world object sprite.")]
     [SerializeField] private Sprite diaryPageSprite;
     [TextArea(8, 20)]
-    [SerializeField] private string diaryPageText = "请在 Inspector 填写日记正文。";
+    [SerializeField] private string diaryPageText = "Enter the diary text in the Inspector.";
     [SerializeField] private Sprite optionPanelSprite;
     [Tooltip("Clickable image used to close the reading page. This does not change the world object sprite.")]
     [SerializeField] private Sprite closeButtonSprite;

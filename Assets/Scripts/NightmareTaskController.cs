@@ -36,10 +36,10 @@ public sealed class NightmareTaskController : MonoBehaviour
     public bool HasReachedFloorTwoThisRun { get; private set; }
 
     [Header("Task Text")]
-    [SerializeField] private string findWayOutText = "找到离开这里的方法。";
-    [SerializeField] private string collectEscapeItemsText = "躲避怪物，获得关键物品，逃离这里。";
-    [SerializeField] private string goToParentsBedroomForKeyText = "前往父母房获得大门钥匙。";
-    [SerializeField] private string goToFrontDoorText = "离开房间后，前往大门口。";
+    [SerializeField] private string findWayOutText = "Find a way out.";
+    [SerializeField] private string collectEscapeItemsText = "Avoid monsters. Find the items. Escape.";
+    [SerializeField] private string goToParentsBedroomForKeyText = "Find the front door key.";
+    [SerializeField] private string goToFrontDoorText = "Go to the front door.";
 
     [Header("Prefab UI References")]
     [Tooltip("The child Canvas that contains the editable Nightmare task HUD.")]
@@ -287,7 +287,7 @@ public sealed class NightmareTaskController : MonoBehaviour
 
             NightmareObjectiveItem objective = RequiredObjectives[index];
             string count = IsObjectiveCollected(objective) ? "1" : "0";
-            objectiveTexts[index].text = $"{GetObjectiveLabel(objective)}（{count}/1）";
+            objectiveTexts[index].text = $"{GetObjectiveLabel(objective)} ({count}/1)";
         }
 
         for (int index = 0; index < 5; index++)
@@ -308,9 +308,9 @@ public sealed class NightmareTaskController : MonoBehaviour
     {
         return objective switch
         {
-            NightmareObjectiveItem.OwnClothes => "客廳沙發上的衣物",
-            NightmareObjectiveItem.IdentityCard => "厨房櫃子的身份证",
-            NightmareObjectiveItem.Wallet => "走廊桌子的钱包",
+            NightmareObjectiveItem.OwnClothes => "Clothes",
+            NightmareObjectiveItem.IdentityCard => "ID card",
+            NightmareObjectiveItem.Wallet => "Wallet",
             _ => string.Empty
         };
     }

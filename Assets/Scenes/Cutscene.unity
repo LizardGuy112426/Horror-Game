@@ -288,7 +288,7 @@ AudioSource:
   m_GameObject: {fileID: 709489979}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1283905154529532879, guid: b51dc0037f923ae43979d51b6510f29f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: e219dafe1a5b9ee48b5372fefab02862, type: 3}
   m_PlayOnAwake: 1
@@ -507,28 +507,35 @@ MonoBehaviour:
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u6211\u53EB\u601D\u4F73\u3002\u6211\u4ECE\u5C0F\u5C31\u5728\u8FD9\u91CC\u957F\u5927\u3002\u4EE5\u524D\u9662\u957F\u5E38\u5E38\u8DDF\u6211\u4EEC\u8BF4\u6545\u4E8B\uFF0C\u8FD8\u8BF4\u6211\u4EEC\u662F\u8FD9\u91CC\u7684\u5C0F\u7CBE\u7075\u3002\u90A3\u65F6\u5019\u6211\u89C9\u5F97\u2026\u2026\u8FD9\u91CC\u5176\u5B9E\u4E5F\u633A\u597D\u7684\u3002"
+    dialogue: "My name is Sijia. I grew up here.\nThe director used to tell us stories
+      all the time. She would say that we were the little spirits of this place.\nBack
+      then, I thought\u2026 maybe this place wasn\u2019t so bad after all."
   - cgSprite: {fileID: 7768372043600734927, guid: e3861013226401e44b1cf33c5fd4d132, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u5C0F\u7CBE\u7075\u5462\uFF0C\u603B\u6709\u4E00\u5929\u4F1A\u9047\u5230\u4E00\u4E2A\u4ED6\u60F3\u5B88\u62A4\u7684\u300E\u5BB6\u300F\u3002\u867D\u7136\u6211\u8FD8\u4E0D\u77E5\u9053\u90A3\u662F\u79CD\u4EC0\u4E48\u611F\u89C9\uFF0C\u4F46\u6211\u76F8\u4FE1\uFF0C\u90A3\u4E00\u5B9A\u5F88\u6E29\u6696\u5E78\u798F\u7684\u3002"
+    dialogue: "A little spirit will one day find a \u201Chome\u201D they want to
+      protect.\nI still don\u2019t know what that feeling is like, but I believe\u2026
+      it must be something warm and happy."
   - cgSprite: {fileID: -7952276045321790828, guid: adcc2dbb0ec562a4b9b553da0489a8d5, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u800C\u4ECA\u5929\uFF0C\u7EC8\u4E8E\u8F6E\u5230\u6211\u4E86\u3002\u6211\u8981\u53BB\u90A3\u4E2A\u5C5E\u4E8E\u6211\u7684\u65B0\u5BB6\u4E86\u3002\u4EE5\u540E\u2026\u2026\u6211\u518D\u4E5F\u4E0D\u662F\u4E00\u4E2A\u4EBA\u4E86\u3002"
+    dialogue: "And today\u2026 it\u2019s finally my turn.\nI\u2019m going to my new
+      home\u2014the place that will finally be mine.\nFrom now on\u2026 I won\u2019t
+      be alone anymore."
   - cgSprite: {fileID: 2015611389314413935, guid: 2b2ce36c4b6d37f438a421b4b7a66b8a, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u300E\u6B22\u8FCE\u56DE\u5BB6\u3002 \u300F\u5988\u5988\u5BF9\u6211\u8BF4\u3002\r\n\u6211\u771F\u7684\u2026\u2026\u8D8A\u6765\u8D8A\u671F\u5F85\u672A\u6765\u7684\u65E5\u5B50\u4E86\u3002"
+    dialogue: "\u201CWelcome home,\u201D Mom said to me.\nI really am\u2026 looking
+      forward to the days ahead more and more."
   clearGameplayPlayerOnStart: 0
   cgImage: {fileID: 653696591}
   dialogueBox: {fileID: 0}

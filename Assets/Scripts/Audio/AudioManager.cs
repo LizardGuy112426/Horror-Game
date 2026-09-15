@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [Header("BGM")]
     [SerializeField] private AudioSource BGMSource;
 
+    [Header("Chase BGM")]
+    [SerializeField] private AudioSource ChaseMusicSource;
+
     [Header("Chase Music")]
     [Tooltip("Volume the chase music fades up to while actively being chased.")]
     [Range(0f, 1f)][SerializeField] private float chaseMusicVolume = 1f;
@@ -93,7 +96,7 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeVolume(float volume)
     {
-        BGMSource.volume = volume;
+        MusicVolumeController2D.SetVolume(volume);
     }
 
     /// <summary>
@@ -124,13 +127,16 @@ public class AudioManager : MonoBehaviour
 
     private void StartChaseMusic()
     {
+        if (ChaseMusicSource == null)
+            return;
+
         isChaseMusicActive = true;
 
         if (chaseMusicFadeRoutine != null)
             StopCoroutine(chaseMusicFadeRoutine);
 
-        if (!BGMSource.isPlaying)
-            BGMSource.Play();
+        if (!ChaseMusicSource.isPlaying)
+            ChaseMusicSource.Play();
 
         chaseMusicFadeRoutine = StartCoroutine(FadeBGMVolume(chaseMusicVolume, chaseFadeInTime));
     }
@@ -157,40 +163,46 @@ public class AudioManager : MonoBehaviour
             chaseMusicFadeRoutine = null;
         }
 
-        if (BGMSource != null)
-            BGMSource.Stop();
+        if (ChaseMusicSource != null)
+            ChaseMusicSource.Stop();
     }
 
     private IEnumerator FadeBGMVolume(float targetVolume, float duration)
     {
-        float startVolume = BGMSource.volume;
+        if (ChaseMusicSource == null)
+        {
+            chaseMusicFadeRoutine = null;
+            yield break;
+        }
+
+        float startVolume = ChaseMusicSource.volume;
         float elapsed = 0f;
 
         if (duration <= 0f)
         {
-            BGMSource.volume = targetVolume;
+            ChaseMusicSource.volume = targetVolume;
         }
         else
         {
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
-                BGMSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsed / duration);
+                ChaseMusicSource.volume = Mathf.Lerp(startVolume, targetVolume, elapsed / duration);
                 yield return null;
             }
 
-            BGMSource.volume = targetVolume;
+            ChaseMusicSource.volume = targetVolume;
         }
 
         if (targetVolume <= 0f)
-            BGMSource.Stop();
+            ChaseMusicSource.Stop();
 
         chaseMusicFadeRoutine = null;
     }
 
     public void DadSpotSFXPlay()
     {
-        if (EnemySpotAudioSource != null && DadSpotSFX != null)
+        if (EnemySpotAudioSource != null && DadSpotSFX != null && !IsChaseMusicClip(DadSpotSFX))
         {
             EnemySpotAudioSource.PlayOneShot(
                 DadSpotSFX,
@@ -201,7 +213,7 @@ public class AudioManager : MonoBehaviour
 
     public void MomSpotSFXPlay()
     {
-        if (EnemySpotAudioSource != null && MomSpotSFX != null)
+        if (EnemySpotAudioSource != null && MomSpotSFX != null && !IsChaseMusicClip(MomSpotSFX))
         {
             EnemySpotAudioSource.PlayOneShot(
                 MomSpotSFX,
@@ -216,5 +228,10 @@ public class AudioManager : MonoBehaviour
         {
             EnemySpotAudioSource.Stop();
         }
+    }
+
+    private bool IsChaseMusicClip(AudioClip clip)
+    {
+        return ChaseMusicSource != null && ChaseMusicSource.clip == clip;
     }
 }

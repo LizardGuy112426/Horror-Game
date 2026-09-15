@@ -1909,7 +1909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5266595822426226949, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u4F60\u6765\u4E86\u3002\u5148\u56DE\u5BA2\u5385\u7B49\u6211\u4EEC\u5427\u3002 "
+      value: You're here. Go wait for us in the living room.
       objectReference: {fileID: 0}
     - target: {fileID: 5464556879949063327, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1965,35 +1965,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u751F\u65E5\u5FEB\u4E50\uFF0C\u4ECA\u5929\u5988\u5988\u505A\u4E86\u5927\u9910\uFF0C\u5FEB\u6765\u5403\u5427\uFF01"
+      value: Happy birthday! Mom made a big feast today. Come and eat!
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u771F\u7684\u5417\uFF1F\u8C22\u8C22\u7238\u7238\u5988\u5988\uFF01"
+      value: Really? Thank you, Mom and Dad!
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "\u4ECA\u5929\u7684\u83DC\u600E\u4E48\u6837\uFF0C\u5F88\u5408\u80C3\u53E3\u5427\uFF01\u5594\u5BF9\u4E86\uFF0C\u7B49\u4E0B\u8FD8\u6709\u60CA\u559C\u5594\uFF01"
+      value: How's the food? It's good, right? Oh, and there's another surprise later!
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[3].dialogue
-      value: "\u597D\u671F\u5F85\u2026"
+      value: I can't wait...
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u7238\u7238"
+      value: Dad
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[2].speakerName
-      value: "\u5988\u5988"
+      value: Mom
       objectReference: {fileID: 0}
     - target: {fileID: 7313400603267184640, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: dialogueLines.Array.data[3].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 7392265164620869866, guid: c26cc9b27ba820d4b85f85931faef193, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4238,19 +4238,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u6211\u79BB\u5F00\u540E\uFF0C\u5988\u5988\u5C31\u4E0D\u7528\u6BCF\u5929\u90A3\u4E48\u8F9B\u82E6\u5728\u53A8\u623F\u4E1C\u5FD9\u897F\u5FD9\u4E86\u3002"
+      value: Once I'm gone, Mom won't have to work so hard in the kitchen every day.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u5C31\u6709\u66F4\u591A\u65F6\u95F4\u966A\u4F34\u5F1F\u5F1F\u4E86\u5427\u3002"
+      value: She'll have more time to spend with my little brother.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name

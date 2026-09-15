@@ -794,6 +794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495973161}
   - component: {fileID: 495973162}
+  - component: {fileID: 495973163}
   m_Layer: 5
   m_Name: Music Slider
   m_TagString: Untagged
@@ -886,6 +887,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &495973163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495973160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a0747da7214c5e86e4e85fc443c104, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::MusicVolumeSlider2D
 --- !u!1 &557134032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1840,7 @@ AudioSource:
   m_GameObject: {fileID: 1068191062}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1283905154529532879, guid: b51dc0037f923ae43979d51b6510f29f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: dacfcb5c13fd7d94b946b68306536692, type: 3}
   m_PlayOnAwake: 1
@@ -3614,6 +3627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102321297}
   - component: {fileID: 2102321298}
+  - component: {fileID: 2102321299}
   m_Layer: 5
   m_Name: Sound Slider
   m_TagString: Untagged
@@ -3706,6 +3720,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2102321299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102321296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e13c574f923f46d4ae80468a2d771f21, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVolumeSlider2D
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

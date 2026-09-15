@@ -248,7 +248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3825507745831640366, guid: 6c2ecfb684554fe46a0469f563bf6a5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d82899c65f6194448f3d8835585b1b1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -336,7 +336,54 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0.85
-  m_Text: "\u6700\u8FD1\uFF0C\u5979\u597D\u50CF\u8D8A\u6765\u8D8A\u4E0D\u7231\u8BF4\u8BDD\u4E86\u3002\r\n\r\n\u4EE5\u524D\u653E\u5B66\u56DE\u6765\uFF0C\u603B\u4F1A\u8DD1\u8FC7\u6765\u548C\u6211\u4EEC\u8BF4\u5B66\u6821\u53D1\u751F\u7684\u4E8B\u3002\u73B0\u5728\u95EE\u5979\u201C\u4ECA\u5929\u600E\u4E48\u6837\u201D\uFF0C\u5979\u4E5F\u53EA\u662F\u7B11\u7B11\uFF0C\u8BF4\u4E00\u53E5\u201C\u8FD8\u597D\u201D\u3002\r\n\r\n\u5F1F\u5F1F\u51FA\u751F\u4EE5\u540E\uFF0C\u6211\u4EEC\u786E\u5B9E\u628A\u592A\u591A\u65F6\u95F4\u653E\u5728\u4E86\u4ED6\u8EAB\u4E0A\u3002\r\n\r\n\u6211\u4E00\u76F4\u4EE5\u4E3A\uFF0C\u5979\u5DF2\u7ECF\u957F\u5927\u4E86\uFF0C\u4F1A\u7406\u89E3\u6211\u4EEC\u7684\u5FD9\u788C\u3002\r\n\r\n\u53EF\u662F\u4ECA\u5929\u7ECF\u8FC7\u5979\u623F\u95F4\u7684\u65F6\u5019\uFF0C\u6211\u7A81\u7136\u53D1\u73B0\u2014\u2014\r\n\r\n\u6211\u597D\u50CF\u5DF2\u7ECF\u5F88\u4E45\uFF0C\u6CA1\u6709\u8BA4\u771F\u95EE\u8FC7\u5979\u4E00\u53E5\uFF1A\r\n\r\n\u201C\u4F60\u6700\u8FD1\u8FC7\u5F97\u5F00\u5FC3\u5417\uFF1F\u201D\r\n\r\n\u6709\u65F6\u5019\u60F3\u8FDB\u53BB\u548C\u5979\u804A\u804A\uFF0C\u5374\u53C8\u4E0D\u77E5\u9053\u8BE5\u600E\u4E48\u5F00\u53E3\u3002\r\n\r\n\u4E5F\u8BB8\u7B49\u8FC7\u51E0\u5929\u5427\u3002\r\n\r\n\u7B49\u4E0D\u90A3\u4E48\u5FD9\u7684\u65F6\u5019\uFF0C\u6211\u4E00\u5B9A\u8981\u597D\u597D\u548C\u5979\u8C08\u8C08\u3002\r\n"
+  m_Text: 'Lately, she seems to be talking less and less.
+
+    
+
+    She used to
+    run up to us after school and tell us everything that happened that day. Now,
+    when we ask, ''How was your day?'' she just smiles and says, ''It was fine.''
+
+    
+
+    Ever
+    since her little brother was born, we really have spent too much of our time
+    on him.
+
+    
+
+    I kept telling myself she was older now, that she would
+    understand how busy we were.
+
+    
+
+    But when I passed by her room today,
+    I suddenly realized--
+
+    
+
+    It''s been so long since I truly asked her:
+
+    
+
+    ''Have
+    you been happy lately?''
+
+    
+
+    Sometimes I want to go in and talk to her,
+    but I never know how to begin.
+
+    
+
+    Maybe in a few days.
+
+    
+
+    When
+    things calm down, I''ll sit down and have a proper talk with her.
+
+'
 --- !u!1 &1070
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "8\u670831\u65E5 \u665A\u4E0A9\u70B9 \u96E8\u5929"
+  m_Text: August 31, 9:00 PM - Rainy
 --- !u!1 &8892141357245589300
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.82}
   m_AnchorMax: {x: 0.91, y: 0.9}
-  m_AnchoredPosition: {x: -562, y: -46.74243}
+  m_AnchoredPosition: {x: -520, y: -102}
   m_SizeDelta: {x: 134.19403, y: -10.387207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5952417157409174014
@@ -766,4 +813,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u3010\u5988\u5988\u7684\u65E5\u8BB0\u3011"
+  m_Text: '[Mom''s Diary]'

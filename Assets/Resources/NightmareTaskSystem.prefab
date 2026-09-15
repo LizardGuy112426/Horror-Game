@@ -490,7 +490,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u4EFB\u52A1"
+  m_Text: TASK
 --- !u!1 &1070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,10 +1606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593a7024fc6ab624995b9a1a696358cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NightmareTaskController
-  findWayOutText: "\u79BB\u5F00\u8FD9\u4E2A\u5BB6"
-  collectEscapeItemsText: "\u6536\u96C6\u7269\u54C1\u4E26\u9003\u96E2"
-  goToParentsBedroomForKeyText: "\u524D\u5F80\u7236\u6BCD\u623F\u83B7\u53D6\u5927\u95E8\u94A5\u5319 "
-  goToFrontDoorText: "\u79BB\u5F00\u623F\u95F4\uFF0C\u5E76\u524D\u5F80\u5927\u95E8\u3002"
+  findWayOutText: Find a way out.
+  collectEscapeItemsText: Avoid monsters. Find the items. Escape.
+  goToParentsBedroomForKeyText: Go to Parent Room.Find the front door key.
+  goToFrontDoorText: Go to the front door.
   hudRoot: {fileID: 1010}
   taskText: {fileID: 1053}
   objectiveRoot: {fileID: 1070}

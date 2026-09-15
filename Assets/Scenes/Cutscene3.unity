@@ -145,7 +145,7 @@ AudioSource:
   m_GameObject: {fileID: 297414919}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1283905154529532879, guid: b51dc0037f923ae43979d51b6510f29f, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 884d87f8c3454a3479519decbf8a8d37, type: 3}
   m_PlayOnAwake: 1
@@ -508,28 +508,29 @@ MonoBehaviour:
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u5728\u548C\u7238\u5988\u6C9F\u901A\u4E4B\u540E\uFF0C"
+    dialogue: After talking things over with Mom and Dad,
   - cgSprite: {fileID: -8985976283102869554, guid: fa8c5f4995403df4996f3c7d500412b5, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 1
     speakerName: 
-    dialogue: "\u6211\u4E0D\u77E5\u9053\u4EE5\u540E\u8FD8\u4F1A\u4E0D\u4F1A\u53D8\u56DE\u5411\u4E4B\u524D\u4E00\u6837\u5E78\u798F"
+    dialogue: "I don\u2019t know if things will ever go back to being as happy as
+      they used to be."
   - cgSprite: {fileID: 5797927986208340108, guid: 9f717d6bcc9ce774093c0005e2768e6d, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 0
     speakerName: 
-    dialogue: "\u4F46\u81F3\u5C11\u6211\u4E0D\u518D\u662F\u4E00\u4E2A\u4EBA\u4E86\u3002"
+    dialogue: "But at least\u2026 I\u2019m not alone anymore."
   - cgSprite: {fileID: 5797927986208340108, guid: 9f717d6bcc9ce774093c0005e2768e6d, type: 3}
     cgSequence: []
     sequenceHoldDuration: 0.35
     sequenceCrossfadeDuration: 0.45
     skipCrossfadeFromPrevious: 1
     speakerName: 
-    dialogue: "\u5E0C\u671B\u662F\u5427\u3002\u3002\u3002"
+    dialogue: I hope so...
   clearGameplayPlayerOnStart: 1
   cgImage: {fileID: 653696591}
   dialogueBox: {fileID: 0}

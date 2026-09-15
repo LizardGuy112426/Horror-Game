@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public sealed class DiaryReaderOverlay2D : MonoBehaviour
 {
     private const string OverlayPrefabResourceName = "DiaryReaderOverlayUI";
-    private const string InspectorTextPlaceholder = "请在 Dairy 的 Inspector 填写 Diary Page Text。";
-    private const string LegacyInspectorTextPlaceholder = "请在 Inspector 填写日记正文。";
+    private const string InspectorTextPlaceholder = "Enter the Diary Page Text in the Dairy Inspector.";
+    private const string LegacyInspectorTextPlaceholder = "Enter the diary text in the Inspector.";
 
     private GameObject overlayRoot;
     private Image panelImage;

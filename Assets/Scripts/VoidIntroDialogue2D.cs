@@ -11,8 +11,8 @@ public sealed class VoidIntroDialogue2D : MonoBehaviour
     {
         new DialogueLine
         {
-            speakerName = "思佳",
-            dialogue = "我真的要出去吗？"
+            speakerName = "SiJia",
+            dialogue = "Do I really want to leave?"
         }
     };
 

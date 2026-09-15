@@ -21,14 +21,14 @@ public class NewsIntroController : MonoBehaviour
 
     [Header("=== 内容 ===")]
     [TextArea(1, 3)]
-    public string titleContent = "中学生女生失踪一个月　警方呼吁公众提供线索";
+    public string titleContent = "Middle School Girl Missing for a Month; Police Appeal to Public for Information";
 
     [TextArea(5, 15)]
     public string bodyContent =
-        "【本报讯】一名中学生女生于一个月前被家人发现失踪，家属随后向警方报案。至今女童仍下落不明，警方目前持续展开调查及搜寻行动，并呼吁公众提供相关线索。\n\n" +
-        "据了解，失踪女童为一名中学生，女性，身高约150厘米，身形偏瘦，脸型偏圆，留有一头短发，发型为蘑菇头。女童失踪至今已有一个月，家属一直焦急等待她的消息，并希望她能够平安回家。\n\n" +
-        "警方呼吁，任何曾见过该名女童，或掌握其行踪及相关信息的公众，应尽快向警方提供线索，以协助调查及搜寻工作。\n\n" +
-        "家属也呼吁社会大众关注寻人消息，如发现符合上述特征的失踪女童，请立即联系警方。家人表示，他们至今仍在等待女童回家，希望她能够早日平安归来。";
+        "【News Report】A female middle school student was reported missing by her family one month ago. Her family subsequently filed a police report. The girl remains missing, and police are continuing their investigation and search efforts while appealing to the public for any relevant information.\n\n" +
+        "According to reports, the missing girl is a middle school student. She is approximately 150 cm tall, has a slim build, a relatively round face, and short hair in a bowl-cut style. She has now been missing for one month. Her family has been anxiously waiting for any news and hopes that she will return home safely.\n\n" +
+        "Police are urging anyone who has seen the girl, or who has any information regarding her whereabouts, to contact the authorities as soon as possible to assist with the investigation and search.\n\n" +
+        "The family is also asking the public to pay attention to the missing-person notice. Anyone who spots a girl matching the description above should contact the police immediately. Her family says they are still waiting for her to come home and hope she will return safely as soon as possible.";
 
     [Header("=== 时间控制（秒） ===")]
     public float fadeInDuration = 2f;

@@ -400,10 +400,10 @@ MonoBehaviour:
   dialogueController: {fileID: 0}
   repeatable: 1
   dialogueLines:
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u770B\u8D77\u6765\u597D\u5F00\u5FC3\u554A...\r\n"
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u53EF\u60DC\u4E0D\u4F1A\u518D\u6709\u4E86\u5427...\r\n"
+  - speakerName: SiJia
+    dialogue: "Everyone looks so happy...\r\n"
+  - speakerName: SiJia
+    dialogue: "I guess we'll never have moments like this again...\r\n"
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!1001 &368187353
@@ -704,8 +704,8 @@ MonoBehaviour:
   triggerSize: {x: 2.8, y: 3.2}
   endingSceneName: Ending Animation
   openingLines:
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u6211\u771F\u7684\u8981\u8FD9\u4E48\u505A\u5417\uFF1F\u6216\u8BB8\u6211\u8FD8\u6709..."
+  - speakerName: SiJia
+    dialogue: Do I really want to do this? Maybe I still have...
   cameraFocusPoint: {fileID: 1349541116}
   sceneCamera: {fileID: 368187354}
   cameraPanDuration: 1
@@ -719,27 +719,27 @@ MonoBehaviour:
   staySceneName: Cutscene3
   stayFadeDuration: 2
   stayLines:
-  - speakerName: "\u7236\u6BCD"
-    dialogue: "...\u5B69\u5B50\u3002\u4F60\u771F\u7684\u8981\u90A3\u6837\u505A\u5417\uFF1F..."
-  - speakerName: "\u601D\u4F73"
+  - speakerName: Parent
+    dialogue: ...My child. Are you sure this is what you want?...
+  - speakerName: SiJia
     dialogue: ...
-  - speakerName: "\u601D\u4F73"
-    dialogue: "...\u6211\u77E5\u9053\u6211\u4ECE\u6765\u90FD\u4E0D\u662F\u60F3\u8981\u548C\u5F1F\u5F1F\u6323\u4EC0\u4E48..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u6211\u53EA\u662F..."
-  - speakerName: "\u601D\u4F73"
-    dialogue: "\u60F3\u8981\u88AB\u4F60\u4EEC\u8BA4\u771F\u5BF9\u5F85\u3002"
-  - speakerName: "\u7238\u7238"
+  - speakerName: SiJia
+    dialogue: ...I know I was never trying to compete with my brother for anything...
+  - speakerName: SiJia
+    dialogue: I just...
+  - speakerName: SiJia
+    dialogue: wanted you to truly see me.
+  - speakerName: Dad
     dialogue: ...
-  - speakerName: "\u7238\u7238"
-    dialogue: "\u6211\u4EEC\uFF0C\u4E5F\u5F88\u591A\u6B21\u5C1D\u8BD5\u8FC7\u548C\u4F60\u804A\u804A\uFF0C\u53EA\u662F\uFF0C\u4E5F\u4E0D\u77E5\u9053\u600E\u4E48\u5F00\u53E3\uFF0C\u6211\u8EAB\u4E3A\u7236\u4EB2\uFF0C\u771F\u7684\u3002"
-  - speakerName: "\u7238\u7238"
-    dialogue: "\u5F88\u5BF9\u4E0D\u8D77\u4F60\u3002\u8BA9\u4F60\u72EC\u81EA\u627F\u53D7\u4E86\u90A3\u4E48\u591A\u3002"
-  - speakerName: "\u5988\u5988"
-    dialogue: "\u5988\u5988\uFF0C\u4E0D\uFF0C\u6211\u4EEC\u4ECE\u6765\u6CA1\u6709\u60F3\u8FD9\u6837\u5BF9\u5F85\u4F60\u3002\u662F\u6211\u758F\u5FFD\u4E86\u4F60\u3002"
-  - speakerName: "\u5988\u5988"
-    dialogue: "\u4E0D\u8981\u518D\u81EA\u5DF1\u5FCD\u8010\u4E86...\u5BF9\u4E0D\u8D77..."
-  - speakerName: "\u601D\u4F73"
+  - speakerName: Dad
+    dialogue: We tried so many times to talk to you, but we never knew how to begin. As your father, I...
+  - speakerName: Dad
+    dialogue: I'm so sorry. We left you to carry all of that alone.
+  - speakerName: Mom
+    dialogue: No... We never meant to make you feel this way. I failed to notice how much you were hurting.
+  - speakerName: Mom
+    dialogue: Please don't keep suffering in silence... I'm so sorry...
+  - speakerName: SiJia
     dialogue: ...
 --- !u!61 &513789357
 BoxCollider2D:
@@ -3956,19 +3956,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u542C\u5988\u5988\u8BF4\u8FC7\u5C0F\u5929\u4F7F\u662F\u5728\u6211\u51FA\u751F\u90A3\u5929\u7A81\u7136\u722C\u5230\u6211\u4EEC\u5BB6\u7684"
+      value: Mom told me Angel suddenly crawled into our home the day I was born.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "\u90A3\u65F6\u5019\u5B83\u4E5F\u624D\u51E0\u4E2A\u6708\u5927\uFF0C\u6240\u4EE5\u7238\u7238\u5988\u5988\u5C31\u9886\u517B\u5B83\uFF0C\u7136\u540E\u79F0\u5B83\u4E3A\u4ED6\u8FCE\u63A5\u6211\u51FA\u751F\u7684\u5C0F\u5929\u4F7F\u3002\r\n"
+      value: "It was only a few months old then, so Mom and Dad adopted it and named it Angel, saying it had come to welcome me into the world.\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name
@@ -5935,23 +5935,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u5988\u5988\u5E2E\u6211\u6298\u597D\u7684\u8863\u670D\u3002"
+      value: These are the clothes Mom folded for me.
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "...\u5988\u5988\u3002"
+      value: ...Mom.
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "..\u4F60\u8BF4\u6700\u540E\u7684\u6211\u53C8\u4F1A\u53BB\u5230\u54EA\u91CC\u5462\uFF1F\r\n"
+      value: "...Where do you think I'll end up?\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[2].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 2000001, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: m_LocalPosition.x

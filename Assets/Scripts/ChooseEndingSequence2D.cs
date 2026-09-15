@@ -7,6 +7,8 @@ using UnityEngine;
 public sealed class ChooseEndingSequence2D : MonoBehaviour
 {
     private const float ChoiceDuration = 5f;
+    private static readonly int SceneIdleState = Animator.StringToHash("Base Layer.Idle");
+    private static readonly int SceneWalkingState = Animator.StringToHash("Base Layer.Walking");
 
     private enum Branch
     {
@@ -17,8 +19,6 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
     }
 
     [Header("Scene References")]
-    [SerializeField] private Transform fallbackPlayerStart;
-    [SerializeField] private Transform runTarget;
     [SerializeField] private BoxCollider2D frontDoorTrigger;
     [SerializeField] private CinemachineCamera sceneCamera;
 
@@ -47,21 +47,26 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
     [SerializeField, Min(0f)] private float stayFadeDuration = 2f;
     [SerializeField] private DialogueLine[] stayLines =
     {
-        new DialogueLine { speakerName = "父母", dialogue = "...孩子。你真的要那样做吗？..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "...我知道我从来都不是想要和弟弟挣什么..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "我只是..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "想要被你们认真对待。" },
-        new DialogueLine { speakerName = "爸爸", dialogue = "..." },
-        new DialogueLine { speakerName = "爸爸", dialogue = "我们，也很多次尝试过和你聊聊，只是，也不知道怎么开口，我身为父亲，真的。" },
-        new DialogueLine { speakerName = "爸爸", dialogue = "很对不起你。让你独自承受了那么多。" },
-        new DialogueLine { speakerName = "妈妈", dialogue = "妈妈，不，我们从来没有想这样对待你。是我疏忽了你。" },
-        new DialogueLine { speakerName = "妈妈", dialogue = "不要再自己忍耐了...对不起..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "..." }
+        new DialogueLine { speakerName = "Parent", dialogue = "...My child. Are you sure this is what you want?..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "...I know I was never trying to compete with my brother for anything..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "I just..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "wanted you to truly see me." },
+        new DialogueLine { speakerName = "Dad", dialogue = "..." },
+        new DialogueLine { speakerName = "Dad", dialogue = "We tried so many times to talk to you, but we never knew how to begin. As your father, I..." },
+        new DialogueLine { speakerName = "Dad", dialogue = "I'm so sorry. We left you to carry all of that alone." },
+        new DialogueLine { speakerName = "Mom", dialogue = "No... We never meant to make you feel this way. I failed to notice how much you were hurting." },
+        new DialogueLine { speakerName = "Mom", dialogue = "Please don't keep suffering in silence... I'm so sorry..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "..." }
     };
 
     private MCControllers playerMovement;
     private PlayerDoorInteractor2D playerInteraction;
+    private Transform scenePlayerVisual;
+    private Animator scenePlayerAnimator;
+    private SpriteRenderer scenePlayerRenderer;
+    private SpriteRenderer[] persistentPlayerRenderers;
+    private bool[] persistentPlayerRendererStates;
     private EnemyAI dad;
     private EnemyAI mom;
     private GameObject parentsRoot;
@@ -108,8 +113,7 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
 
     private bool ValidateConfiguration()
     {
-        bool valid = fallbackPlayerStart != null && runTarget != null
-            && frontDoorTrigger != null && dadPrefab != null && momPrefab != null
+        bool valid = frontDoorTrigger != null && dadPrefab != null && momPrefab != null
             && dadSpawnPoint != null && momSpawnPoint != null
             && dadDoorStop != null && momDoorStop != null;
         if (!valid)
@@ -119,15 +123,116 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
 
     private void PlaceAndLockPlayer()
     {
-        Vector3 position = ChooseEndingArrivalState.TryConsume(out Vector3 arrival)
-            ? arrival
-            : fallbackPlayerStart.position;
-        playerMovement.transform.position = position;
+        // Clear the one-shot handoff without moving the MC already staged here.
+        ChooseEndingArrivalState.TryConsume(out _);
+        scenePlayerVisual = FindScenePlayerVisual();
+        HidePersistentPlayerVisuals();
+
         playerMovement.SetMovementEnabled(false);
-        playerMovement.PlayScriptedWalkingAnimation();
+
         if (playerInteraction != null)
             playerInteraction.SetInteractionEnabled(false);
     }
+
+    private Transform FindScenePlayerVisual()
+    {
+        foreach (GameObject candidate in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (candidate.scene != gameObject.scene
+                || candidate.GetComponentInParent<MCControllers>() != null)
+                continue;
+
+            SpriteRenderer renderer = candidate.GetComponentInChildren<SpriteRenderer>(true);
+            if (renderer != null)
+            {
+                ConfigureScenePlayerAnimator(candidate, renderer);
+                return renderer.transform;
+            }
+        }
+
+        Debug.LogWarning("ChooseEnding could not find its staged MC visual; using the persistent player as fallback.", this);
+        return playerMovement.transform;
+    }
+
+    private void ConfigureScenePlayerAnimator(GameObject scenePlayer, SpriteRenderer renderer)
+    {
+        Animator rootAnimator = scenePlayer.GetComponent<Animator>();
+        scenePlayerRenderer = renderer;
+        scenePlayerAnimator = renderer.GetComponent<Animator>();
+        if (scenePlayerAnimator == null)
+            return;
+
+        // The child already has the full MC controller. The root only carries
+        // an Idle-only controller, so disable it without replacing the child.
+        if (rootAnimator != null && rootAnimator != scenePlayerAnimator)
+            rootAnimator.enabled = false;
+
+        scenePlayerAnimator.enabled = true;
+        scenePlayerAnimator.Rebind();
+        scenePlayerAnimator.Update(0f);
+        SetScenePlayerWalking(false);
+    }
+
+    private void SetScenePlayerWalking(bool walking)
+    {
+        if (scenePlayerAnimator == null)
+            return;
+
+        scenePlayerAnimator.speed = 1f;
+        SetAnimatorBoolIfPresent(scenePlayerAnimator, "onGround", true);
+        SetAnimatorBoolIfPresent(scenePlayerAnimator, "isCrouching", false);
+        SetAnimatorBoolIfPresent(scenePlayerAnimator, "isWalking", walking);
+
+        int state = walking ? SceneWalkingState : SceneIdleState;
+        if (scenePlayerAnimator.HasState(0, state))
+        {
+            scenePlayerAnimator.Play(state, 0, 0f);
+            scenePlayerAnimator.Update(0f);
+        }
+    }
+
+    private static void SetAnimatorBoolIfPresent(Animator target, string parameterName, bool value)
+    {
+        foreach (AnimatorControllerParameter parameter in target.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Bool
+                && parameter.name == parameterName)
+            {
+                target.SetBool(parameterName, value);
+                return;
+            }
+        }
+    }
+
+    private void HidePersistentPlayerVisuals()
+    {
+        if (scenePlayerVisual == playerMovement.transform)
+            return;
+
+        persistentPlayerRenderers = playerMovement.GetComponentsInChildren<SpriteRenderer>(true);
+        persistentPlayerRendererStates = new bool[persistentPlayerRenderers.Length];
+        for (int i = 0; i < persistentPlayerRenderers.Length; i++)
+        {
+            persistentPlayerRendererStates[i] = persistentPlayerRenderers[i].enabled;
+            persistentPlayerRenderers[i].enabled = false;
+        }
+    }
+
+    private void RestorePersistentPlayerVisuals()
+    {
+        if (persistentPlayerRenderers == null || persistentPlayerRendererStates == null)
+            return;
+
+        for (int i = 0; i < persistentPlayerRenderers.Length; i++)
+        {
+            if (persistentPlayerRenderers[i] != null)
+                persistentPlayerRenderers[i].enabled = persistentPlayerRendererStates[i];
+        }
+
+        persistentPlayerRenderers = null;
+        persistentPlayerRendererStates = null;
+    }
+
 
     private void BindCamera()
     {
@@ -144,7 +249,7 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
         }
 
         if (sceneCamera != null)
-            sceneCamera.Follow = playerMovement.transform;
+            sceneCamera.Follow = scenePlayerVisual;
     }
 
     private void SpawnParents()
@@ -197,7 +302,7 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
 
         dadChoiceTarget = CreateRuntimeTarget("Dad Choice Target");
         momChoiceTarget = CreateRuntimeTarget("Mom Choice Target");
-        float playerX = playerMovement.transform.position.x;
+        float playerX = scenePlayerVisual.position.x;
         dadChoiceTarget.position = new Vector3(playerX + 1.2f, dad.transform.position.y, 0f);
         momChoiceTarget.position = new Vector3(playerX + 2.1f, mom.transform.position.y, 0f);
 
@@ -241,6 +346,7 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
         if (choiceRoutine != null)
             StopCoroutine(choiceRoutine);
         choiceRoutine = null;
+        SetScenePlayerWalking(true);
         RedirectParentsToDoor();
         runRoutine = StartCoroutine(AutoWalkToDoor());
     }
@@ -264,27 +370,32 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
             choiceUi.Cancel();
         choiceUi = null;
         StopParentsAtChoiceTarget();
+        playerMovement.transform.position = scenePlayerVisual.position;
+        RestorePersistentPlayerVisuals();
         playerMovement.BeginNightmareDeath(EnemyAI.EnemyType.Dad);
     }
 
     private IEnumerator AutoWalkToDoor()
     {
-        float targetX = runTarget.position.x;
-        while (playerMovement != null
-            && Mathf.Abs(playerMovement.transform.position.x - targetX) > playerArriveDistance)
+        float targetX = frontDoorTrigger.bounds.center.x;
+        while (scenePlayerVisual != null
+            && Mathf.Abs(scenePlayerVisual.position.x - targetX) > playerArriveDistance)
         {
-            float direction = Mathf.Sign(targetX - playerMovement.transform.position.x);
-            playerMovement.SetScriptedHorizontalVelocity(direction * playerAutoWalkSpeed);
+            float direction = Mathf.Sign(targetX - scenePlayerVisual.position.x);
+            if (scenePlayerRenderer != null)
+                scenePlayerRenderer.flipX = direction < 0f;
+            scenePlayerVisual.position += Vector3.right
+                * (direction * playerAutoWalkSpeed * Time.unscaledDeltaTime);
             yield return null;
         }
 
         runRoutine = null;
-        if (playerMovement == null)
+        if (scenePlayerVisual == null)
             yield break;
 
-        playerMovement.transform.position = new Vector3(
-            targetX, runTarget.position.y, playerMovement.transform.position.z);
-        playerMovement.StopScriptedMovement();
+        scenePlayerVisual.position = new Vector3(
+            targetX, scenePlayerVisual.position.y, scenePlayerVisual.position.z);
+        SetScenePlayerWalking(false);
 
         if (!Application.CanStreamedLevelBeLoaded(runSceneName))
         {
@@ -387,6 +498,7 @@ public sealed class ChooseEndingSequence2D : MonoBehaviour
     {
         if (choiceUi != null)
             choiceUi.Cancel();
+        RestorePersistentPlayerVisuals();
         if (playerMovement != null && !transitionStarted && !playerMovement.IsDying)
         {
             playerMovement.StopScriptedMovement();

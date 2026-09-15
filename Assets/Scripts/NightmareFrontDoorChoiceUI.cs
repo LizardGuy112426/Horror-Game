@@ -85,7 +85,7 @@ public sealed class NightmareFrontDoorChoiceUI : MonoBehaviour
         if (inputBlocker != null)
             inputBlocker.SetActive(true);
         if (choiceTitle != null && string.IsNullOrWhiteSpace(choiceTitle.text))
-            choiceTitle.text = "请选择";
+            choiceTitle.text = "MAKE YOUR CHOICE";
 
         if (runButton != null)
         {

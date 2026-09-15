@@ -18,8 +18,8 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     {
         new DialogueLine
         {
-            speakerName = "思佳",
-            dialogue = "我真的要这么做吗？或许我还有..."
+            speakerName = "SiJia",
+            dialogue = "Do I really want to do this? Maybe I still have..."
         }
     };
 
@@ -45,17 +45,17 @@ public sealed class NightmareFrontDoorSequence2D : MonoBehaviour
     [SerializeField, Min(0f)] private float stayFadeDuration = 2f;
     [SerializeField] private DialogueLine[] stayLines =
     {
-        new DialogueLine { speakerName = "父母", dialogue = "...孩子。你真的要那样做吗？..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "...我知道我从来都不是想要和弟弟挣什么..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "我只是..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "想要被你们认真对待。" },
-        new DialogueLine { speakerName = "爸爸", dialogue = "..." },
-        new DialogueLine { speakerName = "爸爸", dialogue = "我们，也很多次尝试过和你聊聊，只是，也不知道怎么开口，我身为父亲，真的。" },
-        new DialogueLine { speakerName = "爸爸", dialogue = "很对不起你。让你独自承受了那么多。" },
-        new DialogueLine { speakerName = "妈妈", dialogue = "妈妈，不，我们从来没有想这样对待你。是我疏忽了你。" },
-        new DialogueLine { speakerName = "妈妈", dialogue = "不要再自己忍耐了...对不起..." },
-        new DialogueLine { speakerName = "思佳", dialogue = "..." }
+        new DialogueLine { speakerName = "Parent", dialogue = "...My child. Are you sure this is what you want?..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "...I know I was never trying to compete with my brother for anything..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "I just..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "wanted you to truly see me." },
+        new DialogueLine { speakerName = "Dad", dialogue = "..." },
+        new DialogueLine { speakerName = "Dad", dialogue = "We tried so many times to talk to you, but we never knew how to begin. As your father, I..." },
+        new DialogueLine { speakerName = "Dad", dialogue = "I'm so sorry. We left you to carry all of that alone." },
+        new DialogueLine { speakerName = "Mom", dialogue = "No... We never meant to make you feel this way. I failed to notice how much you were hurting." },
+        new DialogueLine { speakerName = "Mom", dialogue = "Please don't keep suffering in silence... I'm so sorry..." },
+        new DialogueLine { speakerName = "SiJia", dialogue = "..." }
     };
 
     private PlayerDoorInteractor2D activePlayer;

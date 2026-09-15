@@ -541,6 +541,9 @@ MonoBehaviour:
   promptObject: {fileID: 1294498565}
   targetSceneName: Happy_Floor_2_Hallways
   targetSpawnId: Floor2_FromStaircase
+  useRouteAfterReachingFloorTwo: 0
+  returnSceneName: NM_Floor_2_Hallways
+  returnSpawnId: Floor2_FromBedroom
   interactionCooldown: 0.25
   doorAnimator: {fileID: 0}
   interactionAnimationState: Door
@@ -3210,11 +3213,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u6C92\u6709\u8981\u53BB\u53A0\u6240\u3002"
+      value: "I don\u2019t need to use the bathroom right now."
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
-      value: "\u4F73\u601D"
+      value: SiJia
       objectReference: {fileID: 0}
     - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: m_Name

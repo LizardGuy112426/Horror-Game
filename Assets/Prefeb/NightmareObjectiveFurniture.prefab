@@ -95,8 +95,8 @@ MonoBehaviour:
   dialogueController: {fileID: 0}
   repeatable: 1
   dialogueLines:
-  - speakerName: "\u4F73\u601D"
-    dialogue: "\u66FF\u6362\u8FD9\u6BB5\u4E34\u65F6\u4EFB\u52A1\u5BB6\u5177\u5BF9\u767D\u3002"
+  - speakerName: SiJia
+    dialogue: Replace this temporary objective dialogue in the Inspector.
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!114 &1000005

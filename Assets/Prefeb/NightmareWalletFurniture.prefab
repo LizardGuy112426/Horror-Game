@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 7713428474136707153, guid: 6aaccec47e62cf944a44cffa99117af3, type: 3}
     - target: {fileID: 1000004, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "\u94B1\u5305\u5728\u8FD9\u91CC\u3002\u91CC\u9762\u4E5F\u8BB8\u6709\u80FD\u7528\u7684\u4E1C\u897F\u3002"
+      value: My wallet. There might be something useful inside.
       objectReference: {fileID: 0}
     - target: {fileID: 1000006, guid: 0e45167a224c45e2aed2cdf1cb0e4516, type: 3}
       propertyPath: worldSprite
