@@ -72,10 +72,20 @@ public sealed class PersistentMusicController2D : MonoBehaviour
         // Clear effects from the previous scene, but leave pending door-close callbacks intact.
         GetComponent<SoundEffectManager>()?.ResetForScene();
         GetComponent<AudioManager>()?.ResetForScene(scene.name);
+        // Persistent random enemy ambience must only run in a scene that
+        // actually contains an EnemyAI. Previously this was enabled in every
+        // scene whose name started with "NM_", so enemy random sounds leaked
+        // into Nightmare scenes with no enemy.
+        bool sceneHasEnemy = SceneContainsEnemy(scene);
+
         foreach (RandomSoundPlayer ambient in GetComponentsInChildren<RandomSoundPlayer>(true))
         {
-            ambient.enabled = !ending && scene.name.StartsWith("NM_");
-            if (ambient.enabled) ambient.ScheduleNextCheck();
+            ambient.enabled = !ending
+                && scene.name.StartsWith("NM_")
+                && sceneHasEnemy;
+
+            if (ambient.enabled)
+                ambient.ScheduleNextCheck();
         }
         SceneMusicCue2D cue = null;
         bool synchronizedCutscene = false;
@@ -101,6 +111,24 @@ public sealed class PersistentMusicController2D : MonoBehaviour
         }
         targetVolume = cue.volume;
         PlayMusic(cue.musicClip, cue.loop, cue.fadeOutDuration, cue.fadeInDuration, cue.restartOnEnter);
+    }
+
+    private static bool SceneContainsEnemy(Scene scene)
+    {
+        if (!scene.IsValid() || !scene.isLoaded)
+            return false;
+
+        EnemyAI[] enemies = Object.FindObjectsByType<EnemyAI>(
+            FindObjectsInactive.Include
+        );
+
+        foreach (EnemyAI enemy in enemies)
+        {
+            if (enemy != null && enemy.gameObject.scene == scene)
+                return true;
+        }
+
+        return false;
     }
 
     public void PlayMusic(AudioClip clip, bool loop, float fadeOut, float fadeIn, bool restart)
