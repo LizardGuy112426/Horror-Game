@@ -5,6 +5,10 @@ public class DontDestroy : MonoBehaviour
     public static DontDestroy Instance;
     private void Awake()
     {
+        // Ending Timeline owns this local audio hierarchy. The new audio root
+        // handles persistence; do not detach or preserve the Timeline's child.
+        if (GetComponent<AudioManager>() != null || GetComponent<SoundEffectManager>() != null)
+            return;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);

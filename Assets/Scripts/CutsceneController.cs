@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -58,6 +59,8 @@ public sealed class CutsceneController : MonoBehaviour
     [SerializeField] private Font dialogueFont;
 
     [Header("Playback")]
+    [Tooltip("Use the scene music's scheduled start as the CG clock. Other scenes retain legacy playback by default.")]
+    [SerializeField] private bool synchronizeWithMusic;
     [SerializeField, Min(0.005f)] private float secondsPerCharacter = 0.035f;
     [FormerlySerializedAs("finalPageDelay")]
     [SerializeField, Min(0f)] private float pageCompleteDelay = 3f;
@@ -69,6 +72,14 @@ public sealed class CutsceneController : MonoBehaviour
     [SerializeField] private Color missingCgColor = new Color(0.09f, 0.1f, 0.14f, 1f);
 
     private Image sequenceOverlayImage;
+    private PersistentMusicController2D synchronizedMusic;
+    private PersistentMusicController2D.ScheduledPlayback synchronizedStart;
+    private double silentClockStart;
+    public bool SynchronizeWithMusic => synchronizeWithMusic;
+    public bool SynchronizedPlaybackReady { get; private set; }
+    public double SynchronizedCompletionTime { get; private set; } = double.NaN;
+    public double SynchronizedElapsedSeconds => synchronizedStart != null
+        ? synchronizedStart.Elapsed : Time.realtimeSinceStartupAsDouble - silentClockStart;
 
     public void Configure(Image image, Image box, Text nameText, Text bodyText, Text hintText)
     {
@@ -122,7 +133,167 @@ public sealed class CutsceneController : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(PlayCutscene());
+        StartCoroutine(synchronizeWithMusic ? PlaySynchronizedCutscene() : PlayCutscene());
+    }
+
+    private void OnDisable()
+    {
+        if (!synchronizeWithMusic) return;
+        StopAllCoroutines();
+        if (synchronizedMusic != null) synchronizedMusic.CancelSynchronizedMusic(synchronizedStart);
+        SynchronizedPlaybackReady = false;
+    }
+
+    private IEnumerator PlaySynchronizedCutscene()
+    {
+        PreparePageVisual(0, false);
+        SceneMusicCue2D cue = null;
+        foreach (GameObject root in gameObject.scene.GetRootGameObjects())
+        {
+            var candidate = root.GetComponentInChildren<SceneMusicCue2D>();
+            if (candidate != null && candidate.isActiveAndEnabled) { cue = candidate; break; }
+        }
+        synchronizedMusic = PersistentMusicController2D.Instance;
+        if (synchronizedMusic != null)
+        {
+            synchronizedStart = synchronizedMusic.PrepareSynchronizedMusic(cue);
+            while (!synchronizedStart.IsReady && !synchronizedStart.IsCancelled) yield return null;
+            if (synchronizedStart.IsCancelled) yield break;
+        }
+        else
+        {
+            Debug.LogWarning("CG music system is missing. Continuing with a realtime clock.", this);
+            silentClockStart = Time.realtimeSinceStartupAsDouble;
+        }
+        SynchronizedPlaybackReady = true;
+
+        // All deadlines are offsets from ONE start, never from the frame that resumed a coroutine.
+        double cursor = blackOverlay != null ? blackFadeDuration : 0d;
+        yield return SynchronizedBlackFade(0d, cursor, true);
+        for (int i = 0; i < pages.Length; i++)
+        {
+            CgPage page = pages[i];
+            PreparePageDialogue(page, true);
+            double transitionDuration = i > 0 && !page.skipCrossfadeFromPrevious ? pageCrossfadeDuration : 0d;
+            Sprite next = GetPageInitialSprite(page);
+            Sprite previous = i > 0 ? GetFinalSprite(pages[i - 1]) : next;
+            double bodyStart = cursor + transitionDuration;
+            while (SynchronizedElapsedSeconds < bodyStart)
+            {
+                RenderSynchronizedBlend(previous, next, transitionDuration > 0d
+                    ? (float)((SynchronizedElapsedSeconds - cursor) / transitionDuration) : 1f);
+                yield return null;
+            }
+            RenderSynchronizedBlend(next, next, 1f);
+            string line = page.dialogue ?? string.Empty;
+            var sequence = GetValidSequence(page);
+            double sequenceDuration = Math.Max(0, sequence.Count - 1)
+                * ((double)page.sequenceHoldDuration + page.sequenceCrossfadeDuration);
+            double bodyDuration = Math.Max(line.Length * (double)secondsPerCharacter, sequenceDuration);
+            double pageEnd = bodyStart + bodyDuration + pageCompleteDelay;
+            int previousCount = -1;
+            while (SynchronizedElapsedSeconds < pageEnd)
+            {
+                double elapsed = Math.Max(0d, SynchronizedElapsedSeconds - bodyStart);
+                int count = (int)Math.Min(line.Length, 1d + Math.Floor(elapsed / secondsPerCharacter));
+                if (count != previousCount && dialogueText != null)
+                    dialogueText.text = line.Substring(0, count);
+                previousCount = count;
+                RenderSynchronizedSequence(page, sequence, elapsed);
+                yield return null;
+            }
+            if (dialogueText != null) dialogueText.text = line;
+            RenderSynchronizedSequence(page, sequence, bodyDuration);
+            cursor = pageEnd;
+        }
+        yield return SynchronizedBlackFade(cursor, blackOverlay != null ? finalBlackFadeDuration : 0d, false);
+        SynchronizedCompletionTime = SynchronizedElapsedSeconds;
+        LoadNextScene();
+    }
+
+    private IEnumerator SynchronizedBlackFade(double start, double duration, bool opening)
+    {
+        if (blackOverlay != null)
+        {
+            blackOverlay.gameObject.SetActive(true);
+            blackOverlay.raycastTarget = true;
+            blackOverlay.transform.SetAsLastSibling();
+        }
+        while (SynchronizedElapsedSeconds < start + duration)
+        {
+            if (blackOverlay != null)
+            {
+                float fraction = duration > 0d ? Mathf.Clamp01((float)((SynchronizedElapsedSeconds - start) / duration)) : 1f;
+                Color color = blackOverlay.color;
+                color.a = opening ? 1f - fraction : fraction;
+                blackOverlay.color = color;
+            }
+            yield return null;
+        }
+        if (blackOverlay != null)
+        {
+            Color color = blackOverlay.color;
+            color.a = opening ? 0f : 1f;
+            blackOverlay.color = color;
+            blackOverlay.raycastTarget = !opening;
+            blackOverlay.gameObject.SetActive(!opening);
+        }
+    }
+
+    private static List<Sprite> GetValidSequence(CgPage page)
+    {
+        var result = new List<Sprite>();
+        if (page.cgSequence != null)
+            foreach (var sprite in page.cgSequence) if (sprite != null) result.Add(sprite);
+        return result;
+    }
+
+    private static Sprite GetFinalSprite(CgPage page)
+    {
+        if (page.cgSequence != null)
+            for (int i = page.cgSequence.Length - 1; i >= 0; i--)
+                if (page.cgSequence[i] != null) return page.cgSequence[i];
+        return page.cgSprite;
+    }
+
+    private void RenderSynchronizedSequence(CgPage page, List<Sprite> sequence, double elapsed)
+    {
+        if (sequence.Count < 2) return;
+        double period = (double)page.sequenceHoldDuration + page.sequenceCrossfadeDuration;
+        int index = period > 0d ? (int)Math.Min(sequence.Count - 1, Math.Floor(elapsed / period)) : sequence.Count - 1;
+        if (index >= sequence.Count - 1)
+        {
+            RenderSynchronizedBlend(sequence[index], sequence[index], 1f);
+            return;
+        }
+        double fadeElapsed = elapsed - index * period - page.sequenceHoldDuration;
+        float fraction = page.sequenceCrossfadeDuration > 0f
+            ? Mathf.Clamp01((float)(fadeElapsed / page.sequenceCrossfadeDuration)) : (fadeElapsed >= 0d ? 1f : 0f);
+        RenderSynchronizedBlend(sequence[index], sequence[index + 1], fraction);
+    }
+
+    private void RenderSynchronizedBlend(Sprite from, Sprite to, float fraction)
+    {
+        if (cgImage == null) return;
+        fraction = Mathf.Clamp01(fraction);
+        cgImage.preserveAspect = true;
+        if (fraction <= 0f || fraction >= 1f)
+        {
+            cgImage.sprite = fraction <= 0f ? from : to;
+            cgImage.color = cgImage.sprite == null ? missingCgColor : Color.white;
+            HideSequenceOverlay();
+            return;
+        }
+        Image overlay = EnsureSequenceOverlay();
+        cgImage.sprite = from;
+        Color fromColor = from == null ? missingCgColor : Color.white;
+        fromColor.a = 1f - fraction;
+        cgImage.color = fromColor;
+        overlay.gameObject.SetActive(true);
+        overlay.sprite = to;
+        Color toColor = to == null ? missingCgColor : Color.white;
+        toColor.a = fraction;
+        overlay.color = toColor;
     }
 
     private IEnumerator PlayCutscene()

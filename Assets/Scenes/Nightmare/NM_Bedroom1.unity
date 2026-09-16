@@ -2749,6 +2749,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01c61992e1124214e852f7fe3d4f65c8, type: 3}
+--- !u!1 &1087085108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1087085110}
+  - component: {fileID: 1087085109}
+  m_Layer: 0
+  m_Name: Audio Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1087085109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087085108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba09e5f2ba623846be07512e4a2cf99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneAudioEventRelay2D
+--- !u!4 &1087085110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087085108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1161864182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7041,16 +7085,16 @@ PrefabInstance:
       propertyPath: NormalAudioSource
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 2544861626054195784, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    - target: {fileID: 3690648232434110295, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 1087085109}
+    - target: {fileID: 3690648232434110295, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SceneAudioEventRelay2D, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4412225640240839856, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5985822481008271275, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
@@ -7141,14 +7185,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeEnemyVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 8877918621971849633, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Name
       value: OptionCanva
@@ -7173,3 +7209,4 @@ SceneRoots:
   - {fileID: 3182071351059946051}
   - {fileID: 1642327268}
   - {fileID: 7250900075920188102}
+  - {fileID: 1087085110}

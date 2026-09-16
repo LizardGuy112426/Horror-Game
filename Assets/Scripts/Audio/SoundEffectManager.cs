@@ -23,8 +23,8 @@ public class SoundEffectManager : MonoBehaviour
     [Tooltip("Played once the new scene finishes loading, since the door object itself is destroyed by then.")]
     [SerializeField] private AudioClip DoorCloseSFX;
 
-    [Header("Master Volume")]
-    [Tooltip("Controls UI, jump, landing, and general interaction sounds. Door and footstep volumes stay fixed.")]
+    [Header("Base SFX Gain")]
+    [Tooltip("Authored relative gain. The Sound slider controls the Sound mixer group separately.")]
     [Range(0f, 1f)][SerializeField] private float masterVolume = 1f;
 
     [Header("Player Walk (fixed ratio, not independently adjustable)")]
@@ -86,12 +86,12 @@ public class SoundEffectManager : MonoBehaviour
 
     public void ClickSFX()
     {
-        if (jumpscarePlaying) return;
+        if (jumpscarePlaying || AudioSource == null || !AudioSource.isActiveAndEnabled) return;
         AudioSource.PlayOneShot(ButtonClickSFX, masterVolume * duckFactor);
     }
     public void HoverSFX()
     {
-        if (jumpscarePlaying) return;
+        if (jumpscarePlaying || HoverAudioSource == null || !HoverAudioSource.isActiveAndEnabled) return;
         HoverAudioSource.PlayOneShot(ButtonHoverSFX, masterVolume * duckFactor);
     }
 
@@ -142,10 +142,10 @@ public class SoundEffectManager : MonoBehaviour
     /// <summary>Length of the Spiderman interact clip in seconds, or 0 if unset.</summary>
     public float GetSpiderSFXDuration() => SpidermanSFX != null ? SpidermanSFX.length : 0f;
 
-    /// <summary>Sets the single master volume shared by combined sound categories (Hover, Click, Jump, Heartbeat, Spiderman Interact).</summary>
+    /// <summary>Compatibility entry point for the independent Sound mixer volume.</summary>
     public void ChangeVolume(float volume)
     {
-        masterVolume = Mathf.Clamp01(volume);
+        SoundVolumeController2D.SetVolume(volume);
     }
     public void PlayRespawnSFX()
     {
@@ -243,6 +243,8 @@ public class SoundEffectManager : MonoBehaviour
     /// </summary>
     public void ReportChaseProximity(float distanceToPlayer, float maxDistance)
     {
+        if (instance == this && PersistentMusicController2D.UsesLocalEndingAudio(SceneManager.GetActiveScene().name))
+            return;
         if (!heartbeatReportedThisFrame || distanceToPlayer < heartbeatClosestDistance)
         {
             heartbeatClosestDistance = distanceToPlayer;
@@ -326,19 +328,28 @@ public class SoundEffectManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
+        if (GetComponent<PersistentMusicController2D>() != null)
             instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    public void ResetForScene()
+    {
+        StopAllCoroutines();
+        duckRoutine = null;
+        heartbeatFadeRoutine = null;
+        jumpscareRoutine = null;
+        jumpscarePlaying = false;
+        heartbeatReportedThisFrame = false;
+        timeSinceLastChase = Mathf.Infinity;
+        duckFactor = 1f;
+        foreach (AudioSource source in new[] { HoverAudioSource, AudioSource, WalkAudioSource,
+                     DadWalkAudioSource, MomWalkAudioSource, JumpscareAudioSource, HeartbeatAudioSource })
+            StopIfPlaying(source);
     }
 
     private void OnDestroy()
     {
+        SceneManager.sceneLoaded -= HandleDoorCloseSceneLoaded;
         if (instance == this)
             instance = null;
     }

@@ -42,15 +42,10 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
+        // Scene-local ending managers retain their Timeline bindings and lifetime.
+        // Only the bootstrap root publishes the shared gameplay service.
+        if (GetComponent<PersistentMusicController2D>() != null)
             instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnEnable()
@@ -65,10 +60,21 @@ public class AudioManager : MonoBehaviour
 
     private void HandleSceneLoadedForChaseSuppression(Scene scene, LoadSceneMode mode)
     {
-        chaseMusicSuppressed = chaseMusicDisabledScenes.Contains(scene.name);
+        if (mode != LoadSceneMode.Additive) ResetForScene(scene.name);
+    }
 
-        if (chaseMusicSuppressed)
-            StopChaseMusicImmediately();
+    public void ResetForScene(string sceneName)
+    {
+        StopChaseMusicImmediately();
+        StopEnemySpotSound();
+        chaseMusicSuppressed = chaseMusicDisabledScenes.Contains(sceneName)
+            || (instance == this && !sceneName.StartsWith("NM_"));
+        lastChasingTime = -999f;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this) instance = null;
     }
 
     private void Start()
