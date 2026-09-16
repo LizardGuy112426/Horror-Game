@@ -308,9 +308,9 @@ public sealed class NightmareTaskController : MonoBehaviour
     {
         return objective switch
         {
-            NightmareObjectiveItem.OwnClothes => "Clothes",
-            NightmareObjectiveItem.IdentityCard => "ID card",
-            NightmareObjectiveItem.Wallet => "Wallet",
+            NightmareObjectiveItem.OwnClothes => "Clothes at Living Room",
+            NightmareObjectiveItem.IdentityCard => "ID card at Kitchen",
+            NightmareObjectiveItem.Wallet => "Wallet at Hallway",
             _ => string.Empty
         };
     }

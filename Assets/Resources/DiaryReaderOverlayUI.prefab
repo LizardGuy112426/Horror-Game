@@ -336,54 +336,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 0.85
-  m_Text: 'Lately, she seems to be talking less and less.
-
-    
-
-    She used to
-    run up to us after school and tell us everything that happened that day. Now,
-    when we ask, ''How was your day?'' she just smiles and says, ''It was fine.''
-
-    
-
-    Ever
+  m_Text: "Dear Diary,\n\nLately, she seems to be talking less and less. She used
+    to run up to us after school and tell us everything that happened that day. Now,
+    when I ask 'How was your day?', she just smiles and says 'It was fine.'\n\nEver
     since her little brother was born, we really have spent too much of our time
-    on him.
-
-    
-
-    I kept telling myself she was older now, that she would
-    understand how busy we were.
-
-    
-
-    But when I passed by her room today,
-    I suddenly realized--
-
-    
-
-    It''s been so long since I truly asked her:
-
-    
-
-    ''Have
-    you been happy lately?''
-
-    
-
-    Sometimes I want to go in and talk to her,
-    but I never know how to begin.
-
-    
-
-    Maybe in a few days.
-
-    
-
-    When
-    things calm down, I''ll sit down and have a proper talk with her.
-
-'
+    on him. I kept telling myself she was older now, that she would understand how
+    busy we were.\n\nBut when I passed by her room today, I suddenly realized\u2014it's
+    been so long since I truly asked her, 'Have you been happy lately?'\n\nSometimes
+    I want to go in and talk to her, but I never know how to begin. Maybe in a few
+    days. When things calm down, I'll sit down and have a proper talk with her."
 --- !u!1 &1070
 GameObject:
   m_ObjectHideFlags: 0

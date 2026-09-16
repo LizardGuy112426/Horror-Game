@@ -1606,9 +1606,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593a7024fc6ab624995b9a1a696358cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NightmareTaskController
-  findWayOutText: Find a way out.
-  collectEscapeItemsText: Avoid monsters. Find the items. Escape.
-  goToParentsBedroomForKeyText: Go to Parent Room.Find the front door key.
+  findWayOutText: Get out the room
+  collectEscapeItemsText: Find the items. Avoid monsters. Escape.
+  goToParentsBedroomForKeyText: Go to Parents Room. Get Front Door Key.
   goToFrontDoorText: Go to the front door.
   hudRoot: {fileID: 1010}
   taskText: {fileID: 1053}

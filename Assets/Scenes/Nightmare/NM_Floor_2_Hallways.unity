@@ -4793,19 +4793,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: I left it on the table and took several deep breaths, waiting for Mom and Dad to finish what they were doing so I could show it to them.
+      value: I left it on the table and took several deep breaths, waiting for Mom
+        and Dad to finish what they were doing so I could show it to them.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: But that day, my brother was crying his heart out. Mom was in tears, and Dad was scrambling around trying to help.
+      value: But that day, my brother was crying his heart out.  Mom was so exhausted,
+        and Dad was scrambling around trying to help.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[3].dialogue
-      value: The whole living room was swallowed by a suffocating panic. I stood in the shadows, holding up my painting.
+      value: The whole living room was swallowed by a suffocating panic. I stood
+        in the shadows, holding up my painting.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[4].dialogue
-      value: No one noticed me. I quietly hid the painting behind my back, returned to my room, and hung it on the wall.
+      value: No one noticed me. I quietly hid the painting behind my back, returned
+        to my room, and hung it on the wall.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
@@ -5212,7 +5216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: Maybe this will keep me going for a little while.
+      value: It's not much, but it'll keep me going for a little while.
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName

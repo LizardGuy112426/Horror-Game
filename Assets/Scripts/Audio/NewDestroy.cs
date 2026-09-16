@@ -1,23 +1,44 @@
 using UnityEngine;
 
-/// <summary>
-/// Place this on any GameObject in the Timeline scene. On load, it destroys the
-/// persistent MCControllers player instance entirely, so nothing on that object
-/// (including its AudioSource) can keep running or leak sound into this scene.
-///
-/// IMPORTANT: since MCControllers is DontDestroyOnLoad, destroying it here is
-/// permanent — no player will exist afterward unless the NEXT scene explicitly
-/// spawns a fresh one. Any manager field that was pointed at this player's
-/// AudioSource (the actual root cause of the original leak) will become a
-/// missing reference until re-wired to a new instance or a dedicated AudioSource.
-/// </summary>
-public class DestroyPlayerOnSceneEnter : MonoBehaviour
+public class HidePlayerOnSceneEnter : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
-        if (MCControllers.Instance != null)
+        MCControllers player = MCControllers.Instance;
+
+        if (player == null)
+            return;
+
+        // Stop normal player controls.
+        player.SetMovementEnabled(false);
+
+        PlayerDoorInteractor2D interactor =
+            player.GetComponent<PlayerDoorInteractor2D>();
+
+        if (interactor != null)
+            interactor.SetInteractionEnabled(false);
+
+        // Stop physics.
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
         {
-            Destroy(MCControllers.Instance.gameObject);
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
         }
+
+        // Hide character sprites only.
+        SpriteRenderer[] renderers =
+            player.GetComponentsInChildren<SpriteRenderer>(true);
+
+        foreach (SpriteRenderer renderer in renderers)
+            renderer.enabled = false;
+
+        // Disable player collision.
+        Collider2D[] colliders =
+            player.GetComponentsInChildren<Collider2D>(true);
+
+        foreach (Collider2D col in colliders)
+            col.enabled = false;
     }
 }

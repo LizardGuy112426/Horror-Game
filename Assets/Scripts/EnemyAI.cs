@@ -169,16 +169,21 @@ public sealed class EnemyAI : MonoBehaviour
         bool startedChasing = isChasing && !wasChasing;
         wasChasing = isChasing;
 
+        // Scripted event chases (e.g. ChaseForEvent during a cutscene/ending sequence)
+        // should not trigger the normal gameplay chase audio (spotted sound, heartbeat,
+        // chase music) — only a real, player-detected chase should.
+        bool isScriptedEvent = eventMode != EventMode.None;
+
         // Fires once on the exact frame the enemy spots the player.
-        if (startedChasing)
+        if (startedChasing && !isScriptedEvent)
         {
             PlaySpotSFX();
         }
 
         // Report proximity every frame while chasing so the shared heartbeat can scale with it,
         // and separately report to AudioManager so the chase music starts/keeps resetting its
-        // grace timer. Both calls are required — they are two independent systems.
-        if (isChasing)
+        // grace timer. Both are skipped during scripted event chases.
+        if (isChasing && !isScriptedEvent)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 

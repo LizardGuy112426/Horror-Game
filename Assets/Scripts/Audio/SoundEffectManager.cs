@@ -67,6 +67,10 @@ public class SoundEffectManager : MonoBehaviour
     [SerializeField] private float heartbeatFadeOutDelay = 3f;
     [Tooltip("How long the fade-out itself takes once it starts.")]
     [SerializeField, Min(0f)] private float heartbeatFadeOutDuration = 1.5f;
+    [Header("Respawn")]
+    [SerializeField] private AudioClip RespawnSFX;
+    [Range(0f, 1f)]
+    [SerializeField] private float respawnVolume = 0.6f;
 
     private float timeSinceLastChase = Mathf.Infinity;
     private Coroutine heartbeatFadeRoutine;
@@ -143,11 +147,25 @@ public class SoundEffectManager : MonoBehaviour
     {
         masterVolume = Mathf.Clamp01(volume);
     }
+    public void PlayRespawnSFX()
+    {
+        if (AudioSource == null || RespawnSFX == null)
+            return;
 
+        AudioSource.PlayOneShot(
+            RespawnSFX,
+            masterVolume * respawnVolume
+        );
+    }
     public void PlayDoorOpen()
     {
-        if (jumpscarePlaying || AudioSource == null || DoorOpenSFX == null) return;
-        AudioSource.PlayOneShot(DoorOpenSFX, duckFactor);
+        if (jumpscarePlaying || AudioSource == null || DoorOpenSFX == null)
+            return;
+
+        AudioSource.PlayOneShot(
+            DoorOpenSFX,
+            masterVolume * duckFactor
+        );
     }
 
     /// <summary>
@@ -166,8 +184,13 @@ public class SoundEffectManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= HandleDoorCloseSceneLoaded;
 
-        if (jumpscarePlaying || AudioSource == null || DoorCloseSFX == null) return;
-        AudioSource.PlayOneShot(DoorCloseSFX, duckFactor);
+        if (jumpscarePlaying || AudioSource == null || DoorCloseSFX == null)
+            return;
+
+        AudioSource.PlayOneShot(
+            DoorCloseSFX,
+            masterVolume * duckFactor
+        );
     }
 
     /// <summary>Compatibility entry point used by existing Enemy Sound sliders.</summary>

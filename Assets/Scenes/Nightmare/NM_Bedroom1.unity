@@ -198,28 +198,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &131213860 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8802515116422815714, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-  m_PrefabInstance: {fileID: 4945789670812225273}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f3c13199f27c64d8cceb75f0b58cf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!114 &131213861 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5528358201202551961, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-  m_PrefabInstance: {fileID: 4945789670812225273}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a7dab9a65847f34dbe1814dbf475d48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &157980383
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,11 +290,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1006210587}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &175351777 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4320168484721133671, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-  m_PrefabInstance: {fileID: 4945789670812225273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &405056017
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,36 +308,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: The week after my little brother was born, I came first in my class
-        on the final exams.
+      value: "The week after my little brother was born, I got my report card\u2014first
+        place in the class."
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: That day, I couldn't wait to bring the certificate home and show them.
+      value: I ran all the way home, so excited to show them.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: But the moment I opened the door, the living room was filled with my
-        brother's crying.
+      value: But the second I opened the door, all I heard was him crying.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[3].dialogue
-      value: Dad rushed to make formula while Mom held him and tried to soothe him.
+      value: Dad was rushing around trying to make a bottle, and Mom was holding
+        him, trying to quiet him down.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[4].dialogue
-      value: I stood in the living room doorway, clutching the certificate until
-        it crumpled. When Dad walked past me, all he said was,
+      value: I stood there in the doorway, crumpling the paper in my hand. Dad squeezed
+        past me and just said,
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[5].dialogue
-      value: SiJia, be good. Go back to your room and do your homework. Don't disturb
-        your brother.
+      value: '"Sia, be a good girl and go do your homework. Don''t wake up your brother."'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[6].dialogue
-      value: I swallowed the words on the tip of my tongue and quietly put the certificate
-        back on the desk.
+      value: I swallowed every word I wanted to say and silently set the certificate
+        on the table.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
@@ -841,138 +813,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 7848129123051001499, guid: 921e763e1ee7c9f47ac98ea07d7bbe77, type: 3}
   m_PrefabInstance: {fileID: 1258838685}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &616904094
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 543447608239473593, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1050437942763538521, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1477843966933979308, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 597870697}
-    - target: {fileID: 2399492756737181852, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_TargetGraphic
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2399492756737181852, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767628543540983201, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767628543540983201, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.5935001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.21875
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4838419947106858864, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5125540026066006541, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -331.6438
-      objectReference: {fileID: 0}
-    - target: {fileID: 5125540026066006541, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -272.89648
-      objectReference: {fileID: 0}
-    - target: {fileID: 5750533812502194545, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 597870697}
-    - target: {fileID: 6783461922275173934, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Name
-      value: Dad Jumpscare Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481940761218164957, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 738.1655
-      objectReference: {fileID: 0}
-    - target: {fileID: 7481940761218164957, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -55.927734
-      objectReference: {fileID: 0}
-    - target: {fileID: 7646880070718126856, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8181740668679937850, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 108.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8181740668679937850, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 108.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8616900061839341270, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Name
-      value: MC
-      objectReference: {fileID: 0}
-    - target: {fileID: 8616900061839341270, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9104170047585037160, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 597870697}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 824913736803494555, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-    - {fileID: 3218019534292780560, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-    - {fileID: 3097453041057264604, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7dbac50b300c5f145942df004d19a0bb, type: 3}
 --- !u!1 &767521498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,11 +2659,6 @@ Transform:
   - {fileID: 1533945693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1031055533 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 4663899107583286707, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-  m_PrefabInstance: {fileID: 4945789670812225273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1035344984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
@@ -2860,7 +2695,7 @@ PrefabInstance:
     - target: {fileID: 5563214375363854717, guid: 01c61992e1124214e852f7fe3d4f65c8, type: 3}
       propertyPath: transitionAudioSource
       value: 
-      objectReference: {fileID: 175351777}
+      objectReference: {fileID: 0}
     - target: {fileID: 5563214375363854717, guid: 01c61992e1124214e852f7fe3d4f65c8, type: 3}
       propertyPath: useRouteAfterReachingFloorTwo
       value: 1
@@ -3126,8 +2961,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: All my clothes are in the wash. There should be some folded ones on
-        the living room sofa.
+      value: All my clothes are in the wash. There should be some clean ones on the
+        living room couch.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
@@ -6721,7 +6556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: There isn't much in here, but it should last me a little while.
+      value: There isn't much in here, but it'll get me by for a bit.
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
@@ -7067,10 +6902,9 @@ MonoBehaviour:
   lineCompleteDelay: 2
   openingLines:
   - speakerName: SiJia
-    dialogue: I don't want to stay in this house anymore... There's no place for
-      me here.
+    dialogue: I don't want to live here anymore... There's no room for me here.
   - speakerName: SiJia
-    dialogue: Before I leave, I need to gather a few important things.
+    dialogue: '"Before I leave, I just need to grab a few important things."'
 --- !u!4 &2147124603
 Transform:
   m_ObjectHideFlags: 0
@@ -7187,79 +7021,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acfe11c99263d2744a778d7a396e876f, type: 3}
---- !u!1001 &4945789670812225273
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -2657605952121665283, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 1031055533}
-    - target: {fileID: 2087692386015469380, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_Name
-      value: HeartBeatSFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 3157434684642789252, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_Name
-      value: DadWalkSFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 4261402655646477187, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_Name
-      value: Audio
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528358201202551961, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: duckAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.4912
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.07634
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9010428713328007346, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
 --- !u!1001 &7250900075920188102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7271,7 +7032,7 @@ PrefabInstance:
     - target: {fileID: 64799231493164429, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131213861}
+      objectReference: {fileID: 0}
     - target: {fileID: 1377658877612404376, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Camera
       value: 
@@ -7279,23 +7040,23 @@ PrefabInstance:
     - target: {fileID: 1554830094418157293, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: NormalAudioSource
       value: 
-      objectReference: {fileID: 175351777}
+      objectReference: {fileID: 0}
     - target: {fileID: 2544861626054195784, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131213861}
+      objectReference: {fileID: 0}
     - target: {fileID: 4412225640240839856, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131213861}
+      objectReference: {fileID: 0}
     - target: {fileID: 5985822481008271275, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131213860}
+      objectReference: {fileID: 0}
     - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 131213861}
+      objectReference: {fileID: 0}
     - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ClickSFX
@@ -7383,7 +7144,7 @@ PrefabInstance:
     - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 131213861}
+      objectReference: {fileID: 0}
     - target: {fileID: 8815476503558993887, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeEnemyVolume
@@ -7408,9 +7169,7 @@ SceneRoots:
   - {fileID: 4535313}
   - {fileID: 1075783915}
   - {fileID: 1161864182}
-  - {fileID: 616904094}
   - {fileID: 2147124603}
-  - {fileID: 4945789670812225273}
   - {fileID: 3182071351059946051}
   - {fileID: 1642327268}
   - {fileID: 7250900075920188102}

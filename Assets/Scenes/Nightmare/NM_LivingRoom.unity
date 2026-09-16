@@ -119,6 +119,99 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &60794391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1070061505}
+    m_Modifications:
+    - target: {fileID: 157478894600621424, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: dialogueLines.Array.data[0].dialogue
+      value: 'Mom bought that flower for the house... back when things felt lighter. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: dialogueLines.Array.data[0].speakerName
+      value: SiJia
+      objectReference: {fileID: 0}
+    - target: {fileID: 4359063860847160869, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_Name
+      value: InteractiveDialogueItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824258412143193193, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_Size.x
+      value: 1.9757767
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824258412143193193, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_Size.y
+      value: 2.6243918
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824258412143193193, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.04886818
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824258412143193193, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.062195897
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375643651419924416, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375643651419924416, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.0285001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.030910492
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.34441996
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
 --- !u!1 &76113244
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,9 +494,13 @@ MonoBehaviour:
   repeatable: 1
   dialogueLines:
   - speakerName: SiJia
-    dialogue: "Everyone looks so happy...\r\n"
+    dialogue: 'Everyone looks so happy...
+
+'
   - speakerName: SiJia
-    dialogue: "I guess we'll never have moments like this again...\r\n"
+    dialogue: 'I guess we''ll never have moments like this again...
+
+'
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!1001 &368187353
@@ -732,11 +829,13 @@ MonoBehaviour:
   - speakerName: Dad
     dialogue: ...
   - speakerName: Dad
-    dialogue: We tried so many times to talk to you, but we never knew how to begin. As your father, I...
+    dialogue: We tried so many times to talk to you, but we never knew how to begin.
+      As your father, I...
   - speakerName: Dad
     dialogue: I'm so sorry. We left you to carry all of that alone.
   - speakerName: Mom
-    dialogue: No... We never meant to make you feel this way. I failed to notice how much you were hurting.
+    dialogue: No... We never meant to make you feel this way. I failed to notice
+      how much you were hurting.
   - speakerName: Mom
     dialogue: Please don't keep suffering in silence... I'm so sorry...
   - speakerName: SiJia
@@ -3533,7 +3632,8 @@ Transform:
   m_LocalPosition: {x: 9, y: -1.96875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2103466901}
   m_Father: {fileID: 421616960}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1070061506
@@ -3960,7 +4060,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "It was only a few months old then, so Mom and Dad adopted it and named it Angel, saying it had come to welcome me into the world.\r\n"
+      value: 'He was only a few months old then, so Mom and Dad adopted him and named
+        him Angel, saying it had come to welcome me into the world.
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
@@ -5935,7 +6038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: These are the clothes Mom folded for me.
+      value: Mom folded these...
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
@@ -5943,7 +6046,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "...Where do you think I'll end up?\r\n"
+      value: If you knew I was leaving, would you even try to stop me? Where do you
+        think I'll go?
       objectReference: {fileID: 0}
     - target: {fileID: 1164996, guid: 295adf86914d4d479ea9fb31b17cc23e, type: 3}
       propertyPath: dialogueLines.Array.data[1].speakerName
@@ -8800,6 +8904,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!4 &2103466901 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
+  m_PrefabInstance: {fileID: 60794391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2120711175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9174934457444335334, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}

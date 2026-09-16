@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: The little angel is wearing a birthday hat. So cute!
+      value: Angel is wearing a birthday hat. So cute!
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
@@ -677,8 +677,8 @@ MonoBehaviour:
   repeatable: 1
   dialogueLines:
   - speakerName: SiJia
-    dialogue: "It\u2019s my first time celebrating my birthday with a \u201Cfamily\u201D
-      today. I\u2019m really happy.\r\n"
+    dialogue: "Today\u2019s my very first time celebrating my birthday with a real
+      family. I couldn't be happier."
   - speakerName: SiJia
     dialogue: "I\u2019m finally free from those lonely days.\r\n"
   nightmareObjective: 0
@@ -6752,6 +6752,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &1433128776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5528358201202551961, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+  m_PrefabInstance: {fileID: 1608593305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7dab9a65847f34dbe1814dbf475d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1456042090
 GameObject:
   m_ObjectHideFlags: 0
@@ -8736,6 +8747,10 @@ PrefabInstance:
       value: Audio
       objectReference: {fileID: 0}
     - target: {fileID: 5528358201202551961, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
+      propertyPath: RespawnSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 917c4fe3f9c012646b523c86fea88b83, type: 3}
+    - target: {fileID: 5528358201202551961, guid: 277be16c3d5d2064085b13975bbb39e4, type: 3}
       propertyPath: duckAmount
       value: 1
       objectReference: {fileID: 0}
@@ -8796,7 +8811,7 @@ PrefabInstance:
     - target: {fileID: 64799231493164429, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1433128776}
     - target: {fileID: 1377658877612404376, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Camera
       value: 
@@ -8812,7 +8827,7 @@ PrefabInstance:
     - target: {fileID: 4412225640240839856, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1433128776}
     - target: {fileID: 5985822481008271275, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -8820,11 +8835,7 @@ PrefabInstance:
     - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6429641263033361705, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ClickSFX
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1433128776}
     - target: {fileID: 7587086233926099974, guid: 2174612f551c9d045b744bd6e3314871, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -8932,20 +8943,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: "This is your birthday cake! Let\u2019s make a wish first!\r\n"
+      value: How does the dinner taste, kiddo?
       objectReference: {fileID: 0}
     - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: Okay!
+      value: '"Mmhmm, I love it!"'
       objectReference: {fileID: 0}
     - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: dialogueLines.Array.data[2].dialogue
-      value: "...\uFF08Makes a wish\uFF09"
+      value: '"Mom makes the best food ever."'
       objectReference: {fileID: 0}
     - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: dialogueLines.Array.data[3].dialogue
-      value: "Are you done? If you are, let\u2019s cut the cake and open your presents!
-        There\u2019s a big surprise waiting for you inside!"
+      value: "Aww, thank you! I'm glad you like it, sweetie. Open your presents!
+        There\u2019s a big surprise waiting for you!\""
       objectReference: {fileID: 0}
     - target: {fileID: 3006878487129931722, guid: 0f5fa951db05b5b4aafce0253d4d7169, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
@@ -9133,13 +9144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].dialogue
-      value: 'Mom, did you buy these new flowers today and put them in the flowerpot?
-
-'
+      value: '"Did Mom buy these new flowers today?'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "It\u2019s so pretty! And it smells amazing!\r\n"
+      value: '"They''re so pretty! And they smell amazing!"'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName

@@ -43,6 +43,12 @@ public class MCControllers : MonoBehaviour
     [SerializeField] private Animator DadJumpscareAnimator;
     [SerializeField] private SpriteRenderer MomJumpscare;
     [SerializeField] private Animator MomJumpscareAnimator;
+    [Header("Void Death")]
+    [SerializeField] private float voidKillY = -11f;
+    [SerializeField] private float voidRespawnDelay = 0.5f;
+    [Header("Cutscene Scenes")]
+    [SerializeField] private string[] cutsceneSceneNames;
+    private Vector3 fallbackRespawnPosition;
 
     public void SetMovementEnabled(bool value)
     {
@@ -180,13 +186,24 @@ public class MCControllers : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        fallbackRespawnPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (scriptedWalkingAnimationOnly)
+            // Fell into the void
+            if (!kill &&
+                !IsSceneTransitioning &&
+                transform.position.y <= voidKillY)
+            {
+                BeginVoidDeath();
+                return;
+            }
+
+            if (scriptedWalkingAnimationOnly)
         {
+
             rb.linearVelocityX = 0f;
             if (animator != null)
             {
@@ -304,27 +321,76 @@ public class MCControllers : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        bool restoreControl = kill || IsSceneTransitioning;
+        bool cameFromDeath = kill;
+        bool cameFromTransition = IsSceneTransitioning;
+
         if (deathRoutine != null)
             StopCoroutine(deathRoutine);
+
         deathRoutine = null;
         kill = false;
-        IsSceneTransitioning = false;
+
         ResetJumpscare(DadJumpscare, DadJumpscareAnimator);
         ResetJumpscare(MomJumpscare, MomJumpscareAnimator);
 
-        if (restoreControl)
+        // ==========================================
+        // CUTSCENE SCENE
+        // Keep the real player completely disabled.
+        // ==========================================
+        if (IsCutsceneScene(scene.name))
+        {
+            IsSceneTransitioning = true;
+
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+
+            SetMovementEnabled(false);
+
+            GetComponent<PlayerDoorInteractor2D>()
+                ?.SetInteractionEnabled(false);
+
+            // Disable player collision as extra protection.
+            foreach (Collider2D col in GetComponentsInChildren<Collider2D>(true))
+                col.enabled = false;
+
+            return;
+        }
+
+        // ==========================================
+        // NORMAL GAMEPLAY SCENE
+        // ==========================================
+        bool shouldRestorePlayer =
+            cameFromDeath ||
+            cameFromTransition ||
+            IsSceneTransitioning;
+
+        IsSceneTransitioning = false;
+
+        if (shouldRestorePlayer)
         {
             if (SoundEffectManager.instance != null)
                 SoundEffectManager.instance.StopJumpscare();
+
             rb.linearVelocity = Vector2.zero;
             rb.simulated = simulationBeforeLock;
+
             transform.localScale = initialScale;
             isFacingRight = true;
+
+            // Re-enable player colliders.
+            foreach (Collider2D col in GetComponentsInChildren<Collider2D>(true))
+                col.enabled = true;
+
             if (animator != null)
                 animator.SetBool("isCrouching", false);
+
             SetMovementEnabled(true);
-            GetComponent<PlayerDoorInteractor2D>()?.SetInteractionEnabled(true);
+
+            GetComponent<PlayerDoorInteractor2D>()
+                ?.SetInteractionEnabled(true);
+
+            if (cameFromDeath)
+                SoundEffectManager.instance?.PlayRespawnSFX();
         }
     }
 
@@ -490,7 +556,71 @@ public class MCControllers : MonoBehaviour
             visual.enabled = false;
     }
 
+    private void BeginVoidDeath()
+    {
+        if (kill || IsSceneTransitioning)
+            return;
 
+        kill = true;
+
+        LockPlayerBody();
+
+        // Reset Nightmare progress/run just like normal death.
+        if (NightmareTaskController.Instance != null)
+            NightmareTaskController.Instance.ResetCurrentRun();
+
+        DeathStarted?.Invoke();
+
+        foreach (DialogueController2D dialogue in FindObjectsByType<DialogueController2D>())
+            dialogue.CancelPlayback();
+
+        foreach (DiaryReaderOverlay2D reader in FindObjectsByType<DiaryReaderOverlay2D>())
+            reader.HideWithoutCallback();
+
+        deathRoutine = StartCoroutine(VoidDeathAndReturnToBedroom());
+    }
+
+    private IEnumerator VoidDeathAndReturnToBedroom()
+    {
+        // Small pause after falling into the void
+        yield return new WaitForSecondsRealtime(voidRespawnDelay);
+
+        deathRoutine = null;
+
+        string bedroom = NightmareBedroomIntro2D.BedroomSceneName;
+
+        if (!Application.CanStreamedLevelBeLoaded(bedroom))
+        {
+            Debug.LogError(
+                "Void respawn requires NM_Bedroom1 in Build Settings.",
+                this
+            );
+
+            yield break;
+        }
+
+        NightmareBedroomIntro2D.ClearPendingArrival();
+
+        SceneSpawnManager2D.PrepareArrival(
+            bedroom,
+            NightmareBedroomIntro2D.BedroomStartSpawnId
+        );
+
+        SceneManager.LoadScene(bedroom);
+    }
+    private bool IsCutsceneScene(string sceneName)
+    {
+        if (cutsceneSceneNames == null)
+            return false;
+
+        foreach (string cutsceneScene in cutsceneSceneNames)
+        {
+            if (sceneName == cutsceneScene)
+                return true;
+        }
+
+        return false;
+    }
     void Flip()
     {
         isFacingRight = !isFacingRight;

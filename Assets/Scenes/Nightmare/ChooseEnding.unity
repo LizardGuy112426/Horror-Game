@@ -403,9 +403,13 @@ MonoBehaviour:
   repeatable: 1
   dialogueLines:
   - speakerName: SiJia
-    dialogue: "Everyone looks so happy...\r\n"
+    dialogue: 'Everyone looks so happy...
+
+'
   - speakerName: SiJia
-    dialogue: "I guess we'll never have moments like this again...\r\n"
+    dialogue: 'I guess we''ll never have moments like this again...
+
+'
   nightmareObjective: 0
   inventoryIcon: {fileID: 0}
 --- !u!1001 &368187353
@@ -724,6 +728,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79b811ea1c5bed746a1c6e389e9e152c, type: 3}
+--- !u!1 &574282370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 574282372}
+  - component: {fileID: 574282371}
+  m_Layer: 0
+  m_Name: Destroy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &574282371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574282370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60cfe7effab8e24ca02fcbe86bfa6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyPlayerOnSceneEnter
+--- !u!4 &574282372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574282370}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.69937, y: -1.37988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &685211881
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +945,7 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -3781,7 +3829,7 @@ GameObject:
   - component: {fileID: 1264925148}
   m_Layer: 6
   m_Name: MC
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3811,14 +3859,14 @@ Animator:
   m_GameObject: {fileID: 1264925146}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2210529c5c9e30943bb8edbd1dfc2b8b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 928c6e5fd6c4f6549972fdc3c1b94f02, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4284,7 +4332,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[1].dialogue
-      value: "It was only a few months old then, so Mom and Dad adopted it and named it Angel, saying it had come to welcome me into the world.\r\n"
+      value: 'It was only a few months old then, so Mom and Dad adopted it and named
+        it Angel, saying it had come to welcome me into the world.
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 2553477954595688174, guid: 75c10199b2d1cf94a811c4873ac3db43, type: 3}
       propertyPath: dialogueLines.Array.data[0].speakerName
@@ -9183,8 +9234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f6d1274399b4a60883b2e4d8645fc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChooseEndingSequence2D
-  fallbackPlayerStart: {fileID: 0}
-  runTarget: {fileID: 2147000021}
   frontDoorTrigger: {fileID: 452574870}
   sceneCamera: {fileID: 0}
   dadPrefab: {fileID: 2705061705741265876, guid: 0b96ec54a2845d34fa6a5f3583207afb, type: 3}
@@ -9217,11 +9266,13 @@ MonoBehaviour:
   - speakerName: Dad
     dialogue: ...
   - speakerName: Dad
-    dialogue: We tried so many times to talk to you, but we never knew how to begin. As your father, I...
+    dialogue: We tried so many times to talk to you, but we never knew how to begin.
+      As your father, I...
   - speakerName: Dad
     dialogue: I'm so sorry. We left you to carry all of that alone.
   - speakerName: Mom
-    dialogue: No... We never meant to make you feel this way. I failed to notice how much you were hurting.
+    dialogue: No... We never meant to make you feel this way. I failed to notice
+      how much you were hurting.
   - speakerName: Mom
     dialogue: Please don't keep suffering in silence... I'm so sorry...
   - speakerName: SiJia
@@ -9468,3 +9519,4 @@ SceneRoots:
   - {fileID: 2147000001}
   - {fileID: 1418886482}
   - {fileID: 908651888}
+  - {fileID: 574282372}
