@@ -308,7 +308,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u4EFB\u52A1"
+  m_Text: TASK
 --- !u!1 &5483666035394662512
 GameObject:
   m_ObjectHideFlags: 0
